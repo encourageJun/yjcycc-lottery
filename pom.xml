@@ -69,6 +69,7 @@
         <module>yjcycc-lottery-service-api</module>
         <module>yjcycc-lottery-service-impl</module>
         <module>yjcycc-lottery-web</module>
+        <module>yjcycc-lottery-analysis</module>
     </modules>
 
 </project>

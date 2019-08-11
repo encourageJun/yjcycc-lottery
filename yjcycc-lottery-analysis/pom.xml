@@ -9,19 +9,15 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>yjcycc-lottery-service-impl</artifactId>
+    <artifactId>yjcycc-lottery-analysis</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>org.yjcycc.lottery</groupId>
-            <artifactId>yjcycc-lottery-service-api</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.yjcycc.lottery</groupId>
-            <artifactId>yjcycc-lottery-analysis</artifactId>
+            <artifactId>yjcycc-lottery-common</artifactId>
             <version>1.0.0</version>
         </dependency>
     </dependencies>
+
 
 </project>
