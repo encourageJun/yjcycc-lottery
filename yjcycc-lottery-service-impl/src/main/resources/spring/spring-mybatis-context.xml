@@ -50,7 +50,7 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:/mybatis/mybatis-config.xml"/>
-		<property name="typeAliasesPackage" value="org.yjcycc.authority.common.entity,org.yjcycc.authority.service.dto,org.yjcycc.authority.service.vo"/>
+		<property name="typeAliasesPackage" value="org.yjcycc.lottery.entity"/>
 		<property name="mapperLocations">
 			<array>  
 	            <value>classpath*:/mybatis/lottery/*.xml</value>
@@ -75,7 +75,7 @@
 	</bean>
 	
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">  
-	    <property name="basePackage" value="org.yjcycc.authority.service.mapper"/>
+	    <property name="basePackage" value="org.yjcycc.lottery.mapper"/>
 	    <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>  
 	</bean>
 	

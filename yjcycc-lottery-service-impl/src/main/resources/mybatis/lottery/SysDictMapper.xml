@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yjcycc.lottery.mapper.SysDictMapper">
+
+    <resultMap type="org.yjcycc.lottery.entity.SysDict" id="SysDictMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="label" column="label" jdbcType="VARCHAR"/>
+        <result property="value" column="value" jdbcType="INTEGER"/>
+        <result property="code" column="code" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--通过主键查询单个-->
+    <select id="getById" resultMap="SysDictMap">
+        select
+          id, label, value, code, type, description, create_time, update_time
+        from yjcycc_lottery.sys_dict
+        where id = #{id}
+        limit 1
+    </select>
+    
+    <!--通过实体查询单个-->
+    <select id="get" resultMap="SysDictMap" parameterType="SysDict">
+        select
+          id, label, value, code, type, description, create_time, update_time
+        from yjcycc_lottery.sys_dict
+        where id = #{id}
+        limit 1
+    </select>
+
+    <!--通过实体查询指定行数据-->
+    <select id="findPager" resultMap="SysDictMap">
+        select
+          id, label, value, code, type, description, create_time, update_time
+        from yjcycc_lottery.sys_dict
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="label != null and label != ''">
+                and label = #{label}
+            </if>
+            <if test="value != null">
+                and value = #{value}
+            </if>
+            <if test="code != null and code != ''">
+                and code = #{code}
+            </if>
+            <if test="type != null and type != ''">
+                and type = #{type}
+            </if>
+            <if test="description != null and description != ''">
+                and description = #{description}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+    
+    <!--通过Map查询指定行数据-->
+    <select id="findPagerByMap" resultMap="SysDictMap">
+        select
+          id, label, value, code, type, description, create_time, update_time
+        from yjcycc_lottery.sys_dict
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="label != null and label != ''">
+                and label = #{label}
+            </if>
+            <if test="value != null">
+                and value = #{value}
+            </if>
+            <if test="code != null and code != ''">
+                and code = #{code}
+            </if>
+            <if test="type != null and type != ''">
+                and type = #{type}
+            </if>
+            <if test="description != null and description != ''">
+                and description = #{description}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="findList" resultMap="SysDictMap">
+        select
+          id, label, value, code, type, description, create_time, update_time
+        from yjcycc_lottery.sys_dict
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="label != null and label != ''">
+                and label = #{label}
+            </if>
+            <if test="value != null">
+                and value = #{value}
+            </if>
+            <if test="code != null and code != ''">
+                and code = #{code}
+            </if>
+            <if test="type != null and type != ''">
+                and type = #{type}
+            </if>
+            <if test="description != null and description != ''">
+                and description = #{description}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--通过Map作为筛选条件查询-->
+    <select id="findListByMap" resultMap="SysDictMap">
+        select
+          id, label, value, code, type, description, create_time, update_time
+        from yjcycc_lottery.sys_dict
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="label != null and label != ''">
+                and label = #{label}
+            </if>
+            <if test="value != null">
+                and value = #{value}
+            </if>
+            <if test="code != null and code != ''">
+                and code = #{code}
+            </if>
+            <if test="type != null and type != ''">
+                and type = #{type}
+            </if>
+            <if test="description != null and description != ''">
+                and description = #{description}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into yjcycc_lottery.sys_dict(label, value, code, type, description, create_time, update_time)
+        values (#{label}, #{value}, #{code}, #{type}, #{description}, #{createTime}, #{updateTime})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update yjcycc_lottery.sys_dict
+        <set>
+            <if test="label != null and label != ''">
+                label = #{label},
+            </if>
+            <if test="value != null">
+                value = #{value},
+            </if>
+            <if test="code != null and code != ''">
+                code = #{code},
+            </if>
+            <if test="type != null and type != ''">
+                type = #{type},
+            </if>
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from yjcycc_lottery.sys_dict where id = #{id}
+    </delete>
+
+    <!--通过实体删除-->
+    <delete id="delete">
+        delete from yjcycc_lottery.sys_dict 
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="label != null and label != ''">
+                and label = #{label}
+            </if>
+            <if test="value != null">
+                and value = #{value}
+            </if>
+            <if test="code != null and code != ''">
+                and code = #{code}
+            </if>
+            <if test="type != null and type != ''">
+                and type = #{type}
+            </if>
+            <if test="description != null and description != ''">
+                and description = #{description}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </delete>
+
+    <!--批量删除-->
+    <delete id="batchDelete">
+        delete from yjcycc_lottery.sys_dict 
+        where 
+        id in (${ids})
+    </delete>
+
+</mapper>

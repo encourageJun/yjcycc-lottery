@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yjcycc.lottery.mapper.OpenNumberMapper">
+
+    <resultMap type="org.yjcycc.lottery.entity.OpenNumber" id="OpenNumberMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="stage" column="stage" jdbcType="VARCHAR"/>
+        <result property="stageDate" column="stage_date" jdbcType="VARCHAR"/>
+        <result property="stageNum" column="stage_num" jdbcType="VARCHAR"/>
+        <result property="stageIndex" column="stage_index" jdbcType="INTEGER"/>
+        <result property="openNumber" column="open_number" jdbcType="VARCHAR"/>
+        <result property="pre3Number" column="pre3_number" jdbcType="VARCHAR"/>
+        <result property="pre2Number" column="pre2_number" jdbcType="VARCHAR"/>
+        <result property="number1" column="number1" jdbcType="VARCHAR"/>
+        <result property="number2" column="number2" jdbcType="VARCHAR"/>
+        <result property="number3" column="number3" jdbcType="VARCHAR"/>
+        <result property="number4" column="number4" jdbcType="VARCHAR"/>
+        <result property="number5" column="number5" jdbcType="VARCHAR"/>
+        <result property="currContinuedInCount" column="curr_continued_in_count" jdbcType="INTEGER"/>
+        <result property="currContinuedOutCount" column="curr_continued_out_count" jdbcType="INTEGER"/>
+        <result property="currContinuedInclinedCount" column="curr_continued_inclined_count" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--通过主键查询单个-->
+    <select id="getById" resultMap="OpenNumberMap">
+        select
+          id, stage, stage_date, stage_num, stage_index, open_number, pre3_number, pre2_number, number1, number2, number3, number4, number5, curr_continued_in_count, curr_continued_out_count, curr_continued_inclined_count, create_time, update_time
+        from yjcycc_lottery.bs_open_number
+        where id = #{id}
+        limit 1
+    </select>
+    
+    <!--通过实体查询单个-->
+    <select id="get" resultMap="OpenNumberMap" parameterType="OpenNumber">
+        select
+          id, stage, stage_date, stage_num, stage_index, open_number, pre3_number, pre2_number, number1, number2, number3, number4, number5, curr_continued_in_count, curr_continued_out_count, curr_continued_inclined_count, create_time, update_time
+        from yjcycc_lottery.bs_open_number
+        where id = #{id}
+        limit 1
+    </select>
+
+    <!--通过实体查询指定行数据-->
+    <select id="findPager" resultMap="OpenNumberMap">
+        select
+          id, stage, stage_date, stage_num, stage_index, open_number, pre3_number, pre2_number, number1, number2, number3, number4, number5, curr_continued_in_count, curr_continued_out_count, curr_continued_inclined_count, create_time, update_time
+        from yjcycc_lottery.bs_open_number
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="stage != null and stage != ''">
+                and stage = #{stage}
+            </if>
+            <if test="stageDate != null and stageDate != ''">
+                and stage_date = #{stageDate}
+            </if>
+            <if test="stageNum != null and stageNum != ''">
+                and stage_num = #{stageNum}
+            </if>
+            <if test="stageIndex != null">
+                and stage_index = #{stageIndex}
+            </if>
+            <if test="openNumber != null and openNumber != ''">
+                and open_number = #{openNumber}
+            </if>
+            <if test="pre3Number != null and pre3Number != ''">
+                and pre3_number = #{pre3Number}
+            </if>
+            <if test="pre2Number != null and pre2Number != ''">
+                and pre2_number = #{pre2Number}
+            </if>
+            <if test="number1 != null and number1 != ''">
+                and number1 = #{number1}
+            </if>
+            <if test="number2 != null and number2 != ''">
+                and number2 = #{number2}
+            </if>
+            <if test="number3 != null and number3 != ''">
+                and number3 = #{number3}
+            </if>
+            <if test="number4 != null and number4 != ''">
+                and number4 = #{number4}
+            </if>
+            <if test="number5 != null and number5 != ''">
+                and number5 = #{number5}
+            </if>
+            <if test="currContinuedInCount != null">
+                and curr_continued_in_count = #{currContinuedInCount}
+            </if>
+            <if test="currContinuedOutCount != null">
+                and curr_continued_out_count = #{currContinuedOutCount}
+            </if>
+            <if test="currContinuedInclinedCount != null">
+                and curr_continued_inclined_count = #{currContinuedInclinedCount}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+    
+    <!--通过Map查询指定行数据-->
+    <select id="findPagerByMap" resultMap="OpenNumberMap">
+        select
+          id, stage, stage_date, stage_num, stage_index, open_number, pre3_number, pre2_number, number1, number2, number3, number4, number5, curr_continued_in_count, curr_continued_out_count, curr_continued_inclined_count, create_time, update_time
+        from yjcycc_lottery.bs_open_number
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="stage != null and stage != ''">
+                and stage = #{stage}
+            </if>
+            <if test="stageDate != null and stageDate != ''">
+                and stage_date = #{stageDate}
+            </if>
+            <if test="stageNum != null and stageNum != ''">
+                and stage_num = #{stageNum}
+            </if>
+            <if test="stageIndex != null">
+                and stage_index = #{stageIndex}
+            </if>
+            <if test="openNumber != null and openNumber != ''">
+                and open_number = #{openNumber}
+            </if>
+            <if test="pre3Number != null and pre3Number != ''">
+                and pre3_number = #{pre3Number}
+            </if>
+            <if test="pre2Number != null and pre2Number != ''">
+                and pre2_number = #{pre2Number}
+            </if>
+            <if test="number1 != null and number1 != ''">
+                and number1 = #{number1}
+            </if>
+            <if test="number2 != null and number2 != ''">
+                and number2 = #{number2}
+            </if>
+            <if test="number3 != null and number3 != ''">
+                and number3 = #{number3}
+            </if>
+            <if test="number4 != null and number4 != ''">
+                and number4 = #{number4}
+            </if>
+            <if test="number5 != null and number5 != ''">
+                and number5 = #{number5}
+            </if>
+            <if test="currContinuedInCount != null">
+                and curr_continued_in_count = #{currContinuedInCount}
+            </if>
+            <if test="currContinuedOutCount != null">
+                and curr_continued_out_count = #{currContinuedOutCount}
+            </if>
+            <if test="currContinuedInclinedCount != null">
+                and curr_continued_inclined_count = #{currContinuedInclinedCount}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="findList" resultMap="OpenNumberMap">
+        select
+          id, stage, stage_date, stage_num, stage_index, open_number, pre3_number, pre2_number, number1, number2, number3, number4, number5, curr_continued_in_count, curr_continued_out_count, curr_continued_inclined_count, create_time, update_time
+        from yjcycc_lottery.bs_open_number
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="stage != null and stage != ''">
+                and stage = #{stage}
+            </if>
+            <if test="stageDate != null and stageDate != ''">
+                and stage_date = #{stageDate}
+            </if>
+            <if test="stageNum != null and stageNum != ''">
+                and stage_num = #{stageNum}
+            </if>
+            <if test="stageIndex != null">
+                and stage_index = #{stageIndex}
+            </if>
+            <if test="openNumber != null and openNumber != ''">
+                and open_number = #{openNumber}
+            </if>
+            <if test="pre3Number != null and pre3Number != ''">
+                and pre3_number = #{pre3Number}
+            </if>
+            <if test="pre2Number != null and pre2Number != ''">
+                and pre2_number = #{pre2Number}
+            </if>
+            <if test="number1 != null and number1 != ''">
+                and number1 = #{number1}
+            </if>
+            <if test="number2 != null and number2 != ''">
+                and number2 = #{number2}
+            </if>
+            <if test="number3 != null and number3 != ''">
+                and number3 = #{number3}
+            </if>
+            <if test="number4 != null and number4 != ''">
+                and number4 = #{number4}
+            </if>
+            <if test="number5 != null and number5 != ''">
+                and number5 = #{number5}
+            </if>
+            <if test="currContinuedInCount != null">
+                and curr_continued_in_count = #{currContinuedInCount}
+            </if>
+            <if test="currContinuedOutCount != null">
+                and curr_continued_out_count = #{currContinuedOutCount}
+            </if>
+            <if test="currContinuedInclinedCount != null">
+                and curr_continued_inclined_count = #{currContinuedInclinedCount}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--通过Map作为筛选条件查询-->
+    <select id="findListByMap" resultMap="OpenNumberMap">
+        select
+          id, stage, stage_date, stage_num, stage_index, open_number, pre3_number, pre2_number, number1, number2, number3, number4, number5, curr_continued_in_count, curr_continued_out_count, curr_continued_inclined_count, create_time, update_time
+        from yjcycc_lottery.bs_open_number
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="stage != null and stage != ''">
+                and stage = #{stage}
+            </if>
+            <if test="stageDate != null and stageDate != ''">
+                and stage_date = #{stageDate}
+            </if>
+            <if test="stageNum != null and stageNum != ''">
+                and stage_num = #{stageNum}
+            </if>
+            <if test="stageIndex != null">
+                and stage_index = #{stageIndex}
+            </if>
+            <if test="openNumber != null and openNumber != ''">
+                and open_number = #{openNumber}
+            </if>
+            <if test="pre3Number != null and pre3Number != ''">
+                and pre3_number = #{pre3Number}
+            </if>
+            <if test="pre2Number != null and pre2Number != ''">
+                and pre2_number = #{pre2Number}
+            </if>
+            <if test="number1 != null and number1 != ''">
+                and number1 = #{number1}
+            </if>
+            <if test="number2 != null and number2 != ''">
+                and number2 = #{number2}
+            </if>
+            <if test="number3 != null and number3 != ''">
+                and number3 = #{number3}
+            </if>
+            <if test="number4 != null and number4 != ''">
+                and number4 = #{number4}
+            </if>
+            <if test="number5 != null and number5 != ''">
+                and number5 = #{number5}
+            </if>
+            <if test="currContinuedInCount != null">
+                and curr_continued_in_count = #{currContinuedInCount}
+            </if>
+            <if test="currContinuedOutCount != null">
+                and curr_continued_out_count = #{currContinuedOutCount}
+            </if>
+            <if test="currContinuedInclinedCount != null">
+                and curr_continued_inclined_count = #{currContinuedInclinedCount}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into yjcycc_lottery.bs_open_number(stage, stage_date, stage_num, stage_index, open_number, pre3_number, pre2_number, number1, number2, number3, number4, number5, curr_continued_in_count, curr_continued_out_count, curr_continued_inclined_count, create_time, update_time)
+        values (#{stage}, #{stageDate}, #{stageNum}, #{stageIndex}, #{openNumber}, #{pre3Number}, #{pre2Number}, #{number1}, #{number2}, #{number3}, #{number4}, #{number5}, #{currContinuedInCount}, #{currContinuedOutCount}, #{currContinuedInclinedCount}, #{createTime}, #{updateTime})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update yjcycc_lottery.bs_open_number
+        <set>
+            <if test="stage != null and stage != ''">
+                stage = #{stage},
+            </if>
+            <if test="stageDate != null and stageDate != ''">
+                stage_date = #{stageDate},
+            </if>
+            <if test="stageNum != null and stageNum != ''">
+                stage_num = #{stageNum},
+            </if>
+            <if test="stageIndex != null">
+                stage_index = #{stageIndex},
+            </if>
+            <if test="openNumber != null and openNumber != ''">
+                open_number = #{openNumber},
+            </if>
+            <if test="pre3Number != null and pre3Number != ''">
+                pre3_number = #{pre3Number},
+            </if>
+            <if test="pre2Number != null and pre2Number != ''">
+                pre2_number = #{pre2Number},
+            </if>
+            <if test="number1 != null and number1 != ''">
+                number1 = #{number1},
+            </if>
+            <if test="number2 != null and number2 != ''">
+                number2 = #{number2},
+            </if>
+            <if test="number3 != null and number3 != ''">
+                number3 = #{number3},
+            </if>
+            <if test="number4 != null and number4 != ''">
+                number4 = #{number4},
+            </if>
+            <if test="number5 != null and number5 != ''">
+                number5 = #{number5},
+            </if>
+            <if test="currContinuedInCount != null">
+                curr_continued_in_count = #{currContinuedInCount},
+            </if>
+            <if test="currContinuedOutCount != null">
+                curr_continued_out_count = #{currContinuedOutCount},
+            </if>
+            <if test="currContinuedInclinedCount != null">
+                curr_continued_inclined_count = #{currContinuedInclinedCount},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from yjcycc_lottery.bs_open_number where id = #{id}
+    </delete>
+
+    <!--通过实体删除-->
+    <delete id="delete">
+        delete from yjcycc_lottery.bs_open_number 
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="stage != null and stage != ''">
+                and stage = #{stage}
+            </if>
+            <if test="stageDate != null and stageDate != ''">
+                and stage_date = #{stageDate}
+            </if>
+            <if test="stageNum != null and stageNum != ''">
+                and stage_num = #{stageNum}
+            </if>
+            <if test="stageIndex != null">
+                and stage_index = #{stageIndex}
+            </if>
+            <if test="openNumber != null and openNumber != ''">
+                and open_number = #{openNumber}
+            </if>
+            <if test="pre3Number != null and pre3Number != ''">
+                and pre3_number = #{pre3Number}
+            </if>
+            <if test="pre2Number != null and pre2Number != ''">
+                and pre2_number = #{pre2Number}
+            </if>
+            <if test="number1 != null and number1 != ''">
+                and number1 = #{number1}
+            </if>
+            <if test="number2 != null and number2 != ''">
+                and number2 = #{number2}
+            </if>
+            <if test="number3 != null and number3 != ''">
+                and number3 = #{number3}
+            </if>
+            <if test="number4 != null and number4 != ''">
+                and number4 = #{number4}
+            </if>
+            <if test="number5 != null and number5 != ''">
+                and number5 = #{number5}
+            </if>
+            <if test="currContinuedInCount != null">
+                and curr_continued_in_count = #{currContinuedInCount}
+            </if>
+            <if test="currContinuedOutCount != null">
+                and curr_continued_out_count = #{currContinuedOutCount}
+            </if>
+            <if test="currContinuedInclinedCount != null">
+                and curr_continued_inclined_count = #{currContinuedInclinedCount}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </delete>
+
+    <!--批量删除-->
+    <delete id="batchDelete">
+        delete from yjcycc_lottery.bs_open_number 
+        where 
+        id in (${ids})
+    </delete>
+
+</mapper>

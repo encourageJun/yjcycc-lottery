@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yjcycc.lottery.mapper.PlanMapper">
+
+    <resultMap type="org.yjcycc.lottery.entity.Plan" id="PlanMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="planConfigId" column="plan_config_id" jdbcType="BIGINT"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="totalAmount" column="total_amount" jdbcType="NUMERIC"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--通过主键查询单个-->
+    <select id="getById" resultMap="PlanMap">
+        select
+          id, plan_config_id, status, total_amount, create_time, update_time
+        from yjcycc_lottery.bs_plan
+        where id = #{id}
+        limit 1
+    </select>
+    
+    <!--通过实体查询单个-->
+    <select id="get" resultMap="PlanMap" parameterType="Plan">
+        select
+          id, plan_config_id, status, total_amount, create_time, update_time
+        from yjcycc_lottery.bs_plan
+        where id = #{id}
+        limit 1
+    </select>
+
+    <!--通过实体查询指定行数据-->
+    <select id="findPager" resultMap="PlanMap">
+        select
+          id, plan_config_id, status, total_amount, create_time, update_time
+        from yjcycc_lottery.bs_plan
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="planConfigId != null">
+                and plan_config_id = #{planConfigId}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="totalAmount != null">
+                and total_amount = #{totalAmount}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+    
+    <!--通过Map查询指定行数据-->
+    <select id="findPagerByMap" resultMap="PlanMap">
+        select
+          id, plan_config_id, status, total_amount, create_time, update_time
+        from yjcycc_lottery.bs_plan
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="planConfigId != null">
+                and plan_config_id = #{planConfigId}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="totalAmount != null">
+                and total_amount = #{totalAmount}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="findList" resultMap="PlanMap">
+        select
+          id, plan_config_id, status, total_amount, create_time, update_time
+        from yjcycc_lottery.bs_plan
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="planConfigId != null">
+                and plan_config_id = #{planConfigId}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="totalAmount != null">
+                and total_amount = #{totalAmount}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--通过Map作为筛选条件查询-->
+    <select id="findListByMap" resultMap="PlanMap">
+        select
+          id, plan_config_id, status, total_amount, create_time, update_time
+        from yjcycc_lottery.bs_plan
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="planConfigId != null">
+                and plan_config_id = #{planConfigId}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="totalAmount != null">
+                and total_amount = #{totalAmount}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into yjcycc_lottery.bs_plan(plan_config_id, status, total_amount, create_time, update_time)
+        values (#{planConfigId}, #{status}, #{totalAmount}, #{createTime}, #{updateTime})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update yjcycc_lottery.bs_plan
+        <set>
+            <if test="planConfigId != null">
+                plan_config_id = #{planConfigId},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="totalAmount != null">
+                total_amount = #{totalAmount},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from yjcycc_lottery.bs_plan where id = #{id}
+    </delete>
+
+    <!--通过实体删除-->
+    <delete id="delete">
+        delete from yjcycc_lottery.bs_plan 
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="planConfigId != null">
+                and plan_config_id = #{planConfigId}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="totalAmount != null">
+                and total_amount = #{totalAmount}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </delete>
+
+    <!--批量删除-->
+    <delete id="batchDelete">
+        delete from yjcycc_lottery.bs_plan 
+        where 
+        id in (${ids})
+    </delete>
+
+</mapper>
