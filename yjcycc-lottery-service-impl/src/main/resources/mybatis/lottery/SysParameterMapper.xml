@@ -18,6 +18,15 @@
         where id = #{id}
         limit 1
     </select>
+
+    <!--通过参数编码查询单个-->
+    <select id="getValueByCode" resultMap="SysParameterMap">
+        select
+          value
+        from yjcycc_lottery.sys_parameter
+        where code = #{code}
+        limit 1
+    </select>
     
     <!--通过实体查询单个-->
     <select id="get" resultMap="SysParameterMap" parameterType="SysParameter">

@@ -1,6 +1,7 @@
 package org.yjcycc.lottery.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import org.apache.ibatis.type.Alias;
 import org.yjcycc.tools.common.entity.BaseEntity;
@@ -9,16 +10,18 @@ import org.yjcycc.tools.common.entity.BaseEntity;
  * 投注单(Order)实体类
  *
  * @author makejava
- * @since 2019-08-16 18:40:21
+ * @since 2019-08-18 08:54:47
  */
 @Alias("Order")
 public class Order extends BaseEntity implements Serializable {
-    private static final long serialVersionUID = 603031587877434766L;
+    private static final long serialVersionUID = -76683179330834974L;
     // 投注计划id
     private Long planId;
     // 玩法种类, bs_play_category
     private Long playCategoryId;
-    // 中奖状态, 字典:order_status, 0开奖中 1未中奖 2已中奖
+    // 11选5类别, 1:3分11选5 2:1分11选5
+    private String lotteryType;
+    // 中奖状态, 字典:order_status, 0待开奖 1未中奖 2已中奖
     private Integer status;
     // 金额模式, 字典:amount_model, 1元 10角 100分 1000厘
     private Integer dictAmountModel;
@@ -34,16 +37,18 @@ public class Order extends BaseEntity implements Serializable {
     private Integer stageIndex;
     // 投注号码
     private String number;
-    // 投注组合号码
-    private String numberArr;
     // 投注金额
-    private Double amount;
-    // 单注金额
-    private Double singleAmount;
-    // 注数
-    private Integer count;
+    private BigDecimal amount;
+    // 中奖金额
+    private BigDecimal winAmount;
+    // 中奖注数
+    private Integer winCount;
     // 倍数
     private Integer doubleCount;
+
+    private PlayCategory playCategory;
+
+    private Plan plan;
 
 
     public Long getPlanId() {
@@ -60,6 +65,14 @@ public class Order extends BaseEntity implements Serializable {
 
     public void setPlayCategoryId(Long playCategoryId) {
         this.playCategoryId = playCategoryId;
+    }
+
+    public String getLotteryType() {
+        return lotteryType;
+    }
+
+    public void setLotteryType(String lotteryType) {
+        this.lotteryType = lotteryType;
     }
 
     public Integer getStatus() {
@@ -126,36 +139,28 @@ public class Order extends BaseEntity implements Serializable {
         this.number = number;
     }
 
-    public String getNumberArr() {
-        return numberArr;
-    }
-
-    public void setNumberArr(String numberArr) {
-        this.numberArr = numberArr;
-    }
-
-    public Double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
-    public Double getSingleAmount() {
-        return singleAmount;
+    public BigDecimal getWinAmount() {
+        return winAmount;
     }
 
-    public void setSingleAmount(Double singleAmount) {
-        this.singleAmount = singleAmount;
+    public void setWinAmount(BigDecimal winAmount) {
+        this.winAmount = winAmount;
     }
 
-    public Integer getCount() {
-        return count;
+    public Integer getWinCount() {
+        return winCount;
     }
 
-    public void setCount(Integer count) {
-        this.count = count;
+    public void setWinCount(Integer winCount) {
+        this.winCount = winCount;
     }
 
     public Integer getDoubleCount() {
@@ -166,4 +171,19 @@ public class Order extends BaseEntity implements Serializable {
         this.doubleCount = doubleCount;
     }
 
+    public PlayCategory getPlayCategory() {
+        return playCategory;
+    }
+
+    public void setPlayCategory(PlayCategory playCategory) {
+        this.playCategory = playCategory;
+    }
+
+    public Plan getPlan() {
+        return plan;
+    }
+
+    public void setPlan(Plan plan) {
+        this.plan = plan;
+    }
 }

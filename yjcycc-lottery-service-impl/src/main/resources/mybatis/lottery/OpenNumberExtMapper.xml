@@ -1,0 +1,1083 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yjcycc.lottery.mapper.OpenNumberExtMapper">
+
+    <resultMap type="org.yjcycc.lottery.entity.OpenNumberExt" id="OpenNumberExtMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="continuedInCount_01" column="continued_in_count_01" jdbcType="INTEGER"/>
+        <result property="continuedInCount_02" column="continued_in_count_02" jdbcType="INTEGER"/>
+        <result property="continuedInCount_03" column="continued_in_count_03" jdbcType="INTEGER"/>
+        <result property="continuedInCount_04" column="continued_in_count_04" jdbcType="INTEGER"/>
+        <result property="continuedInCount_05" column="continued_in_count_05" jdbcType="INTEGER"/>
+        <result property="continuedInCount_06" column="continued_in_count_06" jdbcType="INTEGER"/>
+        <result property="continuedInCount_07" column="continued_in_count_07" jdbcType="INTEGER"/>
+        <result property="continuedInCount_08" column="continued_in_count_08" jdbcType="INTEGER"/>
+        <result property="continuedInCount_09" column="continued_in_count_09" jdbcType="INTEGER"/>
+        <result property="continuedInCount_10" column="continued_in_count_10" jdbcType="INTEGER"/>
+        <result property="continuedInCount_11" column="continued_in_count_11" jdbcType="INTEGER"/>
+        <result property="continuedOutCount_01" column="continued_out_count_01" jdbcType="INTEGER"/>
+        <result property="continuedOutCount_02" column="continued_out_count_02" jdbcType="INTEGER"/>
+        <result property="continuedOutCount_03" column="continued_out_count_03" jdbcType="INTEGER"/>
+        <result property="continuedOutCount_04" column="continued_out_count_04" jdbcType="INTEGER"/>
+        <result property="continuedOutCount_05" column="continued_out_count_05" jdbcType="INTEGER"/>
+        <result property="continuedOutCount_06" column="continued_out_count_06" jdbcType="INTEGER"/>
+        <result property="continuedOutCount_07" column="continued_out_count_07" jdbcType="INTEGER"/>
+        <result property="continuedOutCount_08" column="continued_out_count_08" jdbcType="INTEGER"/>
+        <result property="continuedOutCount_09" column="continued_out_count_09" jdbcType="INTEGER"/>
+        <result property="continuedOutCount_10" column="continued_out_count_10" jdbcType="INTEGER"/>
+        <result property="continuedOutCount_11" column="continued_out_count_11" jdbcType="INTEGER"/>
+        <result property="continuedLeftInclinedCount_01" column="continued_left_inclined_count_01" jdbcType="INTEGER"/>
+        <result property="continuedLeftInclinedCount_02" column="continued_left_inclined_count_02" jdbcType="INTEGER"/>
+        <result property="continuedLeftInclinedCount_03" column="continued_left_inclined_count_03" jdbcType="INTEGER"/>
+        <result property="continuedLeftInclinedCount_04" column="continued_left_inclined_count_04" jdbcType="INTEGER"/>
+        <result property="continuedLeftInclinedCount_05" column="continued_left_inclined_count_05" jdbcType="INTEGER"/>
+        <result property="continuedLeftInclinedCount_06" column="continued_left_inclined_count_06" jdbcType="INTEGER"/>
+        <result property="continuedLeftInclinedCount_07" column="continued_left_inclined_count_07" jdbcType="INTEGER"/>
+        <result property="continuedLeftInclinedCount_08" column="continued_left_inclined_count_08" jdbcType="INTEGER"/>
+        <result property="continuedLeftInclinedCount_09" column="continued_left_inclined_count_09" jdbcType="INTEGER"/>
+        <result property="continuedLeftInclinedCount_10" column="continued_left_inclined_count_10" jdbcType="INTEGER"/>
+        <result property="continuedLeftInclinedCount_11" column="continued_left_inclined_count_11" jdbcType="INTEGER"/>
+        <result property="continuedRightInclinedCount_01" column="continued_right_inclined_count_01" jdbcType="INTEGER"/>
+        <result property="continuedRightInclinedCount_02" column="continued_right_inclined_count_02" jdbcType="INTEGER"/>
+        <result property="continuedRightInclinedCount_03" column="continued_right_inclined_count_03" jdbcType="INTEGER"/>
+        <result property="continuedRightInclinedCount_04" column="continued_right_inclined_count_04" jdbcType="INTEGER"/>
+        <result property="continuedRightInclinedCount_05" column="continued_right_inclined_count_05" jdbcType="INTEGER"/>
+        <result property="continuedRightInclinedCount_06" column="continued_right_inclined_count_06" jdbcType="INTEGER"/>
+        <result property="continuedRightInclinedCount_07" column="continued_right_inclined_count_07" jdbcType="INTEGER"/>
+        <result property="continuedRightInclinedCount_08" column="continued_right_inclined_count_08" jdbcType="INTEGER"/>
+        <result property="continuedRightInclinedCount_09" column="continued_right_inclined_count_09" jdbcType="INTEGER"/>
+        <result property="continuedRightInclinedCount_10" column="continued_right_inclined_count_10" jdbcType="INTEGER"/>
+        <result property="continuedRightInclinedCount_11" column="continued_right_inclined_count_11" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--通过主键查询单个-->
+    <select id="getById" resultMap="OpenNumberExtMap">
+        select
+          id, continued_in_count_01, continued_in_count_02, continued_in_count_03, continued_in_count_04, continued_in_count_05, continued_in_count_06, continued_in_count_07, continued_in_count_08, continued_in_count_09, continued_in_count_10, continued_in_count_11, continued_out_count_01, continued_out_count_02, continued_out_count_03, continued_out_count_04, continued_out_count_05, continued_out_count_06, continued_out_count_07, continued_out_count_08, continued_out_count_09, continued_out_count_10, continued_out_count_11, continued_left_inclined_count_01, continued_left_inclined_count_02, continued_left_inclined_count_03, continued_left_inclined_count_04, continued_left_inclined_count_05, continued_left_inclined_count_06, continued_left_inclined_count_07, continued_left_inclined_count_08, continued_left_inclined_count_09, continued_left_inclined_count_10, continued_left_inclined_count_11, continued_right_inclined_count_01, continued_right_inclined_count_02, continued_right_inclined_count_03, continued_right_inclined_count_04, continued_right_inclined_count_05, continued_right_inclined_count_06, continued_right_inclined_count_07, continued_right_inclined_count_08, continued_right_inclined_count_09, continued_right_inclined_count_10, continued_right_inclined_count_11
+        from yjcycc_lottery.bs_open_number_ext
+        where id = #{id}
+        limit 1
+    </select>
+    
+    <!--通过实体查询单个-->
+    <select id="get" resultMap="OpenNumberExtMap" parameterType="OpenNumberExt">
+        select
+          id, continued_in_count_01, continued_in_count_02, continued_in_count_03, continued_in_count_04, continued_in_count_05, continued_in_count_06, continued_in_count_07, continued_in_count_08, continued_in_count_09, continued_in_count_10, continued_in_count_11, continued_out_count_01, continued_out_count_02, continued_out_count_03, continued_out_count_04, continued_out_count_05, continued_out_count_06, continued_out_count_07, continued_out_count_08, continued_out_count_09, continued_out_count_10, continued_out_count_11, continued_left_inclined_count_01, continued_left_inclined_count_02, continued_left_inclined_count_03, continued_left_inclined_count_04, continued_left_inclined_count_05, continued_left_inclined_count_06, continued_left_inclined_count_07, continued_left_inclined_count_08, continued_left_inclined_count_09, continued_left_inclined_count_10, continued_left_inclined_count_11, continued_right_inclined_count_01, continued_right_inclined_count_02, continued_right_inclined_count_03, continued_right_inclined_count_04, continued_right_inclined_count_05, continued_right_inclined_count_06, continued_right_inclined_count_07, continued_right_inclined_count_08, continued_right_inclined_count_09, continued_right_inclined_count_10, continued_right_inclined_count_11
+        from yjcycc_lottery.bs_open_number_ext
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="continuedInCount_01 != null">
+                and continued_in_count_01 = #{continuedInCount_01}
+            </if>
+            <if test="continuedInCount_02 != null">
+                and continued_in_count_02 = #{continuedInCount_02}
+            </if>
+            <if test="continuedInCount_03 != null">
+                and continued_in_count_03 = #{continuedInCount_03}
+            </if>
+            <if test="continuedInCount_04 != null">
+                and continued_in_count_04 = #{continuedInCount_04}
+            </if>
+            <if test="continuedInCount_05 != null">
+                and continued_in_count_05 = #{continuedInCount_05}
+            </if>
+            <if test="continuedInCount_06 != null">
+                and continued_in_count_06 = #{continuedInCount_06}
+            </if>
+            <if test="continuedInCount_07 != null">
+                and continued_in_count_07 = #{continuedInCount_07}
+            </if>
+            <if test="continuedInCount_08 != null">
+                and continued_in_count_08 = #{continuedInCount_08}
+            </if>
+            <if test="continuedInCount_09 != null">
+                and continued_in_count_09 = #{continuedInCount_09}
+            </if>
+            <if test="continuedInCount_10 != null">
+                and continued_in_count_10 = #{continuedInCount_10}
+            </if>
+            <if test="continuedInCount_11 != null">
+                and continued_in_count_11 = #{continuedInCount_11}
+            </if>
+            <if test="continuedOutCount_01 != null">
+                and continued_out_count_01 = #{continuedOutCount_01}
+            </if>
+            <if test="continuedOutCount_02 != null">
+                and continued_out_count_02 = #{continuedOutCount_02}
+            </if>
+            <if test="continuedOutCount_03 != null">
+                and continued_out_count_03 = #{continuedOutCount_03}
+            </if>
+            <if test="continuedOutCount_04 != null">
+                and continued_out_count_04 = #{continuedOutCount_04}
+            </if>
+            <if test="continuedOutCount_05 != null">
+                and continued_out_count_05 = #{continuedOutCount_05}
+            </if>
+            <if test="continuedOutCount_06 != null">
+                and continued_out_count_06 = #{continuedOutCount_06}
+            </if>
+            <if test="continuedOutCount_07 != null">
+                and continued_out_count_07 = #{continuedOutCount_07}
+            </if>
+            <if test="continuedOutCount_08 != null">
+                and continued_out_count_08 = #{continuedOutCount_08}
+            </if>
+            <if test="continuedOutCount_09 != null">
+                and continued_out_count_09 = #{continuedOutCount_09}
+            </if>
+            <if test="continuedOutCount_10 != null">
+                and continued_out_count_10 = #{continuedOutCount_10}
+            </if>
+            <if test="continuedOutCount_11 != null">
+                and continued_out_count_11 = #{continuedOutCount_11}
+            </if>
+            <if test="continuedLeftInclinedCount_01 != null">
+                and continued_left_inclined_count_01 = #{continuedLeftInclinedCount_01}
+            </if>
+            <if test="continuedLeftInclinedCount_02 != null">
+                and continued_left_inclined_count_02 = #{continuedLeftInclinedCount_02}
+            </if>
+            <if test="continuedLeftInclinedCount_03 != null">
+                and continued_left_inclined_count_03 = #{continuedLeftInclinedCount_03}
+            </if>
+            <if test="continuedLeftInclinedCount_04 != null">
+                and continued_left_inclined_count_04 = #{continuedLeftInclinedCount_04}
+            </if>
+            <if test="continuedLeftInclinedCount_05 != null">
+                and continued_left_inclined_count_05 = #{continuedLeftInclinedCount_05}
+            </if>
+            <if test="continuedLeftInclinedCount_06 != null">
+                and continued_left_inclined_count_06 = #{continuedLeftInclinedCount_06}
+            </if>
+            <if test="continuedLeftInclinedCount_07 != null">
+                and continued_left_inclined_count_07 = #{continuedLeftInclinedCount_07}
+            </if>
+            <if test="continuedLeftInclinedCount_08 != null">
+                and continued_left_inclined_count_08 = #{continuedLeftInclinedCount_08}
+            </if>
+            <if test="continuedLeftInclinedCount_09 != null">
+                and continued_left_inclined_count_09 = #{continuedLeftInclinedCount_09}
+            </if>
+            <if test="continuedLeftInclinedCount_10 != null">
+                and continued_left_inclined_count_10 = #{continuedLeftInclinedCount_10}
+            </if>
+            <if test="continuedLeftInclinedCount_11 != null">
+                and continued_left_inclined_count_11 = #{continuedLeftInclinedCount_11}
+            </if>
+            <if test="continuedRightInclinedCount_01 != null">
+                and continued_right_inclined_count_01 = #{continuedRightInclinedCount_01}
+            </if>
+            <if test="continuedRightInclinedCount_02 != null">
+                and continued_right_inclined_count_02 = #{continuedRightInclinedCount_02}
+            </if>
+            <if test="continuedRightInclinedCount_03 != null">
+                and continued_right_inclined_count_03 = #{continuedRightInclinedCount_03}
+            </if>
+            <if test="continuedRightInclinedCount_04 != null">
+                and continued_right_inclined_count_04 = #{continuedRightInclinedCount_04}
+            </if>
+            <if test="continuedRightInclinedCount_05 != null">
+                and continued_right_inclined_count_05 = #{continuedRightInclinedCount_05}
+            </if>
+            <if test="continuedRightInclinedCount_06 != null">
+                and continued_right_inclined_count_06 = #{continuedRightInclinedCount_06}
+            </if>
+            <if test="continuedRightInclinedCount_07 != null">
+                and continued_right_inclined_count_07 = #{continuedRightInclinedCount_07}
+            </if>
+            <if test="continuedRightInclinedCount_08 != null">
+                and continued_right_inclined_count_08 = #{continuedRightInclinedCount_08}
+            </if>
+            <if test="continuedRightInclinedCount_09 != null">
+                and continued_right_inclined_count_09 = #{continuedRightInclinedCount_09}
+            </if>
+            <if test="continuedRightInclinedCount_10 != null">
+                and continued_right_inclined_count_10 = #{continuedRightInclinedCount_10}
+            </if>
+            <if test="continuedRightInclinedCount_11 != null">
+                and continued_right_inclined_count_11 = #{continuedRightInclinedCount_11}
+            </if>
+        </where>
+        limit 1
+    </select>
+
+    <!--通过实体查询指定行数据-->
+    <select id="findPager" resultMap="OpenNumberExtMap">
+        select
+          id, continued_in_count_01, continued_in_count_02, continued_in_count_03, continued_in_count_04, continued_in_count_05, continued_in_count_06, continued_in_count_07, continued_in_count_08, continued_in_count_09, continued_in_count_10, continued_in_count_11, continued_out_count_01, continued_out_count_02, continued_out_count_03, continued_out_count_04, continued_out_count_05, continued_out_count_06, continued_out_count_07, continued_out_count_08, continued_out_count_09, continued_out_count_10, continued_out_count_11, continued_left_inclined_count_01, continued_left_inclined_count_02, continued_left_inclined_count_03, continued_left_inclined_count_04, continued_left_inclined_count_05, continued_left_inclined_count_06, continued_left_inclined_count_07, continued_left_inclined_count_08, continued_left_inclined_count_09, continued_left_inclined_count_10, continued_left_inclined_count_11, continued_right_inclined_count_01, continued_right_inclined_count_02, continued_right_inclined_count_03, continued_right_inclined_count_04, continued_right_inclined_count_05, continued_right_inclined_count_06, continued_right_inclined_count_07, continued_right_inclined_count_08, continued_right_inclined_count_09, continued_right_inclined_count_10, continued_right_inclined_count_11
+        from yjcycc_lottery.bs_open_number_ext
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="continuedInCount_01 != null">
+                and continued_in_count_01 = #{continuedInCount_01}
+            </if>
+            <if test="continuedInCount_02 != null">
+                and continued_in_count_02 = #{continuedInCount_02}
+            </if>
+            <if test="continuedInCount_03 != null">
+                and continued_in_count_03 = #{continuedInCount_03}
+            </if>
+            <if test="continuedInCount_04 != null">
+                and continued_in_count_04 = #{continuedInCount_04}
+            </if>
+            <if test="continuedInCount_05 != null">
+                and continued_in_count_05 = #{continuedInCount_05}
+            </if>
+            <if test="continuedInCount_06 != null">
+                and continued_in_count_06 = #{continuedInCount_06}
+            </if>
+            <if test="continuedInCount_07 != null">
+                and continued_in_count_07 = #{continuedInCount_07}
+            </if>
+            <if test="continuedInCount_08 != null">
+                and continued_in_count_08 = #{continuedInCount_08}
+            </if>
+            <if test="continuedInCount_09 != null">
+                and continued_in_count_09 = #{continuedInCount_09}
+            </if>
+            <if test="continuedInCount_10 != null">
+                and continued_in_count_10 = #{continuedInCount_10}
+            </if>
+            <if test="continuedInCount_11 != null">
+                and continued_in_count_11 = #{continuedInCount_11}
+            </if>
+            <if test="continuedOutCount_01 != null">
+                and continued_out_count_01 = #{continuedOutCount_01}
+            </if>
+            <if test="continuedOutCount_02 != null">
+                and continued_out_count_02 = #{continuedOutCount_02}
+            </if>
+            <if test="continuedOutCount_03 != null">
+                and continued_out_count_03 = #{continuedOutCount_03}
+            </if>
+            <if test="continuedOutCount_04 != null">
+                and continued_out_count_04 = #{continuedOutCount_04}
+            </if>
+            <if test="continuedOutCount_05 != null">
+                and continued_out_count_05 = #{continuedOutCount_05}
+            </if>
+            <if test="continuedOutCount_06 != null">
+                and continued_out_count_06 = #{continuedOutCount_06}
+            </if>
+            <if test="continuedOutCount_07 != null">
+                and continued_out_count_07 = #{continuedOutCount_07}
+            </if>
+            <if test="continuedOutCount_08 != null">
+                and continued_out_count_08 = #{continuedOutCount_08}
+            </if>
+            <if test="continuedOutCount_09 != null">
+                and continued_out_count_09 = #{continuedOutCount_09}
+            </if>
+            <if test="continuedOutCount_10 != null">
+                and continued_out_count_10 = #{continuedOutCount_10}
+            </if>
+            <if test="continuedOutCount_11 != null">
+                and continued_out_count_11 = #{continuedOutCount_11}
+            </if>
+            <if test="continuedLeftInclinedCount_01 != null">
+                and continued_left_inclined_count_01 = #{continuedLeftInclinedCount_01}
+            </if>
+            <if test="continuedLeftInclinedCount_02 != null">
+                and continued_left_inclined_count_02 = #{continuedLeftInclinedCount_02}
+            </if>
+            <if test="continuedLeftInclinedCount_03 != null">
+                and continued_left_inclined_count_03 = #{continuedLeftInclinedCount_03}
+            </if>
+            <if test="continuedLeftInclinedCount_04 != null">
+                and continued_left_inclined_count_04 = #{continuedLeftInclinedCount_04}
+            </if>
+            <if test="continuedLeftInclinedCount_05 != null">
+                and continued_left_inclined_count_05 = #{continuedLeftInclinedCount_05}
+            </if>
+            <if test="continuedLeftInclinedCount_06 != null">
+                and continued_left_inclined_count_06 = #{continuedLeftInclinedCount_06}
+            </if>
+            <if test="continuedLeftInclinedCount_07 != null">
+                and continued_left_inclined_count_07 = #{continuedLeftInclinedCount_07}
+            </if>
+            <if test="continuedLeftInclinedCount_08 != null">
+                and continued_left_inclined_count_08 = #{continuedLeftInclinedCount_08}
+            </if>
+            <if test="continuedLeftInclinedCount_09 != null">
+                and continued_left_inclined_count_09 = #{continuedLeftInclinedCount_09}
+            </if>
+            <if test="continuedLeftInclinedCount_10 != null">
+                and continued_left_inclined_count_10 = #{continuedLeftInclinedCount_10}
+            </if>
+            <if test="continuedLeftInclinedCount_11 != null">
+                and continued_left_inclined_count_11 = #{continuedLeftInclinedCount_11}
+            </if>
+            <if test="continuedRightInclinedCount_01 != null">
+                and continued_right_inclined_count_01 = #{continuedRightInclinedCount_01}
+            </if>
+            <if test="continuedRightInclinedCount_02 != null">
+                and continued_right_inclined_count_02 = #{continuedRightInclinedCount_02}
+            </if>
+            <if test="continuedRightInclinedCount_03 != null">
+                and continued_right_inclined_count_03 = #{continuedRightInclinedCount_03}
+            </if>
+            <if test="continuedRightInclinedCount_04 != null">
+                and continued_right_inclined_count_04 = #{continuedRightInclinedCount_04}
+            </if>
+            <if test="continuedRightInclinedCount_05 != null">
+                and continued_right_inclined_count_05 = #{continuedRightInclinedCount_05}
+            </if>
+            <if test="continuedRightInclinedCount_06 != null">
+                and continued_right_inclined_count_06 = #{continuedRightInclinedCount_06}
+            </if>
+            <if test="continuedRightInclinedCount_07 != null">
+                and continued_right_inclined_count_07 = #{continuedRightInclinedCount_07}
+            </if>
+            <if test="continuedRightInclinedCount_08 != null">
+                and continued_right_inclined_count_08 = #{continuedRightInclinedCount_08}
+            </if>
+            <if test="continuedRightInclinedCount_09 != null">
+                and continued_right_inclined_count_09 = #{continuedRightInclinedCount_09}
+            </if>
+            <if test="continuedRightInclinedCount_10 != null">
+                and continued_right_inclined_count_10 = #{continuedRightInclinedCount_10}
+            </if>
+            <if test="continuedRightInclinedCount_11 != null">
+                and continued_right_inclined_count_11 = #{continuedRightInclinedCount_11}
+            </if>
+        </where>
+    </select>
+    
+    <!--通过Map查询指定行数据-->
+    <select id="findPagerByMap" resultMap="OpenNumberExtMap">
+        select
+          id, continued_in_count_01, continued_in_count_02, continued_in_count_03, continued_in_count_04, continued_in_count_05, continued_in_count_06, continued_in_count_07, continued_in_count_08, continued_in_count_09, continued_in_count_10, continued_in_count_11, continued_out_count_01, continued_out_count_02, continued_out_count_03, continued_out_count_04, continued_out_count_05, continued_out_count_06, continued_out_count_07, continued_out_count_08, continued_out_count_09, continued_out_count_10, continued_out_count_11, continued_left_inclined_count_01, continued_left_inclined_count_02, continued_left_inclined_count_03, continued_left_inclined_count_04, continued_left_inclined_count_05, continued_left_inclined_count_06, continued_left_inclined_count_07, continued_left_inclined_count_08, continued_left_inclined_count_09, continued_left_inclined_count_10, continued_left_inclined_count_11, continued_right_inclined_count_01, continued_right_inclined_count_02, continued_right_inclined_count_03, continued_right_inclined_count_04, continued_right_inclined_count_05, continued_right_inclined_count_06, continued_right_inclined_count_07, continued_right_inclined_count_08, continued_right_inclined_count_09, continued_right_inclined_count_10, continued_right_inclined_count_11
+        from yjcycc_lottery.bs_open_number_ext
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="continuedInCount_01 != null">
+                and continued_in_count_01 = #{continuedInCount_01}
+            </if>
+            <if test="continuedInCount_02 != null">
+                and continued_in_count_02 = #{continuedInCount_02}
+            </if>
+            <if test="continuedInCount_03 != null">
+                and continued_in_count_03 = #{continuedInCount_03}
+            </if>
+            <if test="continuedInCount_04 != null">
+                and continued_in_count_04 = #{continuedInCount_04}
+            </if>
+            <if test="continuedInCount_05 != null">
+                and continued_in_count_05 = #{continuedInCount_05}
+            </if>
+            <if test="continuedInCount_06 != null">
+                and continued_in_count_06 = #{continuedInCount_06}
+            </if>
+            <if test="continuedInCount_07 != null">
+                and continued_in_count_07 = #{continuedInCount_07}
+            </if>
+            <if test="continuedInCount_08 != null">
+                and continued_in_count_08 = #{continuedInCount_08}
+            </if>
+            <if test="continuedInCount_09 != null">
+                and continued_in_count_09 = #{continuedInCount_09}
+            </if>
+            <if test="continuedInCount_10 != null">
+                and continued_in_count_10 = #{continuedInCount_10}
+            </if>
+            <if test="continuedInCount_11 != null">
+                and continued_in_count_11 = #{continuedInCount_11}
+            </if>
+            <if test="continuedOutCount_01 != null">
+                and continued_out_count_01 = #{continuedOutCount_01}
+            </if>
+            <if test="continuedOutCount_02 != null">
+                and continued_out_count_02 = #{continuedOutCount_02}
+            </if>
+            <if test="continuedOutCount_03 != null">
+                and continued_out_count_03 = #{continuedOutCount_03}
+            </if>
+            <if test="continuedOutCount_04 != null">
+                and continued_out_count_04 = #{continuedOutCount_04}
+            </if>
+            <if test="continuedOutCount_05 != null">
+                and continued_out_count_05 = #{continuedOutCount_05}
+            </if>
+            <if test="continuedOutCount_06 != null">
+                and continued_out_count_06 = #{continuedOutCount_06}
+            </if>
+            <if test="continuedOutCount_07 != null">
+                and continued_out_count_07 = #{continuedOutCount_07}
+            </if>
+            <if test="continuedOutCount_08 != null">
+                and continued_out_count_08 = #{continuedOutCount_08}
+            </if>
+            <if test="continuedOutCount_09 != null">
+                and continued_out_count_09 = #{continuedOutCount_09}
+            </if>
+            <if test="continuedOutCount_10 != null">
+                and continued_out_count_10 = #{continuedOutCount_10}
+            </if>
+            <if test="continuedOutCount_11 != null">
+                and continued_out_count_11 = #{continuedOutCount_11}
+            </if>
+            <if test="continuedLeftInclinedCount_01 != null">
+                and continued_left_inclined_count_01 = #{continuedLeftInclinedCount_01}
+            </if>
+            <if test="continuedLeftInclinedCount_02 != null">
+                and continued_left_inclined_count_02 = #{continuedLeftInclinedCount_02}
+            </if>
+            <if test="continuedLeftInclinedCount_03 != null">
+                and continued_left_inclined_count_03 = #{continuedLeftInclinedCount_03}
+            </if>
+            <if test="continuedLeftInclinedCount_04 != null">
+                and continued_left_inclined_count_04 = #{continuedLeftInclinedCount_04}
+            </if>
+            <if test="continuedLeftInclinedCount_05 != null">
+                and continued_left_inclined_count_05 = #{continuedLeftInclinedCount_05}
+            </if>
+            <if test="continuedLeftInclinedCount_06 != null">
+                and continued_left_inclined_count_06 = #{continuedLeftInclinedCount_06}
+            </if>
+            <if test="continuedLeftInclinedCount_07 != null">
+                and continued_left_inclined_count_07 = #{continuedLeftInclinedCount_07}
+            </if>
+            <if test="continuedLeftInclinedCount_08 != null">
+                and continued_left_inclined_count_08 = #{continuedLeftInclinedCount_08}
+            </if>
+            <if test="continuedLeftInclinedCount_09 != null">
+                and continued_left_inclined_count_09 = #{continuedLeftInclinedCount_09}
+            </if>
+            <if test="continuedLeftInclinedCount_10 != null">
+                and continued_left_inclined_count_10 = #{continuedLeftInclinedCount_10}
+            </if>
+            <if test="continuedLeftInclinedCount_11 != null">
+                and continued_left_inclined_count_11 = #{continuedLeftInclinedCount_11}
+            </if>
+            <if test="continuedRightInclinedCount_01 != null">
+                and continued_right_inclined_count_01 = #{continuedRightInclinedCount_01}
+            </if>
+            <if test="continuedRightInclinedCount_02 != null">
+                and continued_right_inclined_count_02 = #{continuedRightInclinedCount_02}
+            </if>
+            <if test="continuedRightInclinedCount_03 != null">
+                and continued_right_inclined_count_03 = #{continuedRightInclinedCount_03}
+            </if>
+            <if test="continuedRightInclinedCount_04 != null">
+                and continued_right_inclined_count_04 = #{continuedRightInclinedCount_04}
+            </if>
+            <if test="continuedRightInclinedCount_05 != null">
+                and continued_right_inclined_count_05 = #{continuedRightInclinedCount_05}
+            </if>
+            <if test="continuedRightInclinedCount_06 != null">
+                and continued_right_inclined_count_06 = #{continuedRightInclinedCount_06}
+            </if>
+            <if test="continuedRightInclinedCount_07 != null">
+                and continued_right_inclined_count_07 = #{continuedRightInclinedCount_07}
+            </if>
+            <if test="continuedRightInclinedCount_08 != null">
+                and continued_right_inclined_count_08 = #{continuedRightInclinedCount_08}
+            </if>
+            <if test="continuedRightInclinedCount_09 != null">
+                and continued_right_inclined_count_09 = #{continuedRightInclinedCount_09}
+            </if>
+            <if test="continuedRightInclinedCount_10 != null">
+                and continued_right_inclined_count_10 = #{continuedRightInclinedCount_10}
+            </if>
+            <if test="continuedRightInclinedCount_11 != null">
+                and continued_right_inclined_count_11 = #{continuedRightInclinedCount_11}
+            </if>
+        </where>
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="findList" resultMap="OpenNumberExtMap">
+        select
+          id, continued_in_count_01, continued_in_count_02, continued_in_count_03, continued_in_count_04, continued_in_count_05, continued_in_count_06, continued_in_count_07, continued_in_count_08, continued_in_count_09, continued_in_count_10, continued_in_count_11, continued_out_count_01, continued_out_count_02, continued_out_count_03, continued_out_count_04, continued_out_count_05, continued_out_count_06, continued_out_count_07, continued_out_count_08, continued_out_count_09, continued_out_count_10, continued_out_count_11, continued_left_inclined_count_01, continued_left_inclined_count_02, continued_left_inclined_count_03, continued_left_inclined_count_04, continued_left_inclined_count_05, continued_left_inclined_count_06, continued_left_inclined_count_07, continued_left_inclined_count_08, continued_left_inclined_count_09, continued_left_inclined_count_10, continued_left_inclined_count_11, continued_right_inclined_count_01, continued_right_inclined_count_02, continued_right_inclined_count_03, continued_right_inclined_count_04, continued_right_inclined_count_05, continued_right_inclined_count_06, continued_right_inclined_count_07, continued_right_inclined_count_08, continued_right_inclined_count_09, continued_right_inclined_count_10, continued_right_inclined_count_11
+        from yjcycc_lottery.bs_open_number_ext
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="continuedInCount_01 != null">
+                and continued_in_count_01 = #{continuedInCount_01}
+            </if>
+            <if test="continuedInCount_02 != null">
+                and continued_in_count_02 = #{continuedInCount_02}
+            </if>
+            <if test="continuedInCount_03 != null">
+                and continued_in_count_03 = #{continuedInCount_03}
+            </if>
+            <if test="continuedInCount_04 != null">
+                and continued_in_count_04 = #{continuedInCount_04}
+            </if>
+            <if test="continuedInCount_05 != null">
+                and continued_in_count_05 = #{continuedInCount_05}
+            </if>
+            <if test="continuedInCount_06 != null">
+                and continued_in_count_06 = #{continuedInCount_06}
+            </if>
+            <if test="continuedInCount_07 != null">
+                and continued_in_count_07 = #{continuedInCount_07}
+            </if>
+            <if test="continuedInCount_08 != null">
+                and continued_in_count_08 = #{continuedInCount_08}
+            </if>
+            <if test="continuedInCount_09 != null">
+                and continued_in_count_09 = #{continuedInCount_09}
+            </if>
+            <if test="continuedInCount_10 != null">
+                and continued_in_count_10 = #{continuedInCount_10}
+            </if>
+            <if test="continuedInCount_11 != null">
+                and continued_in_count_11 = #{continuedInCount_11}
+            </if>
+            <if test="continuedOutCount_01 != null">
+                and continued_out_count_01 = #{continuedOutCount_01}
+            </if>
+            <if test="continuedOutCount_02 != null">
+                and continued_out_count_02 = #{continuedOutCount_02}
+            </if>
+            <if test="continuedOutCount_03 != null">
+                and continued_out_count_03 = #{continuedOutCount_03}
+            </if>
+            <if test="continuedOutCount_04 != null">
+                and continued_out_count_04 = #{continuedOutCount_04}
+            </if>
+            <if test="continuedOutCount_05 != null">
+                and continued_out_count_05 = #{continuedOutCount_05}
+            </if>
+            <if test="continuedOutCount_06 != null">
+                and continued_out_count_06 = #{continuedOutCount_06}
+            </if>
+            <if test="continuedOutCount_07 != null">
+                and continued_out_count_07 = #{continuedOutCount_07}
+            </if>
+            <if test="continuedOutCount_08 != null">
+                and continued_out_count_08 = #{continuedOutCount_08}
+            </if>
+            <if test="continuedOutCount_09 != null">
+                and continued_out_count_09 = #{continuedOutCount_09}
+            </if>
+            <if test="continuedOutCount_10 != null">
+                and continued_out_count_10 = #{continuedOutCount_10}
+            </if>
+            <if test="continuedOutCount_11 != null">
+                and continued_out_count_11 = #{continuedOutCount_11}
+            </if>
+            <if test="continuedLeftInclinedCount_01 != null">
+                and continued_left_inclined_count_01 = #{continuedLeftInclinedCount_01}
+            </if>
+            <if test="continuedLeftInclinedCount_02 != null">
+                and continued_left_inclined_count_02 = #{continuedLeftInclinedCount_02}
+            </if>
+            <if test="continuedLeftInclinedCount_03 != null">
+                and continued_left_inclined_count_03 = #{continuedLeftInclinedCount_03}
+            </if>
+            <if test="continuedLeftInclinedCount_04 != null">
+                and continued_left_inclined_count_04 = #{continuedLeftInclinedCount_04}
+            </if>
+            <if test="continuedLeftInclinedCount_05 != null">
+                and continued_left_inclined_count_05 = #{continuedLeftInclinedCount_05}
+            </if>
+            <if test="continuedLeftInclinedCount_06 != null">
+                and continued_left_inclined_count_06 = #{continuedLeftInclinedCount_06}
+            </if>
+            <if test="continuedLeftInclinedCount_07 != null">
+                and continued_left_inclined_count_07 = #{continuedLeftInclinedCount_07}
+            </if>
+            <if test="continuedLeftInclinedCount_08 != null">
+                and continued_left_inclined_count_08 = #{continuedLeftInclinedCount_08}
+            </if>
+            <if test="continuedLeftInclinedCount_09 != null">
+                and continued_left_inclined_count_09 = #{continuedLeftInclinedCount_09}
+            </if>
+            <if test="continuedLeftInclinedCount_10 != null">
+                and continued_left_inclined_count_10 = #{continuedLeftInclinedCount_10}
+            </if>
+            <if test="continuedLeftInclinedCount_11 != null">
+                and continued_left_inclined_count_11 = #{continuedLeftInclinedCount_11}
+            </if>
+            <if test="continuedRightInclinedCount_01 != null">
+                and continued_right_inclined_count_01 = #{continuedRightInclinedCount_01}
+            </if>
+            <if test="continuedRightInclinedCount_02 != null">
+                and continued_right_inclined_count_02 = #{continuedRightInclinedCount_02}
+            </if>
+            <if test="continuedRightInclinedCount_03 != null">
+                and continued_right_inclined_count_03 = #{continuedRightInclinedCount_03}
+            </if>
+            <if test="continuedRightInclinedCount_04 != null">
+                and continued_right_inclined_count_04 = #{continuedRightInclinedCount_04}
+            </if>
+            <if test="continuedRightInclinedCount_05 != null">
+                and continued_right_inclined_count_05 = #{continuedRightInclinedCount_05}
+            </if>
+            <if test="continuedRightInclinedCount_06 != null">
+                and continued_right_inclined_count_06 = #{continuedRightInclinedCount_06}
+            </if>
+            <if test="continuedRightInclinedCount_07 != null">
+                and continued_right_inclined_count_07 = #{continuedRightInclinedCount_07}
+            </if>
+            <if test="continuedRightInclinedCount_08 != null">
+                and continued_right_inclined_count_08 = #{continuedRightInclinedCount_08}
+            </if>
+            <if test="continuedRightInclinedCount_09 != null">
+                and continued_right_inclined_count_09 = #{continuedRightInclinedCount_09}
+            </if>
+            <if test="continuedRightInclinedCount_10 != null">
+                and continued_right_inclined_count_10 = #{continuedRightInclinedCount_10}
+            </if>
+            <if test="continuedRightInclinedCount_11 != null">
+                and continued_right_inclined_count_11 = #{continuedRightInclinedCount_11}
+            </if>
+        </where>
+    </select>
+
+    <!--通过Map作为筛选条件查询-->
+    <select id="findListByMap" resultMap="OpenNumberExtMap">
+        select
+          id, continued_in_count_01, continued_in_count_02, continued_in_count_03, continued_in_count_04, continued_in_count_05, continued_in_count_06, continued_in_count_07, continued_in_count_08, continued_in_count_09, continued_in_count_10, continued_in_count_11, continued_out_count_01, continued_out_count_02, continued_out_count_03, continued_out_count_04, continued_out_count_05, continued_out_count_06, continued_out_count_07, continued_out_count_08, continued_out_count_09, continued_out_count_10, continued_out_count_11, continued_left_inclined_count_01, continued_left_inclined_count_02, continued_left_inclined_count_03, continued_left_inclined_count_04, continued_left_inclined_count_05, continued_left_inclined_count_06, continued_left_inclined_count_07, continued_left_inclined_count_08, continued_left_inclined_count_09, continued_left_inclined_count_10, continued_left_inclined_count_11, continued_right_inclined_count_01, continued_right_inclined_count_02, continued_right_inclined_count_03, continued_right_inclined_count_04, continued_right_inclined_count_05, continued_right_inclined_count_06, continued_right_inclined_count_07, continued_right_inclined_count_08, continued_right_inclined_count_09, continued_right_inclined_count_10, continued_right_inclined_count_11
+        from yjcycc_lottery.bs_open_number_ext
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="continuedInCount_01 != null">
+                and continued_in_count_01 = #{continuedInCount_01}
+            </if>
+            <if test="continuedInCount_02 != null">
+                and continued_in_count_02 = #{continuedInCount_02}
+            </if>
+            <if test="continuedInCount_03 != null">
+                and continued_in_count_03 = #{continuedInCount_03}
+            </if>
+            <if test="continuedInCount_04 != null">
+                and continued_in_count_04 = #{continuedInCount_04}
+            </if>
+            <if test="continuedInCount_05 != null">
+                and continued_in_count_05 = #{continuedInCount_05}
+            </if>
+            <if test="continuedInCount_06 != null">
+                and continued_in_count_06 = #{continuedInCount_06}
+            </if>
+            <if test="continuedInCount_07 != null">
+                and continued_in_count_07 = #{continuedInCount_07}
+            </if>
+            <if test="continuedInCount_08 != null">
+                and continued_in_count_08 = #{continuedInCount_08}
+            </if>
+            <if test="continuedInCount_09 != null">
+                and continued_in_count_09 = #{continuedInCount_09}
+            </if>
+            <if test="continuedInCount_10 != null">
+                and continued_in_count_10 = #{continuedInCount_10}
+            </if>
+            <if test="continuedInCount_11 != null">
+                and continued_in_count_11 = #{continuedInCount_11}
+            </if>
+            <if test="continuedOutCount_01 != null">
+                and continued_out_count_01 = #{continuedOutCount_01}
+            </if>
+            <if test="continuedOutCount_02 != null">
+                and continued_out_count_02 = #{continuedOutCount_02}
+            </if>
+            <if test="continuedOutCount_03 != null">
+                and continued_out_count_03 = #{continuedOutCount_03}
+            </if>
+            <if test="continuedOutCount_04 != null">
+                and continued_out_count_04 = #{continuedOutCount_04}
+            </if>
+            <if test="continuedOutCount_05 != null">
+                and continued_out_count_05 = #{continuedOutCount_05}
+            </if>
+            <if test="continuedOutCount_06 != null">
+                and continued_out_count_06 = #{continuedOutCount_06}
+            </if>
+            <if test="continuedOutCount_07 != null">
+                and continued_out_count_07 = #{continuedOutCount_07}
+            </if>
+            <if test="continuedOutCount_08 != null">
+                and continued_out_count_08 = #{continuedOutCount_08}
+            </if>
+            <if test="continuedOutCount_09 != null">
+                and continued_out_count_09 = #{continuedOutCount_09}
+            </if>
+            <if test="continuedOutCount_10 != null">
+                and continued_out_count_10 = #{continuedOutCount_10}
+            </if>
+            <if test="continuedOutCount_11 != null">
+                and continued_out_count_11 = #{continuedOutCount_11}
+            </if>
+            <if test="continuedLeftInclinedCount_01 != null">
+                and continued_left_inclined_count_01 = #{continuedLeftInclinedCount_01}
+            </if>
+            <if test="continuedLeftInclinedCount_02 != null">
+                and continued_left_inclined_count_02 = #{continuedLeftInclinedCount_02}
+            </if>
+            <if test="continuedLeftInclinedCount_03 != null">
+                and continued_left_inclined_count_03 = #{continuedLeftInclinedCount_03}
+            </if>
+            <if test="continuedLeftInclinedCount_04 != null">
+                and continued_left_inclined_count_04 = #{continuedLeftInclinedCount_04}
+            </if>
+            <if test="continuedLeftInclinedCount_05 != null">
+                and continued_left_inclined_count_05 = #{continuedLeftInclinedCount_05}
+            </if>
+            <if test="continuedLeftInclinedCount_06 != null">
+                and continued_left_inclined_count_06 = #{continuedLeftInclinedCount_06}
+            </if>
+            <if test="continuedLeftInclinedCount_07 != null">
+                and continued_left_inclined_count_07 = #{continuedLeftInclinedCount_07}
+            </if>
+            <if test="continuedLeftInclinedCount_08 != null">
+                and continued_left_inclined_count_08 = #{continuedLeftInclinedCount_08}
+            </if>
+            <if test="continuedLeftInclinedCount_09 != null">
+                and continued_left_inclined_count_09 = #{continuedLeftInclinedCount_09}
+            </if>
+            <if test="continuedLeftInclinedCount_10 != null">
+                and continued_left_inclined_count_10 = #{continuedLeftInclinedCount_10}
+            </if>
+            <if test="continuedLeftInclinedCount_11 != null">
+                and continued_left_inclined_count_11 = #{continuedLeftInclinedCount_11}
+            </if>
+            <if test="continuedRightInclinedCount_01 != null">
+                and continued_right_inclined_count_01 = #{continuedRightInclinedCount_01}
+            </if>
+            <if test="continuedRightInclinedCount_02 != null">
+                and continued_right_inclined_count_02 = #{continuedRightInclinedCount_02}
+            </if>
+            <if test="continuedRightInclinedCount_03 != null">
+                and continued_right_inclined_count_03 = #{continuedRightInclinedCount_03}
+            </if>
+            <if test="continuedRightInclinedCount_04 != null">
+                and continued_right_inclined_count_04 = #{continuedRightInclinedCount_04}
+            </if>
+            <if test="continuedRightInclinedCount_05 != null">
+                and continued_right_inclined_count_05 = #{continuedRightInclinedCount_05}
+            </if>
+            <if test="continuedRightInclinedCount_06 != null">
+                and continued_right_inclined_count_06 = #{continuedRightInclinedCount_06}
+            </if>
+            <if test="continuedRightInclinedCount_07 != null">
+                and continued_right_inclined_count_07 = #{continuedRightInclinedCount_07}
+            </if>
+            <if test="continuedRightInclinedCount_08 != null">
+                and continued_right_inclined_count_08 = #{continuedRightInclinedCount_08}
+            </if>
+            <if test="continuedRightInclinedCount_09 != null">
+                and continued_right_inclined_count_09 = #{continuedRightInclinedCount_09}
+            </if>
+            <if test="continuedRightInclinedCount_10 != null">
+                and continued_right_inclined_count_10 = #{continuedRightInclinedCount_10}
+            </if>
+            <if test="continuedRightInclinedCount_11 != null">
+                and continued_right_inclined_count_11 = #{continuedRightInclinedCount_11}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into yjcycc_lottery.bs_open_number_ext(continued_in_count_01, continued_in_count_02, continued_in_count_03, continued_in_count_04, continued_in_count_05, continued_in_count_06, continued_in_count_07, continued_in_count_08, continued_in_count_09, continued_in_count_10, continued_in_count_11, continued_out_count_01, continued_out_count_02, continued_out_count_03, continued_out_count_04, continued_out_count_05, continued_out_count_06, continued_out_count_07, continued_out_count_08, continued_out_count_09, continued_out_count_10, continued_out_count_11, continued_left_inclined_count_01, continued_left_inclined_count_02, continued_left_inclined_count_03, continued_left_inclined_count_04, continued_left_inclined_count_05, continued_left_inclined_count_06, continued_left_inclined_count_07, continued_left_inclined_count_08, continued_left_inclined_count_09, continued_left_inclined_count_10, continued_left_inclined_count_11, continued_right_inclined_count_01, continued_right_inclined_count_02, continued_right_inclined_count_03, continued_right_inclined_count_04, continued_right_inclined_count_05, continued_right_inclined_count_06, continued_right_inclined_count_07, continued_right_inclined_count_08, continued_right_inclined_count_09, continued_right_inclined_count_10, continued_right_inclined_count_11)
+        values (#{continuedInCount_01}, #{continuedInCount_02}, #{continuedInCount_03}, #{continuedInCount_04}, #{continuedInCount_05}, #{continuedInCount_06}, #{continuedInCount_07}, #{continuedInCount_08}, #{continuedInCount_09}, #{continuedInCount_10}, #{continuedInCount_11}, #{continuedOutCount_01}, #{continuedOutCount_02}, #{continuedOutCount_03}, #{continuedOutCount_04}, #{continuedOutCount_05}, #{continuedOutCount_06}, #{continuedOutCount_07}, #{continuedOutCount_08}, #{continuedOutCount_09}, #{continuedOutCount_10}, #{continuedOutCount_11}, #{continuedLeftInclinedCount_01}, #{continuedLeftInclinedCount_02}, #{continuedLeftInclinedCount_03}, #{continuedLeftInclinedCount_04}, #{continuedLeftInclinedCount_05}, #{continuedLeftInclinedCount_06}, #{continuedLeftInclinedCount_07}, #{continuedLeftInclinedCount_08}, #{continuedLeftInclinedCount_09}, #{continuedLeftInclinedCount_10}, #{continuedLeftInclinedCount_11}, #{continuedRightInclinedCount_01}, #{continuedRightInclinedCount_02}, #{continuedRightInclinedCount_03}, #{continuedRightInclinedCount_04}, #{continuedRightInclinedCount_05}, #{continuedRightInclinedCount_06}, #{continuedRightInclinedCount_07}, #{continuedRightInclinedCount_08}, #{continuedRightInclinedCount_09}, #{continuedRightInclinedCount_10}, #{continuedRightInclinedCount_11})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update yjcycc_lottery.bs_open_number_ext
+        <set>
+            <if test="continuedInCount_01 != null">
+                continued_in_count_01 = #{continuedInCount_01},
+            </if>
+            <if test="continuedInCount_02 != null">
+                continued_in_count_02 = #{continuedInCount_02},
+            </if>
+            <if test="continuedInCount_03 != null">
+                continued_in_count_03 = #{continuedInCount_03},
+            </if>
+            <if test="continuedInCount_04 != null">
+                continued_in_count_04 = #{continuedInCount_04},
+            </if>
+            <if test="continuedInCount_05 != null">
+                continued_in_count_05 = #{continuedInCount_05},
+            </if>
+            <if test="continuedInCount_06 != null">
+                continued_in_count_06 = #{continuedInCount_06},
+            </if>
+            <if test="continuedInCount_07 != null">
+                continued_in_count_07 = #{continuedInCount_07},
+            </if>
+            <if test="continuedInCount_08 != null">
+                continued_in_count_08 = #{continuedInCount_08},
+            </if>
+            <if test="continuedInCount_09 != null">
+                continued_in_count_09 = #{continuedInCount_09},
+            </if>
+            <if test="continuedInCount_10 != null">
+                continued_in_count_10 = #{continuedInCount_10},
+            </if>
+            <if test="continuedInCount_11 != null">
+                continued_in_count_11 = #{continuedInCount_11},
+            </if>
+            <if test="continuedOutCount_01 != null">
+                continued_out_count_01 = #{continuedOutCount_01},
+            </if>
+            <if test="continuedOutCount_02 != null">
+                continued_out_count_02 = #{continuedOutCount_02},
+            </if>
+            <if test="continuedOutCount_03 != null">
+                continued_out_count_03 = #{continuedOutCount_03},
+            </if>
+            <if test="continuedOutCount_04 != null">
+                continued_out_count_04 = #{continuedOutCount_04},
+            </if>
+            <if test="continuedOutCount_05 != null">
+                continued_out_count_05 = #{continuedOutCount_05},
+            </if>
+            <if test="continuedOutCount_06 != null">
+                continued_out_count_06 = #{continuedOutCount_06},
+            </if>
+            <if test="continuedOutCount_07 != null">
+                continued_out_count_07 = #{continuedOutCount_07},
+            </if>
+            <if test="continuedOutCount_08 != null">
+                continued_out_count_08 = #{continuedOutCount_08},
+            </if>
+            <if test="continuedOutCount_09 != null">
+                continued_out_count_09 = #{continuedOutCount_09},
+            </if>
+            <if test="continuedOutCount_10 != null">
+                continued_out_count_10 = #{continuedOutCount_10},
+            </if>
+            <if test="continuedOutCount_11 != null">
+                continued_out_count_11 = #{continuedOutCount_11},
+            </if>
+            <if test="continuedLeftInclinedCount_01 != null">
+                continued_left_inclined_count_01 = #{continuedLeftInclinedCount_01},
+            </if>
+            <if test="continuedLeftInclinedCount_02 != null">
+                continued_left_inclined_count_02 = #{continuedLeftInclinedCount_02},
+            </if>
+            <if test="continuedLeftInclinedCount_03 != null">
+                continued_left_inclined_count_03 = #{continuedLeftInclinedCount_03},
+            </if>
+            <if test="continuedLeftInclinedCount_04 != null">
+                continued_left_inclined_count_04 = #{continuedLeftInclinedCount_04},
+            </if>
+            <if test="continuedLeftInclinedCount_05 != null">
+                continued_left_inclined_count_05 = #{continuedLeftInclinedCount_05},
+            </if>
+            <if test="continuedLeftInclinedCount_06 != null">
+                continued_left_inclined_count_06 = #{continuedLeftInclinedCount_06},
+            </if>
+            <if test="continuedLeftInclinedCount_07 != null">
+                continued_left_inclined_count_07 = #{continuedLeftInclinedCount_07},
+            </if>
+            <if test="continuedLeftInclinedCount_08 != null">
+                continued_left_inclined_count_08 = #{continuedLeftInclinedCount_08},
+            </if>
+            <if test="continuedLeftInclinedCount_09 != null">
+                continued_left_inclined_count_09 = #{continuedLeftInclinedCount_09},
+            </if>
+            <if test="continuedLeftInclinedCount_10 != null">
+                continued_left_inclined_count_10 = #{continuedLeftInclinedCount_10},
+            </if>
+            <if test="continuedLeftInclinedCount_11 != null">
+                continued_left_inclined_count_11 = #{continuedLeftInclinedCount_11},
+            </if>
+            <if test="continuedRightInclinedCount_01 != null">
+                continued_right_inclined_count_01 = #{continuedRightInclinedCount_01},
+            </if>
+            <if test="continuedRightInclinedCount_02 != null">
+                continued_right_inclined_count_02 = #{continuedRightInclinedCount_02},
+            </if>
+            <if test="continuedRightInclinedCount_03 != null">
+                continued_right_inclined_count_03 = #{continuedRightInclinedCount_03},
+            </if>
+            <if test="continuedRightInclinedCount_04 != null">
+                continued_right_inclined_count_04 = #{continuedRightInclinedCount_04},
+            </if>
+            <if test="continuedRightInclinedCount_05 != null">
+                continued_right_inclined_count_05 = #{continuedRightInclinedCount_05},
+            </if>
+            <if test="continuedRightInclinedCount_06 != null">
+                continued_right_inclined_count_06 = #{continuedRightInclinedCount_06},
+            </if>
+            <if test="continuedRightInclinedCount_07 != null">
+                continued_right_inclined_count_07 = #{continuedRightInclinedCount_07},
+            </if>
+            <if test="continuedRightInclinedCount_08 != null">
+                continued_right_inclined_count_08 = #{continuedRightInclinedCount_08},
+            </if>
+            <if test="continuedRightInclinedCount_09 != null">
+                continued_right_inclined_count_09 = #{continuedRightInclinedCount_09},
+            </if>
+            <if test="continuedRightInclinedCount_10 != null">
+                continued_right_inclined_count_10 = #{continuedRightInclinedCount_10},
+            </if>
+            <if test="continuedRightInclinedCount_11 != null">
+                continued_right_inclined_count_11 = #{continuedRightInclinedCount_11},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from yjcycc_lottery.bs_open_number_ext where id = #{id}
+    </delete>
+
+    <!--通过实体删除-->
+    <delete id="delete">
+        delete from yjcycc_lottery.bs_open_number_ext 
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="continuedInCount_01 != null">
+                and continued_in_count_01 = #{continuedInCount_01}
+            </if>
+            <if test="continuedInCount_02 != null">
+                and continued_in_count_02 = #{continuedInCount_02}
+            </if>
+            <if test="continuedInCount_03 != null">
+                and continued_in_count_03 = #{continuedInCount_03}
+            </if>
+            <if test="continuedInCount_04 != null">
+                and continued_in_count_04 = #{continuedInCount_04}
+            </if>
+            <if test="continuedInCount_05 != null">
+                and continued_in_count_05 = #{continuedInCount_05}
+            </if>
+            <if test="continuedInCount_06 != null">
+                and continued_in_count_06 = #{continuedInCount_06}
+            </if>
+            <if test="continuedInCount_07 != null">
+                and continued_in_count_07 = #{continuedInCount_07}
+            </if>
+            <if test="continuedInCount_08 != null">
+                and continued_in_count_08 = #{continuedInCount_08}
+            </if>
+            <if test="continuedInCount_09 != null">
+                and continued_in_count_09 = #{continuedInCount_09}
+            </if>
+            <if test="continuedInCount_10 != null">
+                and continued_in_count_10 = #{continuedInCount_10}
+            </if>
+            <if test="continuedInCount_11 != null">
+                and continued_in_count_11 = #{continuedInCount_11}
+            </if>
+            <if test="continuedOutCount_01 != null">
+                and continued_out_count_01 = #{continuedOutCount_01}
+            </if>
+            <if test="continuedOutCount_02 != null">
+                and continued_out_count_02 = #{continuedOutCount_02}
+            </if>
+            <if test="continuedOutCount_03 != null">
+                and continued_out_count_03 = #{continuedOutCount_03}
+            </if>
+            <if test="continuedOutCount_04 != null">
+                and continued_out_count_04 = #{continuedOutCount_04}
+            </if>
+            <if test="continuedOutCount_05 != null">
+                and continued_out_count_05 = #{continuedOutCount_05}
+            </if>
+            <if test="continuedOutCount_06 != null">
+                and continued_out_count_06 = #{continuedOutCount_06}
+            </if>
+            <if test="continuedOutCount_07 != null">
+                and continued_out_count_07 = #{continuedOutCount_07}
+            </if>
+            <if test="continuedOutCount_08 != null">
+                and continued_out_count_08 = #{continuedOutCount_08}
+            </if>
+            <if test="continuedOutCount_09 != null">
+                and continued_out_count_09 = #{continuedOutCount_09}
+            </if>
+            <if test="continuedOutCount_10 != null">
+                and continued_out_count_10 = #{continuedOutCount_10}
+            </if>
+            <if test="continuedOutCount_11 != null">
+                and continued_out_count_11 = #{continuedOutCount_11}
+            </if>
+            <if test="continuedLeftInclinedCount_01 != null">
+                and continued_left_inclined_count_01 = #{continuedLeftInclinedCount_01}
+            </if>
+            <if test="continuedLeftInclinedCount_02 != null">
+                and continued_left_inclined_count_02 = #{continuedLeftInclinedCount_02}
+            </if>
+            <if test="continuedLeftInclinedCount_03 != null">
+                and continued_left_inclined_count_03 = #{continuedLeftInclinedCount_03}
+            </if>
+            <if test="continuedLeftInclinedCount_04 != null">
+                and continued_left_inclined_count_04 = #{continuedLeftInclinedCount_04}
+            </if>
+            <if test="continuedLeftInclinedCount_05 != null">
+                and continued_left_inclined_count_05 = #{continuedLeftInclinedCount_05}
+            </if>
+            <if test="continuedLeftInclinedCount_06 != null">
+                and continued_left_inclined_count_06 = #{continuedLeftInclinedCount_06}
+            </if>
+            <if test="continuedLeftInclinedCount_07 != null">
+                and continued_left_inclined_count_07 = #{continuedLeftInclinedCount_07}
+            </if>
+            <if test="continuedLeftInclinedCount_08 != null">
+                and continued_left_inclined_count_08 = #{continuedLeftInclinedCount_08}
+            </if>
+            <if test="continuedLeftInclinedCount_09 != null">
+                and continued_left_inclined_count_09 = #{continuedLeftInclinedCount_09}
+            </if>
+            <if test="continuedLeftInclinedCount_10 != null">
+                and continued_left_inclined_count_10 = #{continuedLeftInclinedCount_10}
+            </if>
+            <if test="continuedLeftInclinedCount_11 != null">
+                and continued_left_inclined_count_11 = #{continuedLeftInclinedCount_11}
+            </if>
+            <if test="continuedRightInclinedCount_01 != null">
+                and continued_right_inclined_count_01 = #{continuedRightInclinedCount_01}
+            </if>
+            <if test="continuedRightInclinedCount_02 != null">
+                and continued_right_inclined_count_02 = #{continuedRightInclinedCount_02}
+            </if>
+            <if test="continuedRightInclinedCount_03 != null">
+                and continued_right_inclined_count_03 = #{continuedRightInclinedCount_03}
+            </if>
+            <if test="continuedRightInclinedCount_04 != null">
+                and continued_right_inclined_count_04 = #{continuedRightInclinedCount_04}
+            </if>
+            <if test="continuedRightInclinedCount_05 != null">
+                and continued_right_inclined_count_05 = #{continuedRightInclinedCount_05}
+            </if>
+            <if test="continuedRightInclinedCount_06 != null">
+                and continued_right_inclined_count_06 = #{continuedRightInclinedCount_06}
+            </if>
+            <if test="continuedRightInclinedCount_07 != null">
+                and continued_right_inclined_count_07 = #{continuedRightInclinedCount_07}
+            </if>
+            <if test="continuedRightInclinedCount_08 != null">
+                and continued_right_inclined_count_08 = #{continuedRightInclinedCount_08}
+            </if>
+            <if test="continuedRightInclinedCount_09 != null">
+                and continued_right_inclined_count_09 = #{continuedRightInclinedCount_09}
+            </if>
+            <if test="continuedRightInclinedCount_10 != null">
+                and continued_right_inclined_count_10 = #{continuedRightInclinedCount_10}
+            </if>
+            <if test="continuedRightInclinedCount_11 != null">
+                and continued_right_inclined_count_11 = #{continuedRightInclinedCount_11}
+            </if>
+        </where>
+    </delete>
+
+    <!--批量删除-->
+    <delete id="batchDelete">
+        delete from yjcycc_lottery.bs_open_number_ext 
+        where 
+        id in (${ids})
+    </delete>
+
+</mapper>

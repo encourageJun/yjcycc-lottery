@@ -40,6 +40,14 @@ public class Constant {
 	/**分隔符**/
 	public static final String SESSION_KEY_SEPARATOR = "_";
 
+	public final static String SEPARATOR = ",";
+
+	public final static String STRING_ZERO = "0";
+	public final static String STRING_ONE = "1";
+
+	// 期号分隔符
+	public final static String STAGE_SEPARATOR = "-";
+	public final static String DT_OR_DS_OR_ZX_SEPARATOR = "|";
 
 
 }

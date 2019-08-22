@@ -1,8 +1,5 @@
 package org.yjcycc.lottery.analysis.statistics;
 
-import org.springframework.stereotype.Component;
-
-@Component("StatisticsRule")
 public class StatisticsRule {
 
     /**

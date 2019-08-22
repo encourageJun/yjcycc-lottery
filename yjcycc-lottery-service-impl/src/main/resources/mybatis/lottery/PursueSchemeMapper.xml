@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yjcycc.lottery.mapper.PursueSchemeMapper">
+
+    <resultMap type="org.yjcycc.lottery.entity.PursueScheme" id="PursueSchemeMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="planConfigId" column="plan_config_id" jdbcType="BIGINT"/>
+        <result property="playCategoryId" column="play_category_id" jdbcType="BIGINT"/>
+        <result property="dictPursueScheme" column="dict_pursue_scheme" jdbcType="INTEGER"/>
+        <result property="stageCountStart" column="stage_count_start" jdbcType="INTEGER"/>
+        <result property="stageCountEnd" column="stage_count_end" jdbcType="INTEGER"/>
+        <result property="stageCount" column="stage_count" jdbcType="INTEGER"/>
+        <result property="sort" column="sort" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+
+        <association property="playCategory" javaType="PlayCategory" column="playCategoryId" select="org.yjcycc.lottery.mapper.PlayCategoryMapper.getById" />
+    </resultMap>
+
+    <!--通过主键查询单个-->
+    <select id="getById" resultMap="PursueSchemeMap">
+        select
+          id, plan_config_id, play_category_id, dict_pursue_scheme, stage_count_start, stage_count_end, stage_count, sort, create_time, update_time
+        from yjcycc_lottery.bs_pursue_scheme
+        where id = #{id}
+        limit 1
+    </select>
+    
+    <!--通过实体查询单个-->
+    <select id="get" resultMap="PursueSchemeMap" parameterType="PursueScheme">
+        select
+          id, plan_config_id, play_category_id, dict_pursue_scheme, stage_count_start, stage_count_end, stage_count, sort, create_time, update_time
+        from yjcycc_lottery.bs_pursue_scheme
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="planConfigId != null">
+                and plan_config_id = #{planConfigId}
+            </if>
+            <if test="playCategoryId != null">
+                and play_category_id = #{playCategoryId}
+            </if>
+            <if test="dictPursueScheme != null">
+                and dict_pursue_scheme = #{dictPursueScheme}
+            </if>
+            <if test="stageCountStart != null">
+                and stage_count_start = #{stageCountStart}
+            </if>
+            <if test="stageCountEnd != null">
+                and stage_count_end = #{stageCountEnd}
+            </if>
+            <if test="stageCount != null">
+                and stage_count = #{stageCount}
+            </if>
+            <if test="sort != null">
+                and sort = #{sort}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+        limit 1
+    </select>
+
+    <!--通过实体查询指定行数据-->
+    <select id="findPager" resultMap="PursueSchemeMap">
+        select
+          id, plan_config_id, play_category_id, dict_pursue_scheme, stage_count_start, stage_count_end, stage_count, sort, create_time, update_time
+        from yjcycc_lottery.bs_pursue_scheme
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="planConfigId != null">
+                and plan_config_id = #{planConfigId}
+            </if>
+            <if test="playCategoryId != null">
+                and play_category_id = #{playCategoryId}
+            </if>
+            <if test="dictPursueScheme != null">
+                and dict_pursue_scheme = #{dictPursueScheme}
+            </if>
+            <if test="stageCountStart != null">
+                and stage_count_start = #{stageCountStart}
+            </if>
+            <if test="stageCountEnd != null">
+                and stage_count_end = #{stageCountEnd}
+            </if>
+            <if test="stageCount != null">
+                and stage_count = #{stageCount}
+            </if>
+            <if test="sort != null">
+                and sort = #{sort}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+    
+    <!--通过Map查询指定行数据-->
+    <select id="findPagerByMap" resultMap="PursueSchemeMap">
+        select
+          id, plan_config_id, play_category_id, dict_pursue_scheme, stage_count_start, stage_count_end, stage_count, sort, create_time, update_time
+        from yjcycc_lottery.bs_pursue_scheme
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="planConfigId != null">
+                and plan_config_id = #{planConfigId}
+            </if>
+            <if test="playCategoryId != null">
+                and play_category_id = #{playCategoryId}
+            </if>
+            <if test="dictPursueScheme != null">
+                and dict_pursue_scheme = #{dictPursueScheme}
+            </if>
+            <if test="stageCountStart != null">
+                and stage_count_start = #{stageCountStart}
+            </if>
+            <if test="stageCountEnd != null">
+                and stage_count_end = #{stageCountEnd}
+            </if>
+            <if test="stageCount != null">
+                and stage_count = #{stageCount}
+            </if>
+            <if test="sort != null">
+                and sort = #{sort}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="findList" resultMap="PursueSchemeMap">
+        select
+          id, plan_config_id, play_category_id, dict_pursue_scheme, stage_count_start, stage_count_end, stage_count, sort, create_time, update_time
+        from yjcycc_lottery.bs_pursue_scheme
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="planConfigId != null">
+                and plan_config_id = #{planConfigId}
+            </if>
+            <if test="playCategoryId != null">
+                and play_category_id = #{playCategoryId}
+            </if>
+            <if test="dictPursueScheme != null">
+                and dict_pursue_scheme = #{dictPursueScheme}
+            </if>
+            <if test="stageCountStart != null">
+                and stage_count_start = #{stageCountStart}
+            </if>
+            <if test="stageCountEnd != null">
+                and stage_count_end = #{stageCountEnd}
+            </if>
+            <if test="stageCount != null">
+                and stage_count = #{stageCount}
+            </if>
+            <if test="sort != null">
+                and sort = #{sort}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--通过Map作为筛选条件查询-->
+    <select id="findListByMap" resultMap="PursueSchemeMap">
+        select
+          id, plan_config_id, play_category_id, dict_pursue_scheme, stage_count_start, stage_count_end, stage_count, sort, create_time, update_time
+        from yjcycc_lottery.bs_pursue_scheme
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="planConfigId != null">
+                and plan_config_id = #{planConfigId}
+            </if>
+            <if test="playCategoryId != null">
+                and play_category_id = #{playCategoryId}
+            </if>
+            <if test="dictPursueScheme != null">
+                and dict_pursue_scheme = #{dictPursueScheme}
+            </if>
+            <if test="stageCountStart != null">
+                and stage_count_start = #{stageCountStart}
+            </if>
+            <if test="stageCountEnd != null">
+                and stage_count_end = #{stageCountEnd}
+            </if>
+            <if test="stageCount != null">
+                and stage_count = #{stageCount}
+            </if>
+            <if test="sort != null">
+                and sort = #{sort}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into yjcycc_lottery.bs_pursue_scheme(plan_config_id, play_category_id, dict_pursue_scheme, stage_count_start, stage_count_end, stage_count, sort, create_time, update_time)
+        values (#{planConfigId}, #{playCategoryId}, #{dictPursueScheme}, #{stageCountStart}, #{stageCountEnd}, #{stageCount}, #{sort}, #{createTime}, #{updateTime})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update yjcycc_lottery.bs_pursue_scheme
+        <set>
+            <if test="planConfigId != null">
+                plan_config_id = #{planConfigId},
+            </if>
+            <if test="playCategoryId != null">
+                play_category_id = #{playCategoryId},
+            </if>
+            <if test="dictPursueScheme != null">
+                dict_pursue_scheme = #{dictPursueScheme},
+            </if>
+            <if test="stageCountStart != null">
+                stage_count_start = #{stageCountStart},
+            </if>
+            <if test="stageCountEnd != null">
+                stage_count_end = #{stageCountEnd},
+            </if>
+            <if test="stageCount != null">
+                stage_count = #{stageCount},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from yjcycc_lottery.bs_pursue_scheme where id = #{id}
+    </delete>
+
+    <!--通过实体删除-->
+    <delete id="delete">
+        delete from yjcycc_lottery.bs_pursue_scheme 
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="planConfigId != null">
+                and plan_config_id = #{planConfigId}
+            </if>
+            <if test="playCategoryId != null">
+                and play_category_id = #{playCategoryId}
+            </if>
+            <if test="dictPursueScheme != null">
+                and dict_pursue_scheme = #{dictPursueScheme}
+            </if>
+            <if test="stageCountStart != null">
+                and stage_count_start = #{stageCountStart}
+            </if>
+            <if test="stageCountEnd != null">
+                and stage_count_end = #{stageCountEnd}
+            </if>
+            <if test="stageCount != null">
+                and stage_count = #{stageCount}
+            </if>
+            <if test="sort != null">
+                and sort = #{sort}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </delete>
+
+    <!--批量删除-->
+    <delete id="batchDelete">
+        delete from yjcycc_lottery.bs_pursue_scheme 
+        where 
+        id in (${ids})
+    </delete>
+
+</mapper>

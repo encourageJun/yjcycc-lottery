@@ -1,6 +1,6 @@
 package org.yjcycc.lottery.analysis.statistics;
 
-import org.yjcycc.lottery.analysis.combine.NumberCombine;
+import org.yjcycc.lottery.analysis.combine.Combiner;
 import org.yjcycc.lottery.entity.OpenNumber;
 
 import java.util.*;
@@ -19,7 +19,8 @@ public class StatisticsItem {
     private Map<String, Integer> tempOutMap = new HashMap<>();
 
     public StatisticsItem() {
-        for (String oneNumber : NumberCombine.ONE_NUMBER_COMBINE) {
+        List<String> combineList = new Combiner().getOneNumberCombine();
+        for (String oneNumber : combineList) {
             inMap.put(IN_PRE + oneNumber, 0);
             outMap.put(OUT_PRE + oneNumber, 0);
             tempInMap.put(IN_PRE + oneNumber, 0);
@@ -29,9 +30,10 @@ public class StatisticsItem {
 
     public List<Map<String, Integer>> inOrOutTotal(List<OpenNumber> openList) {
         StatisticsRule statisticsRule = new StatisticsRule();
+        List<String> combineList = new Combiner().getOneNumberCombine();
 
         for (OpenNumber openNumber : openList) {
-            for (String oneNumber : NumberCombine.ONE_NUMBER_COMBINE) {
+            for (String oneNumber : combineList) {
                 if (statisticsRule.anyoneInOpen(new String[]{oneNumber}, openNumber.getOpenNumber())) {
                     tempInMap.put(IN_PRE + oneNumber, tempInMap.get(IN_PRE + oneNumber) + 1);
                     inMap.put(IN_PRE + oneNumber, tempInMap.get(IN_PRE + oneNumber));

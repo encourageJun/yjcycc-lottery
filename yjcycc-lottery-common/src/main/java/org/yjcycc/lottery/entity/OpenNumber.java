@@ -1,10 +1,12 @@
 package org.yjcycc.lottery.entity;
 
-import java.io.Serializable;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.type.Alias;
+import org.yjcycc.lottery.constant.dict.LotteryType;
+import org.yjcycc.lottery.utils.OpenNumberUtil;
 import org.yjcycc.tools.common.entity.BaseEntity;
+
+import java.io.Serializable;
 
 /**
  * 开奖号码(OpenNumber)实体类
@@ -15,6 +17,12 @@ import org.yjcycc.tools.common.entity.BaseEntity;
 @Alias("OpenNumber")
 public class OpenNumber extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 415821133830120891L;
+    //开奖号码扩展id
+    private Long extId;
+    //投注计划id
+    private Long planId;
+    //11选5类别, 1:3分11选5 2:1分11选5
+    private String lotteryType;
     //期号
     private String stage;
     //期号-前缀日期
@@ -45,17 +53,13 @@ public class OpenNumber extends BaseEntity implements Serializable {
     private String number4;
     //开奖号码-第五位
     private String number5;
-    //当期连出数
-    private Integer currContinuedInCount;
-    //当期连漏数
-    private Integer currContinuedOutCount;
-    //当期斜连数
-    private Integer currContinuedInclinedCount;
+
+    private OpenNumberExt ext;
 
 
     public OpenNumber() {}
 
-    public OpenNumber(String stage, String openNumber) {
+    public OpenNumber(String stage, String openNumber, String lotteryType) {
         this.stage = stage;
         String[] stageArr = stage.split("-");
         this.stageDate = stageArr[0];
@@ -73,8 +77,49 @@ public class OpenNumber extends BaseEntity implements Serializable {
         this.number3 = openNumberArr[2];
         this.number4 = openNumberArr[3];
         this.number5 = openNumberArr[4];
+
+        this.lotteryType = lotteryType;
     }
 
+    /**
+     * 获取上一期期号
+     * @return
+     */
+    public String getPreviousStage() {
+        return OpenNumberUtil.getTargetStage(this.getStageDate(), -1, this.getStageIndex(), -1, this.getLotteryType());
+    }
+
+    /**
+     * 获取下一期期号(期号 < 1000)
+     * @return
+     */
+    public String getNextStage() {
+        return OpenNumberUtil.getTargetStage(this.getStageDate(), 1, this.getStageIndex(), 1, this.getLotteryType());
+    }
+
+    public Long getExtId() {
+        return extId;
+    }
+
+    public void setExtId(Long extId) {
+        this.extId = extId;
+    }
+
+    public Long getPlanId() {
+        return planId;
+    }
+
+    public void setPlanId(Long planId) {
+        this.planId = planId;
+    }
+
+    public String getLotteryType() {
+        return lotteryType;
+    }
+
+    public void setLotteryType(String lotteryType) {
+        this.lotteryType = lotteryType;
+    }
 
     public String getStage() {
         return stage;
@@ -184,30 +229,6 @@ public class OpenNumber extends BaseEntity implements Serializable {
         this.number5 = number5;
     }
 
-    public Integer getCurrContinuedInCount() {
-        return currContinuedInCount;
-    }
-
-    public void setCurrContinuedInCount(Integer currContinuedInCount) {
-        this.currContinuedInCount = currContinuedInCount;
-    }
-
-    public Integer getCurrContinuedOutCount() {
-        return currContinuedOutCount;
-    }
-
-    public void setCurrContinuedOutCount(Integer currContinuedOutCount) {
-        this.currContinuedOutCount = currContinuedOutCount;
-    }
-
-    public Integer getCurrContinuedInclinedCount() {
-        return currContinuedInclinedCount;
-    }
-
-    public void setCurrContinuedInclinedCount(Integer currContinuedInclinedCount) {
-        this.currContinuedInclinedCount = currContinuedInclinedCount;
-    }
-
     public String[] getOpenNumberArr() {
         return openNumberArr;
     }
@@ -232,4 +253,11 @@ public class OpenNumber extends BaseEntity implements Serializable {
         this.pre2NumberArr = pre2NumberArr;
     }
 
+    public OpenNumberExt getExt() {
+        return ext;
+    }
+
+    public void setExt(OpenNumberExt ext) {
+        this.ext = ext;
+    }
 }

@@ -4,6 +4,9 @@
 
     <resultMap type="org.yjcycc.lottery.entity.OpenNumber" id="OpenNumberMap">
         <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="extId" column="ext_id" jdbcType="BIGINT"/>
+        <result property="planId" column="plan_id" jdbcType="BIGINT"/>
+        <result property="lotteryType" column="lottery_type" jdbcType="VARCHAR"/>
         <result property="stage" column="stage" jdbcType="VARCHAR"/>
         <result property="stageDate" column="stage_date" jdbcType="VARCHAR"/>
         <result property="stageNum" column="stage_num" jdbcType="VARCHAR"/>
@@ -16,17 +19,16 @@
         <result property="number3" column="number3" jdbcType="VARCHAR"/>
         <result property="number4" column="number4" jdbcType="VARCHAR"/>
         <result property="number5" column="number5" jdbcType="VARCHAR"/>
-        <result property="currContinuedInCount" column="curr_continued_in_count" jdbcType="INTEGER"/>
-        <result property="currContinuedOutCount" column="curr_continued_out_count" jdbcType="INTEGER"/>
-        <result property="currContinuedInclinedCount" column="curr_continued_inclined_count" jdbcType="INTEGER"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+
+        <association property="ext" javaType="OpenNumberExt" column="extId" select="org.yjcycc.lottery.mapper.OpenNumberExtMapper.getById" />
     </resultMap>
 
     <!--通过主键查询单个-->
     <select id="getById" resultMap="OpenNumberMap">
         select
-          id, stage, stage_date, stage_num, stage_index, open_number, pre3_number, pre2_number, number1, number2, number3, number4, number5, curr_continued_in_count, curr_continued_out_count, curr_continued_inclined_count, create_time, update_time
+          id, ext_id, plan_id, lottery_type, stage, stage_date, stage_num, stage_index, open_number, pre3_number, pre2_number, number1, number2, number3, number4, number5, create_time, update_time
         from yjcycc_lottery.bs_open_number
         where id = #{id}
         limit 1
@@ -35,20 +37,20 @@
     <!--通过实体查询单个-->
     <select id="get" resultMap="OpenNumberMap" parameterType="OpenNumber">
         select
-          id, stage, stage_date, stage_num, stage_index, open_number, pre3_number, pre2_number, number1, number2, number3, number4, number5, curr_continued_in_count, curr_continued_out_count, curr_continued_inclined_count, create_time, update_time
-        from yjcycc_lottery.bs_open_number
-        where id = #{id}
-        limit 1
-    </select>
-
-    <!--通过实体查询指定行数据-->
-    <select id="findPager" resultMap="OpenNumberMap">
-        select
-          id, stage, stage_date, stage_num, stage_index, open_number, pre3_number, pre2_number, number1, number2, number3, number4, number5, curr_continued_in_count, curr_continued_out_count, curr_continued_inclined_count, create_time, update_time
+          id, ext_id, plan_id, lottery_type, stage, stage_date, stage_num, stage_index, open_number, pre3_number, pre2_number, number1, number2, number3, number4, number5, create_time, update_time
         from yjcycc_lottery.bs_open_number
         <where>
             <if test="id != null">
                 and id = #{id}
+            </if>
+            <if test="extId != null">
+                and ext_id = #{extId}
+            </if>
+            <if test="planId != null">
+                and plan_id = #{planId}
+            </if>
+            <if test="lotteryType != null">
+                and lottery_type = #{lotteryType}
             </if>
             <if test="stage != null and stage != ''">
                 and stage = #{stage}
@@ -86,14 +88,69 @@
             <if test="number5 != null and number5 != ''">
                 and number5 = #{number5}
             </if>
-            <if test="currContinuedInCount != null">
-                and curr_continued_in_count = #{currContinuedInCount}
+            <if test="createTime != null">
+                and create_time = #{createTime}
             </if>
-            <if test="currContinuedOutCount != null">
-                and curr_continued_out_count = #{currContinuedOutCount}
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
             </if>
-            <if test="currContinuedInclinedCount != null">
-                and curr_continued_inclined_count = #{currContinuedInclinedCount}
+        </where>
+        limit 1
+    </select>
+
+    <!--通过实体查询指定行数据-->
+    <select id="findPager" resultMap="OpenNumberMap">
+        select
+          id, ext_id, plan_id, lottery_type, stage, stage_date, stage_num, stage_index, open_number, pre3_number, pre2_number, number1, number2, number3, number4, number5, create_time, update_time
+        from yjcycc_lottery.bs_open_number
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="extId != null">
+                and ext_id = #{extId}
+            </if>
+            <if test="planId != null">
+                and plan_id = #{planId}
+            </if>
+            <if test="lotteryType != null">
+                and lottery_type = #{lotteryType}
+            </if>
+            <if test="stage != null and stage != ''">
+                and stage = #{stage}
+            </if>
+            <if test="stageDate != null and stageDate != ''">
+                and stage_date = #{stageDate}
+            </if>
+            <if test="stageNum != null and stageNum != ''">
+                and stage_num = #{stageNum}
+            </if>
+            <if test="stageIndex != null">
+                and stage_index = #{stageIndex}
+            </if>
+            <if test="openNumber != null and openNumber != ''">
+                and open_number = #{openNumber}
+            </if>
+            <if test="pre3Number != null and pre3Number != ''">
+                and pre3_number = #{pre3Number}
+            </if>
+            <if test="pre2Number != null and pre2Number != ''">
+                and pre2_number = #{pre2Number}
+            </if>
+            <if test="number1 != null and number1 != ''">
+                and number1 = #{number1}
+            </if>
+            <if test="number2 != null and number2 != ''">
+                and number2 = #{number2}
+            </if>
+            <if test="number3 != null and number3 != ''">
+                and number3 = #{number3}
+            </if>
+            <if test="number4 != null and number4 != ''">
+                and number4 = #{number4}
+            </if>
+            <if test="number5 != null and number5 != ''">
+                and number5 = #{number5}
             </if>
             <if test="createTime != null">
                 and create_time = #{createTime}
@@ -107,11 +164,20 @@
     <!--通过Map查询指定行数据-->
     <select id="findPagerByMap" resultMap="OpenNumberMap">
         select
-          id, stage, stage_date, stage_num, stage_index, open_number, pre3_number, pre2_number, number1, number2, number3, number4, number5, curr_continued_in_count, curr_continued_out_count, curr_continued_inclined_count, create_time, update_time
+          id, ext_id, plan_id, lottery_type, stage, stage_date, stage_num, stage_index, open_number, pre3_number, pre2_number, number1, number2, number3, number4, number5, create_time, update_time
         from yjcycc_lottery.bs_open_number
         <where>
             <if test="id != null">
                 and id = #{id}
+            </if>
+            <if test="extId != null">
+                and ext_id = #{extId}
+            </if>
+            <if test="planId != null">
+                and plan_id = #{planId}
+            </if>
+            <if test="lotteryType != null">
+                and lottery_type = #{lotteryType}
             </if>
             <if test="stage != null and stage != ''">
                 and stage = #{stage}
@@ -148,15 +214,6 @@
             </if>
             <if test="number5 != null and number5 != ''">
                 and number5 = #{number5}
-            </if>
-            <if test="currContinuedInCount != null">
-                and curr_continued_in_count = #{currContinuedInCount}
-            </if>
-            <if test="currContinuedOutCount != null">
-                and curr_continued_out_count = #{currContinuedOutCount}
-            </if>
-            <if test="currContinuedInclinedCount != null">
-                and curr_continued_inclined_count = #{currContinuedInclinedCount}
             </if>
             <if test="createTime != null">
                 and create_time = #{createTime}
@@ -170,11 +227,20 @@
     <!--通过实体作为筛选条件查询-->
     <select id="findList" resultMap="OpenNumberMap">
         select
-          id, stage, stage_date, stage_num, stage_index, open_number, pre3_number, pre2_number, number1, number2, number3, number4, number5, curr_continued_in_count, curr_continued_out_count, curr_continued_inclined_count, create_time, update_time
+          id, ext_id, plan_id, lottery_type, stage, stage_date, stage_num, stage_index, open_number, pre3_number, pre2_number, number1, number2, number3, number4, number5, create_time, update_time
         from yjcycc_lottery.bs_open_number
         <where>
             <if test="id != null">
                 and id = #{id}
+            </if>
+            <if test="extId != null">
+                and ext_id = #{extId}
+            </if>
+            <if test="planId != null">
+                and plan_id = #{planId}
+            </if>
+            <if test="lotteryType != null">
+                and lottery_type = #{lotteryType}
             </if>
             <if test="stage != null and stage != ''">
                 and stage = #{stage}
@@ -211,15 +277,6 @@
             </if>
             <if test="number5 != null and number5 != ''">
                 and number5 = #{number5}
-            </if>
-            <if test="currContinuedInCount != null">
-                and curr_continued_in_count = #{currContinuedInCount}
-            </if>
-            <if test="currContinuedOutCount != null">
-                and curr_continued_out_count = #{currContinuedOutCount}
-            </if>
-            <if test="currContinuedInclinedCount != null">
-                and curr_continued_inclined_count = #{currContinuedInclinedCount}
             </if>
             <if test="createTime != null">
                 and create_time = #{createTime}
@@ -233,11 +290,20 @@
     <!--通过Map作为筛选条件查询-->
     <select id="findListByMap" resultMap="OpenNumberMap">
         select
-          id, stage, stage_date, stage_num, stage_index, open_number, pre3_number, pre2_number, number1, number2, number3, number4, number5, curr_continued_in_count, curr_continued_out_count, curr_continued_inclined_count, create_time, update_time
+          id, ext_id, plan_id, lottery_type, stage, stage_date, stage_num, stage_index, open_number, pre3_number, pre2_number, number1, number2, number3, number4, number5, create_time, update_time
         from yjcycc_lottery.bs_open_number
         <where>
             <if test="id != null">
                 and id = #{id}
+            </if>
+            <if test="extId != null">
+                and ext_id = #{extId}
+            </if>
+            <if test="planId != null">
+                and plan_id = #{planId}
+            </if>
+            <if test="lotteryType != null">
+                and lottery_type = #{lotteryType}
             </if>
             <if test="stage != null and stage != ''">
                 and stage = #{stage}
@@ -275,15 +341,6 @@
             <if test="number5 != null and number5 != ''">
                 and number5 = #{number5}
             </if>
-            <if test="currContinuedInCount != null">
-                and curr_continued_in_count = #{currContinuedInCount}
-            </if>
-            <if test="currContinuedOutCount != null">
-                and curr_continued_out_count = #{currContinuedOutCount}
-            </if>
-            <if test="currContinuedInclinedCount != null">
-                and curr_continued_inclined_count = #{currContinuedInclinedCount}
-            </if>
             <if test="createTime != null">
                 and create_time = #{createTime}
             </if>
@@ -295,14 +352,23 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into yjcycc_lottery.bs_open_number(stage, stage_date, stage_num, stage_index, open_number, pre3_number, pre2_number, number1, number2, number3, number4, number5, curr_continued_in_count, curr_continued_out_count, curr_continued_inclined_count, create_time, update_time)
-        values (#{stage}, #{stageDate}, #{stageNum}, #{stageIndex}, #{openNumber}, #{pre3Number}, #{pre2Number}, #{number1}, #{number2}, #{number3}, #{number4}, #{number5}, #{currContinuedInCount}, #{currContinuedOutCount}, #{currContinuedInclinedCount}, #{createTime}, #{updateTime})
+        insert into yjcycc_lottery.bs_open_number(ext_id, plan_id, lottery_type, stage, stage_date, stage_num, stage_index, open_number, pre3_number, pre2_number, number1, number2, number3, number4, number5, create_time, update_time)
+        values (#{extId}, #{planId}, #{lotteryType}, #{stage}, #{stageDate}, #{stageNum}, #{stageIndex}, #{openNumber}, #{pre3Number}, #{pre2Number}, #{number1}, #{number2}, #{number3}, #{number4}, #{number5}, #{createTime}, #{updateTime})
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
         update yjcycc_lottery.bs_open_number
         <set>
+            <if test="extId != null">
+                ext_id = #{extId},
+            </if>
+            <if test="planId != null">
+                plan_id = #{planId},
+            </if>
+            <if test="lotteryType != null">
+                lottery_type = #{lotteryType},
+            </if>
             <if test="stage != null and stage != ''">
                 stage = #{stage},
             </if>
@@ -339,15 +405,6 @@
             <if test="number5 != null and number5 != ''">
                 number5 = #{number5},
             </if>
-            <if test="currContinuedInCount != null">
-                curr_continued_in_count = #{currContinuedInCount},
-            </if>
-            <if test="currContinuedOutCount != null">
-                curr_continued_out_count = #{currContinuedOutCount},
-            </if>
-            <if test="currContinuedInclinedCount != null">
-                curr_continued_inclined_count = #{currContinuedInclinedCount},
-            </if>
             <if test="createTime != null">
                 create_time = #{createTime},
             </if>
@@ -369,6 +426,15 @@
         <where>
             <if test="id != null">
                 and id = #{id}
+            </if>
+            <if test="extId != null">
+                and ext_id = #{extId}
+            </if>
+            <if test="planId != null">
+                and plan_id = #{planId}
+            </if>
+            <if test="lotteryType != null">
+                and lottery_type = #{lotteryType}
             </if>
             <if test="stage != null and stage != ''">
                 and stage = #{stage}
@@ -405,15 +471,6 @@
             </if>
             <if test="number5 != null and number5 != ''">
                 and number5 = #{number5}
-            </if>
-            <if test="currContinuedInCount != null">
-                and curr_continued_in_count = #{currContinuedInCount}
-            </if>
-            <if test="currContinuedOutCount != null">
-                and curr_continued_out_count = #{currContinuedOutCount}
-            </if>
-            <if test="currContinuedInclinedCount != null">
-                and curr_continued_inclined_count = #{currContinuedInclinedCount}
             </if>
             <if test="createTime != null">
                 and create_time = #{createTime}

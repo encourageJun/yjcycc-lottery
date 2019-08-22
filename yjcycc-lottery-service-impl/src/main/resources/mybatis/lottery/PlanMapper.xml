@@ -6,15 +6,23 @@
         <result property="id" column="id" jdbcType="BIGINT"/>
         <result property="planConfigId" column="plan_config_id" jdbcType="BIGINT"/>
         <result property="status" column="status" jdbcType="INTEGER"/>
-        <result property="totalAmount" column="total_amount" jdbcType="NUMERIC"/>
+        <result property="amount" column="amount" jdbcType="OTHER"/>
+        <result property="doubleCount" column="double_count" jdbcType="INTEGER"/>
+        <result property="stageCount" column="stage_count" jdbcType="INTEGER"/>
+        <result property="totalStageCount" column="total_stage_count" jdbcType="INTEGER"/>
+        <result property="totalAmount" column="total_amount" jdbcType="OTHER"/>
+        <result property="winAmount" column="win_amount" jdbcType="OTHER"/>
+        <result property="profitAmount" column="profit_amount" jdbcType="OTHER"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+
+        <association property="planConfig" javaType="PlanConfig" column="planConfigId" select="org.yjcycc.lottery.mapper.PlanMapper.getById" />
     </resultMap>
 
     <!--通过主键查询单个-->
     <select id="getById" resultMap="PlanMap">
         select
-          id, plan_config_id, status, total_amount, create_time, update_time
+          id, plan_config_id, status, amount, double_count, stage_count, total_stage_count, total_amount, win_amount, profit_amount, create_time, update_time
         from yjcycc_lottery.bs_plan
         where id = #{id}
         limit 1
@@ -23,16 +31,7 @@
     <!--通过实体查询单个-->
     <select id="get" resultMap="PlanMap" parameterType="Plan">
         select
-          id, plan_config_id, status, total_amount, create_time, update_time
-        from yjcycc_lottery.bs_plan
-        where id = #{id}
-        limit 1
-    </select>
-
-    <!--通过实体查询指定行数据-->
-    <select id="findPager" resultMap="PlanMap">
-        select
-          id, plan_config_id, status, total_amount, create_time, update_time
+          id, plan_config_id, status, amount, double_count, stage_count, total_stage_count, total_amount, win_amount, profit_amount, create_time, update_time
         from yjcycc_lottery.bs_plan
         <where>
             <if test="id != null">
@@ -44,8 +43,72 @@
             <if test="status != null">
                 and status = #{status}
             </if>
+            <if test="amount != null">
+                and amount = #{amount}
+            </if>
+            <if test="doubleCount != null">
+                and double_count = #{doubleCount}
+            </if>
+            <if test="stageCount != null">
+                and stage_count = #{stageCount}
+            </if>
+            <if test="totalStageCount != null">
+                and total_stage_count = #{totalStageCount}
+            </if>
             <if test="totalAmount != null">
                 and total_amount = #{totalAmount}
+            </if>
+            <if test="winAmount != null">
+                and win_amount = #{winAmount}
+            </if>
+            <if test="profitAmount != null">
+                and profit_amount = #{profitAmount}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+        limit 1
+    </select>
+
+    <!--通过实体查询指定行数据-->
+    <select id="findPager" resultMap="PlanMap">
+        select
+          id, plan_config_id, status, amount, double_count, stage_count, total_stage_count, total_amount, win_amount, profit_amount, create_time, update_time
+        from yjcycc_lottery.bs_plan
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="planConfigId != null">
+                and plan_config_id = #{planConfigId}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="amount != null">
+                and amount = #{amount}
+            </if>
+            <if test="doubleCount != null">
+                and double_count = #{doubleCount}
+            </if>
+            <if test="stageCount != null">
+                and stage_count = #{stageCount}
+            </if>
+            <if test="totalStageCount != null">
+                and total_stage_count = #{totalStageCount}
+            </if>
+            <if test="totalAmount != null">
+                and total_amount = #{totalAmount}
+            </if>
+            <if test="winAmount != null">
+                and win_amount = #{winAmount}
+            </if>
+            <if test="profitAmount != null">
+                and profit_amount = #{profitAmount}
             </if>
             <if test="createTime != null">
                 and create_time = #{createTime}
@@ -59,7 +122,7 @@
     <!--通过Map查询指定行数据-->
     <select id="findPagerByMap" resultMap="PlanMap">
         select
-          id, plan_config_id, status, total_amount, create_time, update_time
+          id, plan_config_id, status, amount, double_count, stage_count, total_stage_count, total_amount, win_amount, profit_amount, create_time, update_time
         from yjcycc_lottery.bs_plan
         <where>
             <if test="id != null">
@@ -71,8 +134,26 @@
             <if test="status != null">
                 and status = #{status}
             </if>
+            <if test="amount != null">
+                and amount = #{amount}
+            </if>
+            <if test="doubleCount != null">
+                and double_count = #{doubleCount}
+            </if>
+            <if test="stageCount != null">
+                and stage_count = #{stageCount}
+            </if>
+            <if test="totalStageCount != null">
+                and total_stage_count = #{totalStageCount}
+            </if>
             <if test="totalAmount != null">
                 and total_amount = #{totalAmount}
+            </if>
+            <if test="winAmount != null">
+                and win_amount = #{winAmount}
+            </if>
+            <if test="profitAmount != null">
+                and profit_amount = #{profitAmount}
             </if>
             <if test="createTime != null">
                 and create_time = #{createTime}
@@ -86,7 +167,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="findList" resultMap="PlanMap">
         select
-          id, plan_config_id, status, total_amount, create_time, update_time
+          id, plan_config_id, status, amount, double_count, stage_count, total_stage_count, total_amount, win_amount, profit_amount, create_time, update_time
         from yjcycc_lottery.bs_plan
         <where>
             <if test="id != null">
@@ -98,8 +179,26 @@
             <if test="status != null">
                 and status = #{status}
             </if>
+            <if test="amount != null">
+                and amount = #{amount}
+            </if>
+            <if test="doubleCount != null">
+                and double_count = #{doubleCount}
+            </if>
+            <if test="stageCount != null">
+                and stage_count = #{stageCount}
+            </if>
+            <if test="totalStageCount != null">
+                and total_stage_count = #{totalStageCount}
+            </if>
             <if test="totalAmount != null">
                 and total_amount = #{totalAmount}
+            </if>
+            <if test="winAmount != null">
+                and win_amount = #{winAmount}
+            </if>
+            <if test="profitAmount != null">
+                and profit_amount = #{profitAmount}
             </if>
             <if test="createTime != null">
                 and create_time = #{createTime}
@@ -113,7 +212,7 @@
     <!--通过Map作为筛选条件查询-->
     <select id="findListByMap" resultMap="PlanMap">
         select
-          id, plan_config_id, status, total_amount, create_time, update_time
+          id, plan_config_id, status, amount, double_count, stage_count, total_stage_count, total_amount, win_amount, profit_amount, create_time, update_time
         from yjcycc_lottery.bs_plan
         <where>
             <if test="id != null">
@@ -125,8 +224,26 @@
             <if test="status != null">
                 and status = #{status}
             </if>
+            <if test="amount != null">
+                and amount = #{amount}
+            </if>
+            <if test="doubleCount != null">
+                and double_count = #{doubleCount}
+            </if>
+            <if test="stageCount != null">
+                and stage_count = #{stageCount}
+            </if>
+            <if test="totalStageCount != null">
+                and total_stage_count = #{totalStageCount}
+            </if>
             <if test="totalAmount != null">
                 and total_amount = #{totalAmount}
+            </if>
+            <if test="winAmount != null">
+                and win_amount = #{winAmount}
+            </if>
+            <if test="profitAmount != null">
+                and profit_amount = #{profitAmount}
             </if>
             <if test="createTime != null">
                 and create_time = #{createTime}
@@ -139,8 +256,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into yjcycc_lottery.bs_plan(plan_config_id, status, total_amount, create_time, update_time)
-        values (#{planConfigId}, #{status}, #{totalAmount}, #{createTime}, #{updateTime})
+        insert into yjcycc_lottery.bs_plan(plan_config_id, status, amount, double_count, stage_count, total_stage_count, total_amount, win_amount, profit_amount, create_time, update_time)
+        values (#{planConfigId}, #{status}, #{amount}, #{doubleCount}, #{stageCount}, #{totalStageCount}, #{totalAmount}, #{winAmount}, #{profitAmount}, #{createTime}, #{updateTime})
     </insert>
 
     <!--通过主键修改数据-->
@@ -153,8 +270,26 @@
             <if test="status != null">
                 status = #{status},
             </if>
+            <if test="amount != null">
+                amount = #{amount},
+            </if>
+            <if test="doubleCount != null">
+                double_count = #{doubleCount},
+            </if>
+            <if test="stageCount != null">
+                stage_count = #{stageCount},
+            </if>
+            <if test="totalStageCount != null">
+                total_stage_count = #{totalStageCount},
+            </if>
             <if test="totalAmount != null">
                 total_amount = #{totalAmount},
+            </if>
+            <if test="winAmount != null">
+                win_amount = #{winAmount},
+            </if>
+            <if test="profitAmount != null">
+                profit_amount = #{profitAmount},
             </if>
             <if test="createTime != null">
                 create_time = #{createTime},
@@ -184,8 +319,26 @@
             <if test="status != null">
                 and status = #{status}
             </if>
+            <if test="amount != null">
+                and amount = #{amount}
+            </if>
+            <if test="doubleCount != null">
+                and double_count = #{doubleCount}
+            </if>
+            <if test="stageCount != null">
+                and stage_count = #{stageCount}
+            </if>
+            <if test="totalStageCount != null">
+                and total_stage_count = #{totalStageCount}
+            </if>
             <if test="totalAmount != null">
                 and total_amount = #{totalAmount}
+            </if>
+            <if test="winAmount != null">
+                and win_amount = #{winAmount}
+            </if>
+            <if test="profitAmount != null">
+                and profit_amount = #{profitAmount}
             </if>
             <if test="createTime != null">
                 and create_time = #{createTime}

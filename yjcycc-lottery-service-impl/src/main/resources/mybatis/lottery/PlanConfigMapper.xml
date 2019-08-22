@@ -4,20 +4,24 @@
 
     <resultMap type="org.yjcycc.lottery.entity.PlanConfig" id="PlanConfigMap">
         <result property="id" column="id" jdbcType="BIGINT"/>
-        <result property="playCategoryId" column="play_category_id" jdbcType="BIGINT"/>
-        <result property="dictDoubleScheme" column="dict_double_scheme" jdbcType="INTEGER"/>
-        <result property="dictNumberScheme" column="dict_number_scheme" jdbcType="INTEGER"/>
-        <result property="dictPursueScheme" column="dict_pursue_scheme" jdbcType="INTEGER"/>
         <result property="dictAmountModel" column="dict_amount_model" jdbcType="INTEGER"/>
+        <result property="dictDoubleScheme" column="dict_double_scheme" jdbcType="INTEGER"/>
+        <result property="doubleCount" column="double_count" jdbcType="INTEGER"/>
+        <result property="dictChooseScheme" column="dict_choose_scheme" jdbcType="INTEGER"/>
+        <result property="pursueId" column="pursue_id" jdbcType="BIGINT"/>
+        <result property="danNumber" column="dan_number" jdbcType="VARCHAR"/>
+        <result property="tuoNumber" column="tuo_number" jdbcType="VARCHAR"/>
         <result property="isOccupy" column="is_occupy" jdbcType="INTEGER"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+
+        <collection property="pursueList" ofType="PursueScheme" column="plan_config_id" select="org.yjcycc.lottery.mapper.PursueSchemeMapper.getByPlanId"/>
     </resultMap>
 
     <!--通过主键查询单个-->
     <select id="getById" resultMap="PlanConfigMap">
         select
-          id, play_category_id, dict_double_scheme, dict_number_scheme, dict_pursue_scheme, dict_amount_model, is_occupy, create_time, update_time
+          id, dict_amount_model, dict_double_scheme, double_count, dict_choose_scheme, pursue_id, dan_number, tuo_number, is_occupy, create_time, update_time
         from yjcycc_lottery.bs_plan_config
         where id = #{id}
         limit 1
@@ -26,35 +30,75 @@
     <!--通过实体查询单个-->
     <select id="get" resultMap="PlanConfigMap" parameterType="PlanConfig">
         select
-          id, play_category_id, dict_double_scheme, dict_number_scheme, dict_pursue_scheme, dict_amount_model, is_occupy, create_time, update_time
+          id, dict_amount_model, dict_double_scheme, double_count, dict_choose_scheme, pursue_id, dan_number, tuo_number, is_occupy, create_time, update_time
         from yjcycc_lottery.bs_plan_config
-        where id = #{id}
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="dictAmountModel != null">
+                and dict_amount_model = #{dictAmountModel}
+            </if>
+            <if test="dictDoubleScheme != null">
+                and dict_double_scheme = #{dictDoubleScheme}
+            </if>
+            <if test="doubleCount != null">
+                and double_count = #{doubleCount}
+            </if>
+            <if test="dictChooseScheme != null">
+                and dict_choose_scheme = #{dictChooseScheme}
+            </if>
+            <if test="pursueId != null">
+                and pursue_id = #{pursueId}
+            </if>
+            <if test="danNumber != null and danNumber != ''">
+                and dan_number = #{danNumber}
+            </if>
+            <if test="tuoNumber != null and tuoNumber != ''">
+                and tuo_number = #{tuoNumber}
+            </if>
+            <if test="isOccupy != null">
+                and is_occupy = #{isOccupy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
         limit 1
     </select>
 
     <!--通过实体查询指定行数据-->
     <select id="findPager" resultMap="PlanConfigMap">
         select
-          id, play_category_id, dict_double_scheme, dict_number_scheme, dict_pursue_scheme, dict_amount_model, is_occupy, create_time, update_time
+          id, dict_amount_model, dict_double_scheme, double_count, dict_choose_scheme, pursue_id, dan_number, tuo_number, is_occupy, create_time, update_time
         from yjcycc_lottery.bs_plan_config
         <where>
             <if test="id != null">
                 and id = #{id}
             </if>
-            <if test="playCategoryId != null">
-                and play_category_id = #{playCategoryId}
+            <if test="dictAmountModel != null">
+                and dict_amount_model = #{dictAmountModel}
             </if>
             <if test="dictDoubleScheme != null">
                 and dict_double_scheme = #{dictDoubleScheme}
             </if>
-            <if test="dictNumberScheme != null">
-                and dict_number_scheme = #{dictNumberScheme}
+            <if test="doubleCount != null">
+                and double_count = #{doubleCount}
             </if>
-            <if test="dictPursueScheme != null">
-                and dict_pursue_scheme = #{dictPursueScheme}
+            <if test="dictChooseScheme != null">
+                and dict_choose_scheme = #{dictChooseScheme}
             </if>
-            <if test="dictAmountModel != null">
-                and dict_amount_model = #{dictAmountModel}
+            <if test="pursueId != null">
+                and pursue_id = #{pursueId}
+            </if>
+            <if test="danNumber != null and danNumber != ''">
+                and dan_number = #{danNumber}
+            </if>
+            <if test="tuoNumber != null and tuoNumber != ''">
+                and tuo_number = #{tuoNumber}
             </if>
             <if test="isOccupy != null">
                 and is_occupy = #{isOccupy}
@@ -71,26 +115,32 @@
     <!--通过Map查询指定行数据-->
     <select id="findPagerByMap" resultMap="PlanConfigMap">
         select
-          id, play_category_id, dict_double_scheme, dict_number_scheme, dict_pursue_scheme, dict_amount_model, is_occupy, create_time, update_time
+          id, dict_amount_model, dict_double_scheme, double_count, dict_choose_scheme, pursue_id, dan_number, tuo_number, is_occupy, create_time, update_time
         from yjcycc_lottery.bs_plan_config
         <where>
             <if test="id != null">
                 and id = #{id}
             </if>
-            <if test="playCategoryId != null">
-                and play_category_id = #{playCategoryId}
+            <if test="dictAmountModel != null">
+                and dict_amount_model = #{dictAmountModel}
             </if>
             <if test="dictDoubleScheme != null">
                 and dict_double_scheme = #{dictDoubleScheme}
             </if>
-            <if test="dictNumberScheme != null">
-                and dict_number_scheme = #{dictNumberScheme}
+            <if test="doubleCount != null">
+                and double_count = #{doubleCount}
             </if>
-            <if test="dictPursueScheme != null">
-                and dict_pursue_scheme = #{dictPursueScheme}
+            <if test="dictChooseScheme != null">
+                and dict_choose_scheme = #{dictChooseScheme}
             </if>
-            <if test="dictAmountModel != null">
-                and dict_amount_model = #{dictAmountModel}
+            <if test="pursueId != null">
+                and pursue_id = #{pursueId}
+            </if>
+            <if test="danNumber != null and danNumber != ''">
+                and dan_number = #{danNumber}
+            </if>
+            <if test="tuoNumber != null and tuoNumber != ''">
+                and tuo_number = #{tuoNumber}
             </if>
             <if test="isOccupy != null">
                 and is_occupy = #{isOccupy}
@@ -107,26 +157,32 @@
     <!--通过实体作为筛选条件查询-->
     <select id="findList" resultMap="PlanConfigMap">
         select
-          id, play_category_id, dict_double_scheme, dict_number_scheme, dict_pursue_scheme, dict_amount_model, is_occupy, create_time, update_time
+          id, dict_amount_model, dict_double_scheme, double_count, dict_choose_scheme, pursue_id, dan_number, tuo_number, is_occupy, create_time, update_time
         from yjcycc_lottery.bs_plan_config
         <where>
             <if test="id != null">
                 and id = #{id}
             </if>
-            <if test="playCategoryId != null">
-                and play_category_id = #{playCategoryId}
+            <if test="dictAmountModel != null">
+                and dict_amount_model = #{dictAmountModel}
             </if>
             <if test="dictDoubleScheme != null">
                 and dict_double_scheme = #{dictDoubleScheme}
             </if>
-            <if test="dictNumberScheme != null">
-                and dict_number_scheme = #{dictNumberScheme}
+            <if test="doubleCount != null">
+                and double_count = #{doubleCount}
             </if>
-            <if test="dictPursueScheme != null">
-                and dict_pursue_scheme = #{dictPursueScheme}
+            <if test="dictChooseScheme != null">
+                and dict_choose_scheme = #{dictChooseScheme}
             </if>
-            <if test="dictAmountModel != null">
-                and dict_amount_model = #{dictAmountModel}
+            <if test="pursueId != null">
+                and pursue_id = #{pursueId}
+            </if>
+            <if test="danNumber != null and danNumber != ''">
+                and dan_number = #{danNumber}
+            </if>
+            <if test="tuoNumber != null and tuoNumber != ''">
+                and tuo_number = #{tuoNumber}
             </if>
             <if test="isOccupy != null">
                 and is_occupy = #{isOccupy}
@@ -143,26 +199,32 @@
     <!--通过Map作为筛选条件查询-->
     <select id="findListByMap" resultMap="PlanConfigMap">
         select
-          id, play_category_id, dict_double_scheme, dict_number_scheme, dict_pursue_scheme, dict_amount_model, is_occupy, create_time, update_time
+          id, dict_amount_model, dict_double_scheme, double_count, dict_choose_scheme, pursue_id, dan_number, tuo_number, is_occupy, create_time, update_time
         from yjcycc_lottery.bs_plan_config
         <where>
             <if test="id != null">
                 and id = #{id}
             </if>
-            <if test="playCategoryId != null">
-                and play_category_id = #{playCategoryId}
+            <if test="dictAmountModel != null">
+                and dict_amount_model = #{dictAmountModel}
             </if>
             <if test="dictDoubleScheme != null">
                 and dict_double_scheme = #{dictDoubleScheme}
             </if>
-            <if test="dictNumberScheme != null">
-                and dict_number_scheme = #{dictNumberScheme}
+            <if test="doubleCount != null">
+                and double_count = #{doubleCount}
             </if>
-            <if test="dictPursueScheme != null">
-                and dict_pursue_scheme = #{dictPursueScheme}
+            <if test="dictChooseScheme != null">
+                and dict_choose_scheme = #{dictChooseScheme}
             </if>
-            <if test="dictAmountModel != null">
-                and dict_amount_model = #{dictAmountModel}
+            <if test="pursueId != null">
+                and pursue_id = #{pursueId}
+            </if>
+            <if test="danNumber != null and danNumber != ''">
+                and dan_number = #{danNumber}
+            </if>
+            <if test="tuoNumber != null and tuoNumber != ''">
+                and tuo_number = #{tuoNumber}
             </if>
             <if test="isOccupy != null">
                 and is_occupy = #{isOccupy}
@@ -178,28 +240,34 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into yjcycc_lottery.bs_plan_config(play_category_id, dict_double_scheme, dict_number_scheme, dict_pursue_scheme, dict_amount_model, is_occupy, create_time, update_time)
-        values (#{playCategoryId}, #{dictDoubleScheme}, #{dictNumberScheme}, #{dictPursueScheme}, #{dictAmountModel}, #{isOccupy}, #{createTime}, #{updateTime})
+        insert into yjcycc_lottery.bs_plan_config(dict_amount_model, dict_double_scheme, double_count, dict_choose_scheme, pursue_id, dan_number, tuo_number, is_occupy, create_time, update_time)
+        values (#{dictAmountModel}, #{dictDoubleScheme}, #{doubleCount}, #{dictChooseScheme}, #{pursueId}, #{danNumber}, #{tuoNumber}, #{isOccupy}, #{createTime}, #{updateTime})
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
         update yjcycc_lottery.bs_plan_config
         <set>
-            <if test="playCategoryId != null">
-                play_category_id = #{playCategoryId},
+            <if test="dictAmountModel != null">
+                dict_amount_model = #{dictAmountModel},
             </if>
             <if test="dictDoubleScheme != null">
                 dict_double_scheme = #{dictDoubleScheme},
             </if>
-            <if test="dictNumberScheme != null">
-                dict_number_scheme = #{dictNumberScheme},
+            <if test="doubleCount != null">
+                double_count = #{doubleCount},
             </if>
-            <if test="dictPursueScheme != null">
-                dict_pursue_scheme = #{dictPursueScheme},
+            <if test="dictChooseScheme != null">
+                dict_choose_scheme = #{dictChooseScheme},
             </if>
-            <if test="dictAmountModel != null">
-                dict_amount_model = #{dictAmountModel},
+            <if test="pursueId != null">
+                pursue_id = #{pursueId},
+            </if>
+            <if test="danNumber != null and danNumber != ''">
+                dan_number = #{danNumber},
+            </if>
+            <if test="tuoNumber != null and tuoNumber != ''">
+                tuo_number = #{tuoNumber},
             </if>
             <if test="isOccupy != null">
                 is_occupy = #{isOccupy},
@@ -226,20 +294,26 @@
             <if test="id != null">
                 and id = #{id}
             </if>
-            <if test="playCategoryId != null">
-                and play_category_id = #{playCategoryId}
+            <if test="dictAmountModel != null">
+                and dict_amount_model = #{dictAmountModel}
             </if>
             <if test="dictDoubleScheme != null">
                 and dict_double_scheme = #{dictDoubleScheme}
             </if>
-            <if test="dictNumberScheme != null">
-                and dict_number_scheme = #{dictNumberScheme}
+            <if test="doubleCount != null">
+                and double_count = #{doubleCount}
             </if>
-            <if test="dictPursueScheme != null">
-                and dict_pursue_scheme = #{dictPursueScheme}
+            <if test="dictChooseScheme != null">
+                and dict_choose_scheme = #{dictChooseScheme}
             </if>
-            <if test="dictAmountModel != null">
-                and dict_amount_model = #{dictAmountModel}
+            <if test="pursueId != null">
+                and pursue_id = #{pursueId}
+            </if>
+            <if test="danNumber != null and danNumber != ''">
+                and dan_number = #{danNumber}
+            </if>
+            <if test="tuoNumber != null and tuoNumber != ''">
+                and tuo_number = #{tuoNumber}
             </if>
             <if test="isOccupy != null">
                 and is_occupy = #{isOccupy}

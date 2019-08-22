@@ -1,39 +1,46 @@
 package org.yjcycc.lottery.entity;
 
-import java.io.Serializable;
-
 import org.apache.ibatis.type.Alias;
 import org.yjcycc.tools.common.entity.BaseEntity;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * 投注计划配置(PlanConfig)实体类
  *
- * @author makejava
- * @since 2019-08-16 18:40:21
+ * @author yangjun
+ * @since 2019-08-22 16:20:27
  */
 @Alias("PlanConfig")
 public class PlanConfig extends BaseEntity implements Serializable {
-    private static final long serialVersionUID = -79856617396494258L;
-    // 玩法类别id
-    private Long playCategoryId;
-    // 倍投方案, 数据字典:double_scheme, 1 盈利率 2 单倍
-    private Integer dictDoubleScheme;
-    // 选号方案, 数据字典:number_scheme, 1 手动设置胆码-拖码 2 统计选胆码-随机选拖码
-    private Integer dictNumberScheme;
-    // 追号方案, 数据字典:pursue_scheme, 1 多组合-胆杀 2 杀号 3 胆拖 4 杀号与胆拖交替
-    private Integer dictPursueScheme;
+    private static final long serialVersionUID = 443241460619232599L;
     // 金额模式, 字典:amount_model, 1元 10角 100分 1000厘
     private Integer dictAmountModel;
+    // 倍投方案, 数据字典:double_scheme, 1 盈利率 2 单倍
+    private Integer dictDoubleScheme;
+    // 倍数
+    private Integer doubleCount;
+    // 选号方案, 数据字典:choose_scheme, 1 手动设置胆码-拖码 2 统计选胆码-随机选拖码
+    private Integer dictChooseScheme;
+    // 追号方案id
+    private Long pursueId;
+    // 胆码
+    private String danNumber;
+    // 拖码
+    private String tuoNumber;
     // 占用状态, 0禁用 1否 2是
     private Integer isOccupy;
 
+    private List<PursueScheme> pursueList;
 
-    public Long getPlayCategoryId() {
-        return playCategoryId;
+
+    public Integer getDictAmountModel() {
+        return dictAmountModel;
     }
 
-    public void setPlayCategoryId(Long playCategoryId) {
-        this.playCategoryId = playCategoryId;
+    public void setDictAmountModel(Integer dictAmountModel) {
+        this.dictAmountModel = dictAmountModel;
     }
 
     public Integer getDictDoubleScheme() {
@@ -44,28 +51,44 @@ public class PlanConfig extends BaseEntity implements Serializable {
         this.dictDoubleScheme = dictDoubleScheme;
     }
 
-    public Integer getDictNumberScheme() {
-        return dictNumberScheme;
+    public Integer getDoubleCount() {
+        return doubleCount;
     }
 
-    public void setDictNumberScheme(Integer dictNumberScheme) {
-        this.dictNumberScheme = dictNumberScheme;
+    public void setDoubleCount(Integer doubleCount) {
+        this.doubleCount = doubleCount;
     }
 
-    public Integer getDictPursueScheme() {
-        return dictPursueScheme;
+    public Integer getDictChooseScheme() {
+        return dictChooseScheme;
     }
 
-    public void setDictPursueScheme(Integer dictPursueScheme) {
-        this.dictPursueScheme = dictPursueScheme;
+    public void setDictChooseScheme(Integer dictChooseScheme) {
+        this.dictChooseScheme = dictChooseScheme;
     }
 
-    public Integer getDictAmountModel() {
-        return dictAmountModel;
+    public Long getPursueId() {
+        return pursueId;
     }
 
-    public void setDictAmountModel(Integer dictAmountModel) {
-        this.dictAmountModel = dictAmountModel;
+    public void setPursueId(Long pursueId) {
+        this.pursueId = pursueId;
+    }
+
+    public String getDanNumber() {
+        return danNumber;
+    }
+
+    public void setDanNumber(String danNumber) {
+        this.danNumber = danNumber;
+    }
+
+    public String getTuoNumber() {
+        return tuoNumber;
+    }
+
+    public void setTuoNumber(String tuoNumber) {
+        this.tuoNumber = tuoNumber;
     }
 
     public Integer getIsOccupy() {
@@ -76,4 +99,11 @@ public class PlanConfig extends BaseEntity implements Serializable {
         this.isOccupy = isOccupy;
     }
 
+    public List<PursueScheme> getPursueList() {
+        return pursueList;
+    }
+
+    public void setPursueList(List<PursueScheme> pursueList) {
+        this.pursueList = pursueList;
+    }
 }
