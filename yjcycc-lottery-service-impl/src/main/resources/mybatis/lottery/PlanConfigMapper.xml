@@ -6,22 +6,33 @@
         <result property="id" column="id" jdbcType="BIGINT"/>
         <result property="dictAmountModel" column="dict_amount_model" jdbcType="INTEGER"/>
         <result property="dictDoubleScheme" column="dict_double_scheme" jdbcType="INTEGER"/>
+        <result property="dictLotteryType" column="dict_lottery_type" jdbcType="VARCHAR"/>
         <result property="doubleCount" column="double_count" jdbcType="INTEGER"/>
         <result property="dictChooseScheme" column="dict_choose_scheme" jdbcType="INTEGER"/>
-        <result property="pursueId" column="pursue_id" jdbcType="BIGINT"/>
         <result property="danNumber" column="dan_number" jdbcType="VARCHAR"/>
         <result property="tuoNumber" column="tuo_number" jdbcType="VARCHAR"/>
         <result property="isOccupy" column="is_occupy" jdbcType="INTEGER"/>
+        <result property="cashOutRate" column="cash_out_rate" jdbcType="NUMERIC"/>
+        <result property="executeIndex" column="execute_index" jdbcType="INTEGER"/>
+        <result property="recharge" column="recharge" jdbcType="OTHER"/>
+        <result property="totalProfitAmount" column="total_profit_amount" jdbcType="NUMERIC"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
 
-        <collection property="pursueList" ofType="PursueScheme" column="plan_config_id" select="org.yjcycc.lottery.mapper.PursueSchemeMapper.getByPlanId"/>
+        <collection property="pursueList" select="org.yjcycc.lottery.mapper.PursueSchemeMapper.getByPlanConfigId"
+                    column="{planConfigId=id}" fetchType="lazy"/>
+        <collection property="planList" select="org.yjcycc.lottery.mapper.PlanMapper.getByPlanConfigId"
+                    column="{planConfigId=id}" fetchType="lazy"/>
     </resultMap>
+    
+    <sql id="PlanConfigColumns">
+        id, dict_amount_model, dict_double_scheme, dict_lottery_type, double_count, dict_choose_scheme, dan_number, tuo_number, is_occupy, cash_out_rate, execute_index, recharge, total_profit_amount, create_time, update_time    </sql>
 
     <!--通过主键查询单个-->
     <select id="getById" resultMap="PlanConfigMap">
         select
-          id, dict_amount_model, dict_double_scheme, double_count, dict_choose_scheme, pursue_id, dan_number, tuo_number, is_occupy, create_time, update_time
+          <include refid="PlanConfigColumns"/>
+
         from yjcycc_lottery.bs_plan_config
         where id = #{id}
         limit 1
@@ -30,7 +41,8 @@
     <!--通过实体查询单个-->
     <select id="get" resultMap="PlanConfigMap" parameterType="PlanConfig">
         select
-          id, dict_amount_model, dict_double_scheme, double_count, dict_choose_scheme, pursue_id, dan_number, tuo_number, is_occupy, create_time, update_time
+          <include refid="PlanConfigColumns"/>
+
         from yjcycc_lottery.bs_plan_config
         <where>
             <if test="id != null">
@@ -42,14 +54,14 @@
             <if test="dictDoubleScheme != null">
                 and dict_double_scheme = #{dictDoubleScheme}
             </if>
+            <if test="dictLotteryType != null and dictLotteryType != ''">
+                and dict_lottery_type like concat('%',#{dictLotteryType},'%')
+            </if>
             <if test="doubleCount != null">
                 and double_count = #{doubleCount}
             </if>
             <if test="dictChooseScheme != null">
                 and dict_choose_scheme = #{dictChooseScheme}
-            </if>
-            <if test="pursueId != null">
-                and pursue_id = #{pursueId}
             </if>
             <if test="danNumber != null and danNumber != ''">
                 and dan_number = #{danNumber}
@@ -60,11 +72,20 @@
             <if test="isOccupy != null">
                 and is_occupy = #{isOccupy}
             </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
+            <if test="inIsOccupy != null and inIsOccupy != ''">
+                and is_occupy in (${inIsOccupy})
             </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
+            <if test="cashOutRate != null">
+                and cash_out_rate = #{cashOutRate}
+            </if>
+            <if test="executeIndex != null">
+                and execute_index = #{executeIndex}
+            </if>
+            <if test="recharge != null">
+                and recharge = #{recharge}
+            </if>
+            <if test="totalProfitAmount != null">
+                and total_profit_amount = #{totalProfitAmount}
             </if>
         </where>
         limit 1
@@ -73,175 +94,215 @@
     <!--通过实体查询指定行数据-->
     <select id="findPager" resultMap="PlanConfigMap">
         select
-          id, dict_amount_model, dict_double_scheme, double_count, dict_choose_scheme, pursue_id, dan_number, tuo_number, is_occupy, create_time, update_time
+          <include refid="PlanConfigColumns"/>
+
         from yjcycc_lottery.bs_plan_config
         <where>
-            <if test="id != null">
+                <if test="id != null">
                 and id = #{id}
             </if>
-            <if test="dictAmountModel != null">
+                <if test="dictAmountModel != null">
                 and dict_amount_model = #{dictAmountModel}
             </if>
-            <if test="dictDoubleScheme != null">
+                <if test="dictDoubleScheme != null">
                 and dict_double_scheme = #{dictDoubleScheme}
             </if>
-            <if test="doubleCount != null">
+                <if test="dictLotteryType != null and dictLotteryType != ''">
+                    and dict_lottery_type like concat('%',#{dictLotteryType},'%')
+            </if>
+                <if test="doubleCount != null">
                 and double_count = #{doubleCount}
             </if>
-            <if test="dictChooseScheme != null">
+                <if test="dictChooseScheme != null">
                 and dict_choose_scheme = #{dictChooseScheme}
             </if>
-            <if test="pursueId != null">
-                and pursue_id = #{pursueId}
-            </if>
-            <if test="danNumber != null and danNumber != ''">
+                <if test="danNumber != null and danNumber != ''">
                 and dan_number = #{danNumber}
             </if>
-            <if test="tuoNumber != null and tuoNumber != ''">
+                <if test="tuoNumber != null and tuoNumber != ''">
                 and tuo_number = #{tuoNumber}
             </if>
-            <if test="isOccupy != null">
+                <if test="isOccupy != null">
                 and is_occupy = #{isOccupy}
             </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
+            <if test="inIsOccupy != null and inIsOccupy != ''">
+                and is_occupy in (${inIsOccupy})
             </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
+                <if test="cashOutRate != null">
+                and cash_out_rate = #{cashOutRate}
             </if>
-        </where>
+                <if test="executeIndex != null">
+                and execute_index = #{executeIndex}
+            </if>
+                <if test="recharge != null">
+                and recharge = #{recharge}
+            </if>
+                <if test="totalProfitAmount != null">
+                and total_profit_amount = #{totalProfitAmount}
+            </if>
+                </where>
     </select>
     
     <!--通过Map查询指定行数据-->
     <select id="findPagerByMap" resultMap="PlanConfigMap">
         select
-          id, dict_amount_model, dict_double_scheme, double_count, dict_choose_scheme, pursue_id, dan_number, tuo_number, is_occupy, create_time, update_time
+          <include refid="PlanConfigColumns"/>
+
         from yjcycc_lottery.bs_plan_config
         <where>
-            <if test="id != null">
+                <if test="id != null">
                 and id = #{id}
             </if>
-            <if test="dictAmountModel != null">
+                <if test="dictAmountModel != null">
                 and dict_amount_model = #{dictAmountModel}
             </if>
-            <if test="dictDoubleScheme != null">
+                <if test="dictDoubleScheme != null">
                 and dict_double_scheme = #{dictDoubleScheme}
             </if>
-            <if test="doubleCount != null">
+                <if test="dictLotteryType != null and dictLotteryType != ''">
+                    and dict_lottery_type like concat('%',#{dictLotteryType},'%')
+            </if>
+                <if test="doubleCount != null">
                 and double_count = #{doubleCount}
             </if>
-            <if test="dictChooseScheme != null">
+                <if test="dictChooseScheme != null">
                 and dict_choose_scheme = #{dictChooseScheme}
             </if>
-            <if test="pursueId != null">
-                and pursue_id = #{pursueId}
-            </if>
-            <if test="danNumber != null and danNumber != ''">
+                <if test="danNumber != null and danNumber != ''">
                 and dan_number = #{danNumber}
             </if>
-            <if test="tuoNumber != null and tuoNumber != ''">
+                <if test="tuoNumber != null and tuoNumber != ''">
                 and tuo_number = #{tuoNumber}
             </if>
-            <if test="isOccupy != null">
+                <if test="isOccupy != null">
                 and is_occupy = #{isOccupy}
             </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
+            <if test="inIsOccupy != null and inIsOccupy != ''">
+                and is_occupy in (${inIsOccupy})
             </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
+                <if test="cashOutRate != null">
+                and cash_out_rate = #{cashOutRate}
             </if>
-        </where>
+                <if test="executeIndex != null">
+                and execute_index = #{executeIndex}
+            </if>
+                <if test="recharge != null">
+                and recharge = #{recharge}
+            </if>
+                <if test="totalProfitAmount != null">
+                and total_profit_amount = #{totalProfitAmount}
+            </if>
+                </where>
     </select>
 
     <!--通过实体作为筛选条件查询-->
     <select id="findList" resultMap="PlanConfigMap">
         select
-          id, dict_amount_model, dict_double_scheme, double_count, dict_choose_scheme, pursue_id, dan_number, tuo_number, is_occupy, create_time, update_time
+          <include refid="PlanConfigColumns"/>
+
         from yjcycc_lottery.bs_plan_config
         <where>
-            <if test="id != null">
+                <if test="id != null">
                 and id = #{id}
             </if>
-            <if test="dictAmountModel != null">
+                <if test="dictAmountModel != null">
                 and dict_amount_model = #{dictAmountModel}
             </if>
-            <if test="dictDoubleScheme != null">
+                <if test="dictDoubleScheme != null">
                 and dict_double_scheme = #{dictDoubleScheme}
             </if>
-            <if test="doubleCount != null">
+                <if test="dictLotteryType != null and dictLotteryType != ''">
+                    and dict_lottery_type like concat('%',#{dictLotteryType},'%')
+            </if>
+                <if test="doubleCount != null">
                 and double_count = #{doubleCount}
             </if>
-            <if test="dictChooseScheme != null">
+                <if test="dictChooseScheme != null">
                 and dict_choose_scheme = #{dictChooseScheme}
             </if>
-            <if test="pursueId != null">
-                and pursue_id = #{pursueId}
-            </if>
-            <if test="danNumber != null and danNumber != ''">
+                <if test="danNumber != null and danNumber != ''">
                 and dan_number = #{danNumber}
             </if>
-            <if test="tuoNumber != null and tuoNumber != ''">
+                <if test="tuoNumber != null and tuoNumber != ''">
                 and tuo_number = #{tuoNumber}
             </if>
-            <if test="isOccupy != null">
+                <if test="isOccupy != null">
                 and is_occupy = #{isOccupy}
             </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
+            <if test="inIsOccupy != null and inIsOccupy != ''">
+                and is_occupy in (${inIsOccupy})
             </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
+                <if test="cashOutRate != null">
+                and cash_out_rate = #{cashOutRate}
             </if>
-        </where>
+                <if test="executeIndex != null">
+                and execute_index = #{executeIndex}
+            </if>
+                <if test="recharge != null">
+                and recharge = #{recharge}
+            </if>
+                <if test="totalProfitAmount != null">
+                and total_profit_amount = #{totalProfitAmount}
+            </if>
+                </where>
     </select>
 
     <!--通过Map作为筛选条件查询-->
     <select id="findListByMap" resultMap="PlanConfigMap">
         select
-          id, dict_amount_model, dict_double_scheme, double_count, dict_choose_scheme, pursue_id, dan_number, tuo_number, is_occupy, create_time, update_time
+          <include refid="PlanConfigColumns"/>
+
         from yjcycc_lottery.bs_plan_config
         <where>
-            <if test="id != null">
+                <if test="id != null">
                 and id = #{id}
             </if>
-            <if test="dictAmountModel != null">
+                <if test="dictAmountModel != null">
                 and dict_amount_model = #{dictAmountModel}
             </if>
-            <if test="dictDoubleScheme != null">
+                <if test="dictDoubleScheme != null">
                 and dict_double_scheme = #{dictDoubleScheme}
             </if>
-            <if test="doubleCount != null">
+                <if test="dictLotteryType != null and dictLotteryType != ''">
+                    and dict_lottery_type like concat('%',#{dictLotteryType},'%')
+            </if>
+                <if test="doubleCount != null">
                 and double_count = #{doubleCount}
             </if>
-            <if test="dictChooseScheme != null">
+                <if test="dictChooseScheme != null">
                 and dict_choose_scheme = #{dictChooseScheme}
             </if>
-            <if test="pursueId != null">
-                and pursue_id = #{pursueId}
-            </if>
-            <if test="danNumber != null and danNumber != ''">
+                <if test="danNumber != null and danNumber != ''">
                 and dan_number = #{danNumber}
             </if>
-            <if test="tuoNumber != null and tuoNumber != ''">
+                <if test="tuoNumber != null and tuoNumber != ''">
                 and tuo_number = #{tuoNumber}
             </if>
-            <if test="isOccupy != null">
+                <if test="isOccupy != null">
                 and is_occupy = #{isOccupy}
             </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
+            <if test="inIsOccupy != null and inIsOccupy != ''">
+                and is_occupy in (${inIsOccupy})
             </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
+                <if test="cashOutRate != null">
+                and cash_out_rate = #{cashOutRate}
             </if>
-        </where>
+                <if test="executeIndex != null">
+                and execute_index = #{executeIndex}
+            </if>
+                <if test="recharge != null">
+                and recharge = #{recharge}
+            </if>
+                <if test="totalProfitAmount != null">
+                and total_profit_amount = #{totalProfitAmount}
+            </if>
+                </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into yjcycc_lottery.bs_plan_config(dict_amount_model, dict_double_scheme, double_count, dict_choose_scheme, pursue_id, dan_number, tuo_number, is_occupy, create_time, update_time)
-        values (#{dictAmountModel}, #{dictDoubleScheme}, #{doubleCount}, #{dictChooseScheme}, #{pursueId}, #{danNumber}, #{tuoNumber}, #{isOccupy}, #{createTime}, #{updateTime})
+        insert into yjcycc_lottery.bs_plan_config(dict_amount_model, dict_double_scheme, dict_lottery_type, double_count, dict_choose_scheme, dan_number, tuo_number, is_occupy, cash_out_rate, execute_index, recharge, total_profit_amount, create_time, update_time)
+        values (#{dictAmountModel}, #{dictDoubleScheme}, #{dictLotteryType}, #{doubleCount}, #{dictChooseScheme}, #{danNumber}, #{tuoNumber}, #{isOccupy}, #{cashOutRate}, #{executeIndex}, #{recharge}, #{totalProfitAmount}, #{createTime}, #{updateTime})
     </insert>
 
     <!--通过主键修改数据-->
@@ -254,14 +315,14 @@
             <if test="dictDoubleScheme != null">
                 dict_double_scheme = #{dictDoubleScheme},
             </if>
+            <if test="dictLotteryType != null and dictLotteryType != ''">
+                dict_lottery_type = #{dictLotteryType},
+            </if>
             <if test="doubleCount != null">
                 double_count = #{doubleCount},
             </if>
             <if test="dictChooseScheme != null">
                 dict_choose_scheme = #{dictChooseScheme},
-            </if>
-            <if test="pursueId != null">
-                pursue_id = #{pursueId},
             </if>
             <if test="danNumber != null and danNumber != ''">
                 dan_number = #{danNumber},
@@ -271,6 +332,18 @@
             </if>
             <if test="isOccupy != null">
                 is_occupy = #{isOccupy},
+            </if>
+            <if test="cashOutRate != null">
+                cash_out_rate = #{cashOutRate},
+            </if>
+            <if test="executeIndex != null">
+                execute_index = #{executeIndex},
+            </if>
+            <if test="recharge != null">
+                recharge = #{recharge},
+            </if>
+            <if test="totalProfitAmount != null">
+                total_profit_amount = #{totalProfitAmount},
             </if>
             <if test="createTime != null">
                 create_time = #{createTime},
@@ -291,40 +364,46 @@
     <delete id="delete">
         delete from yjcycc_lottery.bs_plan_config 
         <where>
-            <if test="id != null">
+                <if test="id != null">
                 and id = #{id}
             </if>
-            <if test="dictAmountModel != null">
+                <if test="dictAmountModel != null">
                 and dict_amount_model = #{dictAmountModel}
             </if>
-            <if test="dictDoubleScheme != null">
+                <if test="dictDoubleScheme != null">
                 and dict_double_scheme = #{dictDoubleScheme}
             </if>
-            <if test="doubleCount != null">
+                <if test="dictLotteryType != null and dictLotteryType != ''">
+                and dict_lottery_type = #{dictLotteryType}
+            </if>
+                <if test="doubleCount != null">
                 and double_count = #{doubleCount}
             </if>
-            <if test="dictChooseScheme != null">
+                <if test="dictChooseScheme != null">
                 and dict_choose_scheme = #{dictChooseScheme}
             </if>
-            <if test="pursueId != null">
-                and pursue_id = #{pursueId}
-            </if>
-            <if test="danNumber != null and danNumber != ''">
+                <if test="danNumber != null and danNumber != ''">
                 and dan_number = #{danNumber}
             </if>
-            <if test="tuoNumber != null and tuoNumber != ''">
+                <if test="tuoNumber != null and tuoNumber != ''">
                 and tuo_number = #{tuoNumber}
             </if>
-            <if test="isOccupy != null">
+                <if test="isOccupy != null">
                 and is_occupy = #{isOccupy}
             </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
+                <if test="cashOutRate != null">
+                and cash_out_rate = #{cashOutRate}
             </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
+                <if test="executeIndex != null">
+                and execute_index = #{executeIndex}
             </if>
-        </where>
+                <if test="recharge != null">
+                and recharge = #{recharge}
+            </if>
+                <if test="totalProfitAmount != null">
+                and total_profit_amount = #{totalProfitAmount}
+            </if>
+                </where>
     </delete>
 
     <!--批量删除-->
