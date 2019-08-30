@@ -1,7 +1,5 @@
 package org.yjcycc.lottery.utils;
 
-import org.yjcycc.lottery.constant.Constant;
-
 import java.util.List;
 
 public class StringUtils extends org.apache.commons.lang.StringUtils {

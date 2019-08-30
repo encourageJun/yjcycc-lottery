@@ -9,6 +9,6 @@ public class ParameterCode {
     public final static String CLOSE_TIME = "CLOSE_TIME";
 
     // 盈利率
-    public final static String PROFIT_RATE = "PROFIT_RATE";
+    public final static String PURSUE_PROFIT_RATE = "PURSUE_PROFIT_RATE";
 
 }

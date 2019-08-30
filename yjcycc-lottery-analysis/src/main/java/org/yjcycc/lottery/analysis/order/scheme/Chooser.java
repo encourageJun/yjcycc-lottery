@@ -31,12 +31,15 @@ public class Chooser {
 
     private List<OrderNumberVO> combine(PlayCategory playCategory, String danNumber, String tuoNumber) {
         List<OrderNumberVO> orderNumberList = new ArrayList<>();
-        String[] tuoNumbers = StringUtils.stringToArray(tuoNumber, Constant.SEPARATOR);
-        if (tuoNumbers != null && tuoNumbers.length > 0) {
-            for (String tuo : tuoNumbers) {
-                String orderNumber = danNumber+Constant.SEPARATOR+tuo;
-                List<OrderNumberVO> list = single(playCategory, orderNumber, tuoNumber);
-                orderNumberList.addAll(list);
+        String[] danNumbers = StringUtils.stringToArray(danNumber, Constant.VERTICAL_SEPARATOR);
+        String[] tuoNumbers = StringUtils.stringToArray(tuoNumber, Constant.VERTICAL_SEPARATOR);
+        if (danNumbers != null && danNumbers.length > 0 && tuoNumbers != null && tuoNumbers.length > 0) {
+            for (String dan : danNumbers) {
+                for (String tuo : tuoNumbers) {
+                    String orderNumber = dan + Constant.SEPARATOR + tuo;
+                    List<OrderNumberVO> list = single(playCategory, orderNumber, tuoNumber);
+                    orderNumberList.addAll(list);
+                }
             }
         }
         return orderNumberList;

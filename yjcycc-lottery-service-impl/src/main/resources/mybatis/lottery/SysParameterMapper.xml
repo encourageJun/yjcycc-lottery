@@ -20,7 +20,7 @@
     </select>
 
     <!--通过参数编码查询单个-->
-    <select id="getValueByCode" resultMap="SysParameterMap">
+    <select id="getValueByCode" resultType="java.lang.String">
         select
           value
         from yjcycc_lottery.sys_parameter
@@ -52,12 +52,6 @@
             <if test="value != null and value != ''">
                 and value = #{value}
             </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
-            </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
-            </if>
         </where>
     </select>
     
@@ -76,12 +70,7 @@
             <if test="value != null and value != ''">
                 and value = #{value}
             </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
-            </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
-            </if>
+            
         </where>
     </select>
 
@@ -100,12 +89,7 @@
             <if test="value != null and value != ''">
                 and value = #{value}
             </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
-            </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
-            </if>
+            
         </where>
     </select>
 
@@ -124,12 +108,7 @@
             <if test="value != null and value != ''">
                 and value = #{value}
             </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
-            </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
-            </if>
+            
         </where>
     </select>
 
@@ -148,9 +127,6 @@
             </if>
             <if test="value != null and value != ''">
                 value = #{value},
-            </if>
-            <if test="createTime != null">
-                create_time = #{createTime},
             </if>
             <if test="updateTime != null">
                 update_time = #{updateTime},
@@ -177,12 +153,7 @@
             <if test="value != null and value != ''">
                 and value = #{value}
             </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
-            </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
-            </if>
+            
         </where>
     </delete>
 

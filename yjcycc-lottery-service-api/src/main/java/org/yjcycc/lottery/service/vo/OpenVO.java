@@ -2,9 +2,10 @@ package org.yjcycc.lottery.service.vo;
 
 import org.yjcycc.lottery.entity.OpenNumber;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class OpenVO {
+public class OpenVO implements Serializable {
 
     private List<OpenNumber> openList;
 

@@ -2,7 +2,6 @@ package org.yjcycc.lottery.entity;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.type.Alias;
-import org.yjcycc.lottery.constant.dict.LotteryType;
 import org.yjcycc.lottery.utils.OpenNumberUtil;
 import org.yjcycc.tools.common.entity.BaseEntity;
 
@@ -19,8 +18,6 @@ public class OpenNumber extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 415821133830120891L;
     //开奖号码扩展id
     private Long extId;
-    //投注计划id
-    private Long planId;
     //11选5类别, 1:3分11选5 2:1分11选5
     private String lotteryType;
     //期号
@@ -103,14 +100,6 @@ public class OpenNumber extends BaseEntity implements Serializable {
 
     public void setExtId(Long extId) {
         this.extId = extId;
-    }
-
-    public Long getPlanId() {
-        return planId;
-    }
-
-    public void setPlanId(Long planId) {
-        this.planId = planId;
     }
 
     public String getLotteryType() {

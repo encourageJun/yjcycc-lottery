@@ -26,7 +26,7 @@ public class NumberDS extends Number {
 
     @Override
     public int getOrderCombineSize(String orderNumber) {
-        String[] orderNumberArr = StringUtils.stringToArray(orderNumber, Constant.DT_OR_DS_OR_ZX_SEPARATOR);
+        String[] orderNumberArr = StringUtils.stringToArray(orderNumber, Constant.VERTICAL_SEPARATOR);
         return orderNumberArr.length;
     }
 

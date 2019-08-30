@@ -43,7 +43,6 @@ public class NumberZX extends Number {
         vo.setOrderAmount(NumberConstant.BASE_AMOUNT.multiply(new BigDecimal(vo.getOrderCount())));
         int winCount = 0;// 中奖注数
         for (String number : orderNumberList) {
-            System.out.println("number: " + number);
             if (number.equals(vo.getOpenNumber())) {
                 winCount++;
             }
@@ -54,7 +53,7 @@ public class NumberZX extends Number {
 
     private List<String> calc(String orderNumber) {
         int singleCount = getSingleCount();
-        String[] orderNumberArr = StringUtils.stringToArray(orderNumber, Constant.DT_OR_DS_OR_ZX_SEPARATOR);
+        String[] orderNumberArr = StringUtils.stringToArray(orderNumber, Constant.VERTICAL_SEPARATOR);
         String[] orderNumberArr1 = StringUtils.stringToArray(orderNumberArr[0], Constant.SEPARATOR);
         String[] orderNumberArr2 = StringUtils.stringToArray(orderNumberArr[1], Constant.SEPARATOR);
         String[] orderNumberArr3 = null;

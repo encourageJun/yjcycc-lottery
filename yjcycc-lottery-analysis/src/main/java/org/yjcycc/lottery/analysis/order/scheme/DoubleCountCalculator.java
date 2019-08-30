@@ -16,19 +16,17 @@ public class DoubleCountCalculator {
      * @return
      */
     public DoubleCountSchemeVO calculate(DoubleCountSchemeVO vo) {
-        // 获取例子投注号码
-        String orderNumber = vo.getOrderNumber();
-        Number number = NumberConstructor.getConstructor(vo.getPlayCategory().getClassName(), vo.getPlayCategory().getSingleCount());
-        String openNumberExample = number.getOpenNumberExample(orderNumber);
-
-        // 计算中奖注数和中奖金额
-        CompareOpenVO compareOpenVO = new CompareOpenVO(vo.getPlayCategory(), orderNumber, openNumberExample);
-        Number number1 = NumberConstructor.getConstructor(vo.getPlayCategory().getClassName());
-        number1.compare(compareOpenVO);
-//        compareOpenVO = new OpenComparor().compare(compareOpenVO);
-
         // 计算倍数
         if (DoubleScheme.scheme_1.getValue() == vo.getDictDoubleScheme()) {
+            // 获取例子投注号码
+            String orderNumber = vo.getOrderNumber();
+            Number number = NumberConstructor.getConstructor(vo.getPlayCategory().getClassName(), vo.getPlayCategory().getSingleCount());
+            String openNumberExample = number.getOpenNumberExample(orderNumber);
+
+            // 计算中奖注数和中奖金额
+            CompareOpenVO compareOpenVO = new CompareOpenVO(vo.getPlayCategory(), orderNumber, openNumberExample);
+            Number number1 = NumberConstructor.getConstructor(vo.getPlayCategory().getClassName());
+            number1.compare(compareOpenVO);
             vo.setDoubleCount(calcByFormula(vo.getDoubleCount(), vo, compareOpenVO));
         } else if (DoubleScheme.scheme_2.getValue() == vo.getDictDoubleScheme()) {
             vo.setDoubleCount(vo.getDoubleCount());
@@ -45,18 +43,17 @@ public class DoubleCountCalculator {
      * @return
      */
     private int calcByFormula(int doubleCount, DoubleCountSchemeVO doubleCountSchemeVO, CompareOpenVO compareOpenVO) {
-        BigDecimal currentOrderAmount = compareOpenVO.getOrderAmount().multiply(new BigDecimal(doubleCount)).divide(new BigDecimal(doubleCountSchemeVO.getDictAmountModel())).setScale(4, BigDecimal.ROUND_UP);
+        BigDecimal currentOrderAmount = compareOpenVO.getOrderAmount().multiply(new BigDecimal(doubleCount)).divide(new BigDecimal(doubleCountSchemeVO.getDictAmountModel()), 4, BigDecimal.ROUND_UP);
         BigDecimal totalOrderAmount = doubleCountSchemeVO.getTotalOrderAmount().add(currentOrderAmount);
-        BigDecimal totalWinAmount = compareOpenVO.getWinAmount().multiply(new BigDecimal(doubleCount)).divide(new BigDecimal(doubleCountSchemeVO.getDictAmountModel())).setScale(4, BigDecimal.ROUND_UP);
-        double leftRate = totalWinAmount.subtract(totalOrderAmount).divide(totalOrderAmount).setScale(4, BigDecimal.ROUND_UP).doubleValue();
+        BigDecimal totalWinAmount = compareOpenVO.getWinAmount().multiply(new BigDecimal(doubleCount)).divide(new BigDecimal(doubleCountSchemeVO.getDictAmountModel()), 4, BigDecimal.ROUND_UP);
+        double leftRate = totalWinAmount.subtract(totalOrderAmount).divide(totalOrderAmount, 4, BigDecimal.ROUND_FLOOR).doubleValue();
         // 公式: (中奖金额 * 倍数 / 金额模式 - 投注总金额) / 投注总金额 >= 盈利率
         if (leftRate >= doubleCountSchemeVO.getProfitRate()) {
             return doubleCount;
         } else {
             doubleCount++;
-            calcByFormula(doubleCount, doubleCountSchemeVO, compareOpenVO);
+            return calcByFormula(doubleCount, doubleCountSchemeVO, compareOpenVO);
         }
-        return 0;
     }
 
 }

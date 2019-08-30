@@ -77,10 +77,10 @@ public class NumberCombine {
     }
 
     private void print(String type, List<String> targetList) {
-        System.out.println(type + ": ");
+        /*System.out.println(type + ": ");
         for (int i = 0 ; i < targetList.size(); i++) {
             System.out.println((i+1) + ": " + targetList.get(i));
-        }
+        }*/
     }
 
     public static void main(String[] args) {

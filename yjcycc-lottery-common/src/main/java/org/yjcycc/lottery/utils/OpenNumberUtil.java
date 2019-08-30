@@ -33,7 +33,7 @@ public class OpenNumberUtil {
             targetStageNum = combineStageNumFour(targetStageIndex);
         }
         String targetStageDate = currStageDate;
-        if (currStageIndex - targetStageIndex != 1) {
+        if (Math.abs(currStageIndex - targetStageIndex) != 1) {
             // 日期变化
             targetStageDate = calcTargetStageDate(currStageDate, day);
         }
@@ -60,7 +60,7 @@ public class OpenNumberUtil {
      */
     private static String calcTargetStageDate(String currStageDate, int day) {
         try {
-            return DateUtil.dateToStr(DateUtil.addDay(DateUtil.strToDate(currStageDate, DateUtil.yyyyMMdd), day));
+            return DateUtil.dateToStr(DateUtil.addDay(DateUtil.strToDate(currStageDate, DateUtil.yyyyMMdd), day), DateUtil.yyyyMMdd);
         } catch (Exception e) {
             e.printStackTrace();
         }

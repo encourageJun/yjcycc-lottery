@@ -14,7 +14,7 @@
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
 
-        <association property="playCategory" javaType="PlayCategory" column="playCategoryId" select="org.yjcycc.lottery.mapper.PlayCategoryMapper.getById" />
+        <association property="playCategory" javaType="PlayCategory" column="play_category_id" select="org.yjcycc.lottery.mapper.PlayCategoryMapper.getById" />
     </resultMap>
 
     <!--通过主键查询单个-->
@@ -24,6 +24,14 @@
         from yjcycc_lottery.bs_pursue_scheme
         where id = #{id}
         limit 1
+    </select>
+
+    <!--通过plan_config_id查询单个-->
+    <select id="getByPlanConfigId" resultMap="PursueSchemeMap">
+        select
+          id, plan_config_id, play_category_id, dict_pursue_scheme, stage_count_start, stage_count_end, stage_count, sort, create_time, update_time
+        from yjcycc_lottery.bs_pursue_scheme
+        where plan_config_id = #{planConfigId}
     </select>
     
     <!--通过实体查询单个-->
@@ -55,12 +63,6 @@
             </if>
             <if test="sort != null">
                 and sort = #{sort}
-            </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
-            </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
             </if>
         </where>
         limit 1
@@ -96,12 +98,6 @@
             <if test="sort != null">
                 and sort = #{sort}
             </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
-            </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
-            </if>
         </where>
     </select>
     
@@ -134,12 +130,6 @@
             </if>
             <if test="sort != null">
                 and sort = #{sort}
-            </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
-            </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
             </if>
         </where>
     </select>
@@ -174,12 +164,7 @@
             <if test="sort != null">
                 and sort = #{sort}
             </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
-            </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
-            </if>
+            
         </where>
     </select>
 
@@ -213,12 +198,7 @@
             <if test="sort != null">
                 and sort = #{sort}
             </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
-            </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
-            </if>
+            
         </where>
     </select>
 
@@ -252,9 +232,6 @@
             </if>
             <if test="sort != null">
                 sort = #{sort},
-            </if>
-            <if test="createTime != null">
-                create_time = #{createTime},
             </if>
             <if test="updateTime != null">
                 update_time = #{updateTime},
@@ -296,12 +273,7 @@
             <if test="sort != null">
                 and sort = #{sort}
             </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
-            </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
-            </if>
+            
         </where>
     </delete>
 

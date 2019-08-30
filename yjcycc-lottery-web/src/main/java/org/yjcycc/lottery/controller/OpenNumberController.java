@@ -47,7 +47,13 @@ public class OpenNumberController {
             return;
         }
 
+        IOpenNumberService openNumberService = (IOpenNumberService) RMIClient.getRemoteService(IOpenNumberService.class);
 
+        try {
+            openNumberService.open(openVO);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

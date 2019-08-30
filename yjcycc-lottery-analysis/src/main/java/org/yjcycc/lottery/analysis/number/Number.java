@@ -32,7 +32,7 @@ public abstract class Number {
     public String getOpenNumberExample(String orderNumber) {
         String[] orderNumberArr = StringUtils.stringToArray(orderNumber, Constant.SEPARATOR);
         int singleCount = getSingleCount();
-        if (singleCount > 5) {
+        if (orderNumberArr.length > 5) {
             return StringUtils.join(Arrays.copyOfRange(orderNumberArr, 0, 5));
         } else {
             String[] openNumberArr = new String[5];
@@ -63,7 +63,6 @@ public abstract class Number {
         OpenRule rule = new OpenRule();
         int winCount = 0;// 中奖注数
         for (String number : combineList) {
-            System.out.println("number: " + number);
             if (rule.isWin(number, vo.getOpenNumber())) {
                 winCount++;
             }

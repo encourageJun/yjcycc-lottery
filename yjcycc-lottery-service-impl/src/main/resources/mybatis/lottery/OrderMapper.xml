@@ -6,8 +6,7 @@
         <result property="id" column="id" jdbcType="BIGINT"/>
         <result property="planId" column="plan_id" jdbcType="BIGINT"/>
         <result property="playCategoryId" column="play_category_id" jdbcType="BIGINT"/>
-        <result property="lotteryType" column="lottery_type" jdbcType="VARCHAR"/>
-        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="lotteryType" column="lottery_type" jdbcType="INTEGER"/>
         <result property="dictAmountModel" column="dict_amount_model" jdbcType="INTEGER"/>
         <result property="orderNo" column="order_no" jdbcType="VARCHAR"/>
         <result property="stage" column="stage" jdbcType="VARCHAR"/>
@@ -16,20 +15,26 @@
         <result property="stageIndex" column="stage_index" jdbcType="INTEGER"/>
         <result property="number" column="number" jdbcType="VARCHAR"/>
         <result property="amount" column="amount" jdbcType="NUMERIC"/>
+        <result property="doubleCount" column="double_count" jdbcType="INTEGER"/>
         <result property="winAmount" column="win_amount" jdbcType="NUMERIC"/>
         <result property="winCount" column="win_count" jdbcType="INTEGER"/>
-        <result property="doubleCount" column="double_count" jdbcType="INTEGER"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="executeIndex" column="execute_index" jdbcType="INTEGER"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
 
-        <association property="playCategory" javaType="PlayCategory" column="playCategoryId" select="org.yjcycc.lottery.mapper.OrderMapper.getById" />
-        <association property="plan" javaType="Plan" column="planId" select="org.yjcycc.lottery.mapper.PlanMapper.getById" />
+        <association property="playCategory" javaType="PlayCategory" column="play_category_id" select="org.yjcycc.lottery.mapper.PlayCategoryMapper.getById" />
+        <association property="plan" javaType="Plan" column="plan_id" select="org.yjcycc.lottery.mapper.PlanMapper.getById" />
     </resultMap>
+    
+    <sql id="OrderColumns">
+        id, plan_id, play_category_id, lottery_type, dict_amount_model, order_no, stage, stage_date, stage_num, stage_index, number, amount, double_count, win_amount, win_count, status, execute_index, create_time, update_time    </sql>
 
     <!--通过主键查询单个-->
     <select id="getById" resultMap="OrderMap">
         select
-          id, plan_id, play_category_id, lottery_type, status, dict_amount_model, order_no, stage, stage_date, stage_num, stage_index, number, amount, win_amount, win_count, double_count, create_time, update_time
+          <include refid="OrderColumns"/>
+
         from yjcycc_lottery.bs_order
         where id = #{id}
         limit 1
@@ -38,7 +43,8 @@
     <!--通过实体查询单个-->
     <select id="get" resultMap="OrderMap" parameterType="Order">
         select
-          id, plan_id, play_category_id, lottery_type, status, dict_amount_model, order_no, stage, stage_date, stage_num, stage_index, number, amount, win_amount, win_count, double_count, create_time, update_time
+          <include refid="OrderColumns"/>
+
         from yjcycc_lottery.bs_order
         <where>
             <if test="id != null">
@@ -52,9 +58,6 @@
             </if>
             <if test="lotteryType != null">
                 and lottery_type = #{lotteryType}
-            </if>
-            <if test="status != null">
-                and status = #{status}
             </if>
             <if test="dictAmountModel != null">
                 and dict_amount_model = #{dictAmountModel}
@@ -80,20 +83,20 @@
             <if test="amount != null">
                 and amount = #{amount}
             </if>
+            <if test="doubleCount != null">
+                and double_count = #{doubleCount}
+            </if>
             <if test="winAmount != null">
                 and win_amount = #{winAmount}
             </if>
             <if test="winCount != null">
                 and win_count = #{winCount}
             </if>
-            <if test="doubleCount != null">
-                and double_count = #{doubleCount}
+            <if test="status != null">
+                and status = #{status}
             </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
-            </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
+            <if test="executeIndex != null">
+                and execute_index = #{executeIndex}
             </if>
         </where>
         limit 1
@@ -102,259 +105,251 @@
     <!--通过实体查询指定行数据-->
     <select id="findPager" resultMap="OrderMap">
         select
-          id, plan_id, play_category_id, lottery_type, status, dict_amount_model, order_no, stage, stage_date, stage_num, stage_index, number, amount, win_amount, win_count, double_count, create_time, update_time
+          <include refid="OrderColumns"/>
+
         from yjcycc_lottery.bs_order
         <where>
-            <if test="id != null">
+                <if test="id != null">
                 and id = #{id}
             </if>
-            <if test="planId != null">
+                <if test="planId != null">
                 and plan_id = #{planId}
             </if>
-            <if test="playCategoryId != null">
+                <if test="playCategoryId != null">
                 and play_category_id = #{playCategoryId}
             </if>
-            <if test="lotteryType != null">
+                <if test="lotteryType != null">
                 and lottery_type = #{lotteryType}
             </if>
-            <if test="status != null">
-                and status = #{status}
-            </if>
-            <if test="dictAmountModel != null">
+                <if test="dictAmountModel != null">
                 and dict_amount_model = #{dictAmountModel}
             </if>
-            <if test="orderNo != null and orderNo != ''">
+                <if test="orderNo != null and orderNo != ''">
                 and order_no = #{orderNo}
             </if>
-            <if test="stage != null and stage != ''">
+                <if test="stage != null and stage != ''">
                 and stage = #{stage}
             </if>
-            <if test="stageDate != null and stageDate != ''">
+                <if test="stageDate != null and stageDate != ''">
                 and stage_date = #{stageDate}
             </if>
-            <if test="stageNum != null and stageNum != ''">
+                <if test="stageNum != null and stageNum != ''">
                 and stage_num = #{stageNum}
             </if>
-            <if test="stageIndex != null">
+                <if test="stageIndex != null">
                 and stage_index = #{stageIndex}
             </if>
-            <if test="number != null and number != ''">
+                <if test="number != null and number != ''">
                 and number = #{number}
             </if>
-            <if test="amount != null">
+                <if test="amount != null">
                 and amount = #{amount}
             </if>
-            <if test="winAmount != null">
-                and win_amount = #{winAmount}
-            </if>
-            <if test="winCount != null">
-                and win_count = #{winCount}
-            </if>
-            <if test="doubleCount != null">
+                <if test="doubleCount != null">
                 and double_count = #{doubleCount}
             </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
+                <if test="winAmount != null">
+                and win_amount = #{winAmount}
             </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
+                <if test="winCount != null">
+                and win_count = #{winCount}
             </if>
-        </where>
+                <if test="status != null">
+                and status = #{status}
+            </if>
+                <if test="executeIndex != null">
+                and execute_index = #{executeIndex}
+            </if>
+                </where>
     </select>
     
     <!--通过Map查询指定行数据-->
     <select id="findPagerByMap" resultMap="OrderMap">
         select
-          id, plan_id, play_category_id, lottery_type, status, dict_amount_model, order_no, stage, stage_date, stage_num, stage_index, number, amount, win_amount, win_count, double_count, create_time, update_time
+          <include refid="OrderColumns"/>
+
         from yjcycc_lottery.bs_order
         <where>
-            <if test="id != null">
+                <if test="id != null">
                 and id = #{id}
             </if>
-            <if test="planId != null">
+                <if test="planId != null">
                 and plan_id = #{planId}
             </if>
-            <if test="playCategoryId != null">
+                <if test="playCategoryId != null">
                 and play_category_id = #{playCategoryId}
             </if>
-            <if test="lotteryType != null">
+                <if test="lotteryType != null">
                 and lottery_type = #{lotteryType}
             </if>
-            <if test="status != null">
-                and status = #{status}
-            </if>
-            <if test="dictAmountModel != null">
+                <if test="dictAmountModel != null">
                 and dict_amount_model = #{dictAmountModel}
             </if>
-            <if test="orderNo != null and orderNo != ''">
+                <if test="orderNo != null and orderNo != ''">
                 and order_no = #{orderNo}
             </if>
-            <if test="stage != null and stage != ''">
+                <if test="stage != null and stage != ''">
                 and stage = #{stage}
             </if>
-            <if test="stageDate != null and stageDate != ''">
+                <if test="stageDate != null and stageDate != ''">
                 and stage_date = #{stageDate}
             </if>
-            <if test="stageNum != null and stageNum != ''">
+                <if test="stageNum != null and stageNum != ''">
                 and stage_num = #{stageNum}
             </if>
-            <if test="stageIndex != null">
+                <if test="stageIndex != null">
                 and stage_index = #{stageIndex}
             </if>
-            <if test="number != null and number != ''">
+                <if test="number != null and number != ''">
                 and number = #{number}
             </if>
-            <if test="amount != null">
+                <if test="amount != null">
                 and amount = #{amount}
             </if>
-            <if test="winAmount != null">
-                and win_amount = #{winAmount}
-            </if>
-            <if test="winCount != null">
-                and win_count = #{winCount}
-            </if>
-            <if test="doubleCount != null">
+                <if test="doubleCount != null">
                 and double_count = #{doubleCount}
             </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
+                <if test="winAmount != null">
+                and win_amount = #{winAmount}
             </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
+                <if test="winCount != null">
+                and win_count = #{winCount}
             </if>
-        </where>
+                <if test="status != null">
+                and status = #{status}
+            </if>
+                <if test="executeIndex != null">
+                and execute_index = #{executeIndex}
+            </if>
+                </where>
     </select>
 
     <!--通过实体作为筛选条件查询-->
     <select id="findList" resultMap="OrderMap">
         select
-          id, plan_id, play_category_id, lottery_type, status, dict_amount_model, order_no, stage, stage_date, stage_num, stage_index, number, amount, win_amount, win_count, double_count, create_time, update_time
+          <include refid="OrderColumns"/>
+
         from yjcycc_lottery.bs_order
         <where>
-            <if test="id != null">
+                <if test="id != null">
                 and id = #{id}
             </if>
-            <if test="planId != null">
+                <if test="planId != null">
                 and plan_id = #{planId}
             </if>
-            <if test="playCategoryId != null">
+                <if test="playCategoryId != null">
                 and play_category_id = #{playCategoryId}
             </if>
-            <if test="lotteryType != null">
+                <if test="lotteryType != null">
                 and lottery_type = #{lotteryType}
             </if>
-            <if test="status != null">
-                and status = #{status}
-            </if>
-            <if test="dictAmountModel != null">
+                <if test="dictAmountModel != null">
                 and dict_amount_model = #{dictAmountModel}
             </if>
-            <if test="orderNo != null and orderNo != ''">
+                <if test="orderNo != null and orderNo != ''">
                 and order_no = #{orderNo}
             </if>
-            <if test="stage != null and stage != ''">
+                <if test="stage != null and stage != ''">
                 and stage = #{stage}
             </if>
-            <if test="stageDate != null and stageDate != ''">
+                <if test="stageDate != null and stageDate != ''">
                 and stage_date = #{stageDate}
             </if>
-            <if test="stageNum != null and stageNum != ''">
+                <if test="stageNum != null and stageNum != ''">
                 and stage_num = #{stageNum}
             </if>
-            <if test="stageIndex != null">
+                <if test="stageIndex != null">
                 and stage_index = #{stageIndex}
             </if>
-            <if test="number != null and number != ''">
+                <if test="number != null and number != ''">
                 and number = #{number}
             </if>
-            <if test="amount != null">
+                <if test="amount != null">
                 and amount = #{amount}
             </if>
-            <if test="winAmount != null">
-                and win_amount = #{winAmount}
-            </if>
-            <if test="winCount != null">
-                and win_count = #{winCount}
-            </if>
-            <if test="doubleCount != null">
+                <if test="doubleCount != null">
                 and double_count = #{doubleCount}
             </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
+                <if test="winAmount != null">
+                and win_amount = #{winAmount}
             </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
+                <if test="winCount != null">
+                and win_count = #{winCount}
             </if>
-        </where>
+                <if test="status != null">
+                and status = #{status}
+            </if>
+                <if test="executeIndex != null">
+                and execute_index = #{executeIndex}
+            </if>
+                </where>
     </select>
 
     <!--通过Map作为筛选条件查询-->
     <select id="findListByMap" resultMap="OrderMap">
         select
-          id, plan_id, play_category_id, lottery_type, status, dict_amount_model, order_no, stage, stage_date, stage_num, stage_index, number, amount, win_amount, win_count, double_count, create_time, update_time
+          <include refid="OrderColumns"/>
+
         from yjcycc_lottery.bs_order
         <where>
-            <if test="id != null">
+                <if test="id != null">
                 and id = #{id}
             </if>
-            <if test="planId != null">
+                <if test="planId != null">
                 and plan_id = #{planId}
             </if>
-            <if test="playCategoryId != null">
+                <if test="playCategoryId != null">
                 and play_category_id = #{playCategoryId}
             </if>
-            <if test="lotteryType != null">
+                <if test="lotteryType != null">
                 and lottery_type = #{lotteryType}
             </if>
-            <if test="status != null">
-                and status = #{status}
-            </if>
-            <if test="dictAmountModel != null">
+                <if test="dictAmountModel != null">
                 and dict_amount_model = #{dictAmountModel}
             </if>
-            <if test="orderNo != null and orderNo != ''">
+                <if test="orderNo != null and orderNo != ''">
                 and order_no = #{orderNo}
             </if>
-            <if test="stage != null and stage != ''">
+                <if test="stage != null and stage != ''">
                 and stage = #{stage}
             </if>
-            <if test="stageDate != null and stageDate != ''">
+                <if test="stageDate != null and stageDate != ''">
                 and stage_date = #{stageDate}
             </if>
-            <if test="stageNum != null and stageNum != ''">
+                <if test="stageNum != null and stageNum != ''">
                 and stage_num = #{stageNum}
             </if>
-            <if test="stageIndex != null">
+                <if test="stageIndex != null">
                 and stage_index = #{stageIndex}
             </if>
-            <if test="number != null and number != ''">
+                <if test="number != null and number != ''">
                 and number = #{number}
             </if>
-            <if test="amount != null">
+                <if test="amount != null">
                 and amount = #{amount}
             </if>
-            <if test="winAmount != null">
-                and win_amount = #{winAmount}
-            </if>
-            <if test="winCount != null">
-                and win_count = #{winCount}
-            </if>
-            <if test="doubleCount != null">
+                <if test="doubleCount != null">
                 and double_count = #{doubleCount}
             </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
+                <if test="winAmount != null">
+                and win_amount = #{winAmount}
             </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
+                <if test="winCount != null">
+                and win_count = #{winCount}
             </if>
-        </where>
+                <if test="status != null">
+                and status = #{status}
+            </if>
+                <if test="executeIndex != null">
+                and execute_index = #{executeIndex}
+            </if>
+                </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into yjcycc_lottery.bs_order(plan_id, play_category_id, lottery_type, status, dict_amount_model, order_no, stage, stage_date, stage_num, stage_index, number, amount, win_amount, win_count, double_count, create_time, update_time)
-        values (#{planId}, #{playCategoryId}, #{lotteryType}, #{status}, #{dictAmountModel}, #{orderNo}, #{stage}, #{stageDate}, #{stageNum}, #{stageIndex}, #{number}, #{amount}, #{winAmount}, #{winCount}, #{doubleCount}, #{createTime}, #{updateTime})
+        insert into yjcycc_lottery.bs_order(plan_id, play_category_id, lottery_type, dict_amount_model, order_no, stage, stage_date, stage_num, stage_index, number, amount, double_count, win_amount, win_count, status, execute_index, create_time, update_time)
+        values (#{planId}, #{playCategoryId}, #{lotteryType}, #{dictAmountModel}, #{orderNo}, #{stage}, #{stageDate}, #{stageNum}, #{stageIndex}, #{number}, #{amount}, #{doubleCount}, #{winAmount}, #{winCount}, #{status}, #{executeIndex}, #{createTime}, #{updateTime})
     </insert>
 
     <!--通过主键修改数据-->
@@ -369,9 +364,6 @@
             </if>
             <if test="lotteryType != null">
                 lottery_type = #{lotteryType},
-            </if>
-            <if test="status != null">
-                status = #{status},
             </if>
             <if test="dictAmountModel != null">
                 dict_amount_model = #{dictAmountModel},
@@ -397,17 +389,20 @@
             <if test="amount != null">
                 amount = #{amount},
             </if>
+            <if test="doubleCount != null">
+                double_count = #{doubleCount},
+            </if>
             <if test="winAmount != null">
                 win_amount = #{winAmount},
             </if>
             <if test="winCount != null">
                 win_count = #{winCount},
             </if>
-            <if test="doubleCount != null">
-                double_count = #{doubleCount},
+            <if test="status != null">
+                status = #{status},
             </if>
-            <if test="createTime != null">
-                create_time = #{createTime},
+            <if test="executeIndex != null">
+                execute_index = #{executeIndex},
             </if>
             <if test="updateTime != null">
                 update_time = #{updateTime},
@@ -425,61 +420,58 @@
     <delete id="delete">
         delete from yjcycc_lottery.bs_order 
         <where>
-            <if test="id != null">
+                <if test="id != null">
                 and id = #{id}
             </if>
-            <if test="planId != null">
+                <if test="planId != null">
                 and plan_id = #{planId}
             </if>
-            <if test="playCategoryId != null">
+                <if test="playCategoryId != null">
                 and play_category_id = #{playCategoryId}
             </if>
-            <if test="lotteryType != null">
+                <if test="lotteryType != null">
                 and lottery_type = #{lotteryType}
             </if>
-            <if test="status != null">
-                and status = #{status}
-            </if>
-            <if test="dictAmountModel != null">
+                <if test="dictAmountModel != null">
                 and dict_amount_model = #{dictAmountModel}
             </if>
-            <if test="orderNo != null and orderNo != ''">
+                <if test="orderNo != null and orderNo != ''">
                 and order_no = #{orderNo}
             </if>
-            <if test="stage != null and stage != ''">
+                <if test="stage != null and stage != ''">
                 and stage = #{stage}
             </if>
-            <if test="stageDate != null and stageDate != ''">
+                <if test="stageDate != null and stageDate != ''">
                 and stage_date = #{stageDate}
             </if>
-            <if test="stageNum != null and stageNum != ''">
+                <if test="stageNum != null and stageNum != ''">
                 and stage_num = #{stageNum}
             </if>
-            <if test="stageIndex != null">
+                <if test="stageIndex != null">
                 and stage_index = #{stageIndex}
             </if>
-            <if test="number != null and number != ''">
+                <if test="number != null and number != ''">
                 and number = #{number}
             </if>
-            <if test="amount != null">
+                <if test="amount != null">
                 and amount = #{amount}
             </if>
-            <if test="winAmount != null">
-                and win_amount = #{winAmount}
-            </if>
-            <if test="winCount != null">
-                and win_count = #{winCount}
-            </if>
-            <if test="doubleCount != null">
+                <if test="doubleCount != null">
                 and double_count = #{doubleCount}
             </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
+                <if test="winAmount != null">
+                and win_amount = #{winAmount}
             </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
+                <if test="winCount != null">
+                and win_count = #{winCount}
             </if>
-        </where>
+                <if test="status != null">
+                and status = #{status}
+            </if>
+                <if test="executeIndex != null">
+                and execute_index = #{executeIndex}
+            </if>
+                </where>
     </delete>
 
     <!--批量删除-->

@@ -38,7 +38,7 @@ public class Constant {
 
 
 	/**分隔符**/
-	public static final String SESSION_KEY_SEPARATOR = "_";
+	public static final String KEY_SEPARATOR = "_";
 
 	public final static String SEPARATOR = ",";
 
@@ -47,7 +47,7 @@ public class Constant {
 
 	// 期号分隔符
 	public final static String STAGE_SEPARATOR = "-";
-	public final static String DT_OR_DS_OR_ZX_SEPARATOR = "|";
+	public final static String VERTICAL_SEPARATOR = "\\|";
 
 
 }

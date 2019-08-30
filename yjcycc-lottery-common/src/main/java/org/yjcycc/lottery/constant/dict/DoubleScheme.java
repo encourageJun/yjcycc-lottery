@@ -4,10 +4,10 @@ public enum DoubleScheme {
 
     // 倍投方案
     // 数据字典:double_scheme
-    // 1 盈利率 2 单倍
+    // 1 盈利率 2 倍数
     
     scheme_1(1, "盈利率"),
-    scheme_2(2, "单倍"),
+    scheme_2(2, "倍数"),
     ;
 
     DoubleScheme(int value, String name) {

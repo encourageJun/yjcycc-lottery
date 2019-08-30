@@ -47,12 +47,7 @@
             <if test="balance != null">
                 and balance = #{balance}
             </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
-            </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
-            </if>
+            
         </where>
     </select>
     
@@ -74,12 +69,7 @@
             <if test="balance != null">
                 and balance = #{balance}
             </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
-            </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
-            </if>
+            
         </where>
     </select>
 
@@ -101,12 +91,7 @@
             <if test="balance != null">
                 and balance = #{balance}
             </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
-            </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
-            </if>
+            
         </where>
     </select>
 
@@ -128,12 +113,7 @@
             <if test="balance != null">
                 and balance = #{balance}
             </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
-            </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
-            </if>
+            
         </where>
     </select>
 
@@ -155,9 +135,6 @@
             </if>
             <if test="balance != null">
                 balance = #{balance},
-            </if>
-            <if test="createTime != null">
-                create_time = #{createTime},
             </if>
             <if test="updateTime != null">
                 update_time = #{updateTime},
@@ -187,12 +164,7 @@
             <if test="balance != null">
                 and balance = #{balance}
             </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
-            </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
-            </if>
+            
         </where>
     </delete>
 

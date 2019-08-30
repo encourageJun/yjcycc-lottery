@@ -19,5 +19,18 @@ public enum BalanceType {
         return this.value;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
+    public static String getNameByValue(int value) {
+        for (BalanceType dict : BalanceType.values()) {
+            if (dict.getValue() == value) {
+                return dict.getName();
+            }
+        }
+        return null;
+    }
+
 
 }

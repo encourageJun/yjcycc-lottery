@@ -21,6 +21,8 @@ public class PlayCategory extends BaseEntity implements Serializable {
     private String code;
     // 玩法类型, 数据字典:play_type, 1复式 2胆拖 3单式
     private Integer dictPlayType;
+    // 彩票种类(字典标签label)
+    private String dictLotteryType;
     // 反射类名
     private String className;
     // 单注号码个数
@@ -51,6 +53,14 @@ public class PlayCategory extends BaseEntity implements Serializable {
 
     public void setDictPlayType(Integer dictPlayType) {
         this.dictPlayType = dictPlayType;
+    }
+
+    public String getDictLotteryType() {
+        return dictLotteryType;
+    }
+
+    public void setDictLotteryType(String dictLotteryType) {
+        this.dictLotteryType = dictLotteryType;
     }
 
     public String getClassName() {

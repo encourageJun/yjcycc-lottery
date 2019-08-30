@@ -22,7 +22,7 @@ public class NumberDT extends Number {
 
     @Override
     public String getOrderNumber() {
-        return getDanNumber() + Constant.DT_OR_DS_OR_ZX_SEPARATOR + getTuoNumber();
+        return getDanNumber() + Constant.VERTICAL_SEPARATOR + getTuoNumber();
     }
 
     @Override

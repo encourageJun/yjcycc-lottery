@@ -1,10 +1,10 @@
 package org.yjcycc.lottery.entity;
 
-import java.io.Serializable;
-
 import org.apache.ibatis.type.Alias;
 import org.yjcycc.lottery.constant.NumberConstant;
 import org.yjcycc.tools.common.entity.BaseEntity;
+
+import java.io.Serializable;
 
 /**
  * 开奖号码(OpenNumberExt)实体类
@@ -107,6 +107,9 @@ public class OpenNumberExt extends BaseEntity implements Serializable {
     public OpenNumberExt() {}
 
     public OpenNumberExt(OpenNumberExt previousExt, String openNumber) {
+        if (previousExt == null) {
+            previousExt = new OpenNumberExt();
+        }
         
         if (openNumber.contains(NumberConstant.NUMBER_01)) {
             this.setContinuedInCount_01(previousExt.getContinuedInCount_01() + 1);

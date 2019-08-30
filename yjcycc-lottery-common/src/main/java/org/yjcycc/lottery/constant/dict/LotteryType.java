@@ -7,8 +7,8 @@ import org.apache.commons.lang.StringUtils;
  */
 public enum LotteryType {
 
-    TYPE_3_MINUTES(468, "3f11x5", "三分11选5"),
-    TYPE_1_MINUTES(1238, "1f11x5", "一分11选5")
+    TYPE_3_MINUTES(468, "f3_11x5", "三分11选5"),
+    TYPE_1_MINUTES(1238, "f1_11x5", "一分11选5")
     ;
 
     LotteryType(int value, String label, String name) {
@@ -34,7 +34,7 @@ public enum LotteryType {
             return null;
         }
         for (LotteryType lotteryType : LotteryType.values()) {
-            if (lotteryType.equals(label)) {
+            if (lotteryType.getLabel().equals(label)) {
                 return lotteryType;
             }
         }

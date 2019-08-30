@@ -45,6 +45,8 @@ public class Order extends BaseEntity implements Serializable {
     private Integer winCount;
     // 倍数
     private Integer doubleCount;
+    // 计划配置执行序号, 例如: 0,1,2,3...
+    private Integer executeIndex;
 
     private PlayCategory playCategory;
 
@@ -185,5 +187,13 @@ public class Order extends BaseEntity implements Serializable {
 
     public void setPlan(Plan plan) {
         this.plan = plan;
+    }
+
+    public Integer getExecuteIndex() {
+        return executeIndex;
+    }
+
+    public void setExecuteIndex(Integer executeIndex) {
+        this.executeIndex = executeIndex;
     }
 }

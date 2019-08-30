@@ -20,13 +20,18 @@ public class DoubleCountSchemeVO {
     public DoubleCountSchemeVO() {}
 
     public DoubleCountSchemeVO(int dictDoubleScheme, int dictAmountModel, PlayCategory playCategory,
-                               double profitRate, BigDecimal totalOrderAmount, String orderNumber) {
+                               double profitRate, BigDecimal totalOrderAmount, String orderNumber, int initDoubleCount) {
         this.dictDoubleScheme = dictDoubleScheme;
         this.dictAmountModel = dictAmountModel;
         this.playCategory = playCategory;
         this.profitRate = profitRate;
-        this.totalOrderAmount = totalOrderAmount;
+        if (totalOrderAmount == null) {
+            this.totalOrderAmount = BigDecimal.ZERO;
+        } else {
+            this.totalOrderAmount = totalOrderAmount;
+        }
         this.orderNumber = orderNumber;
+        this.doubleCount = initDoubleCount;
     }
 
     public int getDictDoubleScheme() {
