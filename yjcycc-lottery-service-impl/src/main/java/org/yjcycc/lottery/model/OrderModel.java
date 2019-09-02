@@ -133,7 +133,11 @@ public class OrderModel {
         int doubleCount = 0;
         int stageCount = plan.getStageCount();
         // 余额
-        UserBalance userBalance = userBalanceMapper.getById(1L);
+//        UserBalance userBalance = userBalanceMapper.getById(1L);
+
+        if (orderNumberList == null || orderNumberList.isEmpty()) {
+            return;
+        }
 
         logger.info("---------- 生成投注单. start.");
         for (OrderNumberVO vo : orderNumberList) {
@@ -171,10 +175,10 @@ public class OrderModel {
             logger.info("--------------- 投注, 投注倍数: " + vo.getDoubleCount());
 
             // 更新余额
-            BigDecimal balance = userBalance.getBalance().subtract(order.getAmount()).setScale(4, BigDecimal.ROUND_FLOOR);
-            logger.info("--------------- 投注, 余额变动, 原余额: " + userBalance.getBalance().doubleValue() + ", 现余额: " + balance.doubleValue());
-            userBalance.setBalance(balance);
-            userBalanceService.saveOrUpdate(userBalance);
+            BigDecimal balance = planConfig.getBalance().subtract(order.getAmount()).setScale(4, BigDecimal.ROUND_FLOOR);
+            logger.info("--------------- 投注, 余额变动, 原余额: " + planConfig.getBalance().doubleValue() + ", 现余额: " + balance.doubleValue());
+            planConfig.setBalance(balance);
+            planConfigService.saveOrUpdate(planConfig);
 
             // 新增余额变化记录
             UserBalanceRecord userBalanceRecord = new UserBalanceRecord();

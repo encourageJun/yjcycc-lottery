@@ -37,6 +37,8 @@ public class PlanConfig extends BaseEntity {
     private Integer executeIndex;
     // 充值金额
     private BigDecimal recharge;
+    // 余额变动
+    private BigDecimal balance;
     // 累积盈利
     private BigDecimal totalProfitAmount;
 
@@ -129,6 +131,14 @@ public class PlanConfig extends BaseEntity {
 
     public void setRecharge(BigDecimal recharge) {
         this.recharge = recharge;
+    }
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
     }
 
     public BigDecimal getTotalProfitAmount() {

@@ -189,11 +189,13 @@ public class OpenNumberServiceImpl extends BaseServiceImpl<OpenNumber> implement
             if (winAmount.compareTo(BigDecimal.ZERO) > 0) {
                 logger.info("---------- 更新余额. start.");
                 // 更新余额
-                UserBalance userBalance = userBalanceMapper.getById(1L);
-                BigDecimal balance = winAmount.add(userBalance.getBalance()).setScale(BigDecimal.ROUND_FLOOR, 4);
-                logger.info("--------------- 开奖. 余额id: " + userBalance.getId() + ", 原余额: " + userBalance.getBalance().doubleValue() + ", 现余额: " + balance.doubleValue());
-                userBalance.setBalance(balance);
-                userBalanceService.saveOrUpdate(userBalance);
+                Plan plan = planService.getById(order.getPlanId());
+                PlanConfig planConfig = plan.getPlanConfig();
+//                UserBalance userBalance = userBalanceMapper.getById(1L);
+                BigDecimal balance = winAmount.add(planConfig.getBalance()).setScale(BigDecimal.ROUND_FLOOR, 4);
+                logger.info("--------------- 开奖. 余额id: " + planConfig.getId() + ", 原余额: " + planConfig.getBalance().doubleValue() + ", 现余额: " + balance.doubleValue());
+                planConfig.setBalance(balance);
+                planConfigService.saveOrUpdate(planConfig);
                 logger.info("---------- 更新余额. next->");
 
                 logger.info("---------- 新增余额变化记录. start.");
