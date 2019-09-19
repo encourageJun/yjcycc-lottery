@@ -4,6 +4,7 @@ import org.yjcycc.lottery.analysis.number.Number;
 import org.yjcycc.lottery.analysis.number.NumberConstructor;
 import org.yjcycc.lottery.analysis.vo.OrderNumberVO;
 import org.yjcycc.lottery.constant.Constant;
+import org.yjcycc.lottery.constant.NumberConstant;
 import org.yjcycc.lottery.constant.dict.PursueSchemeDict;
 import org.yjcycc.lottery.entity.PlayCategory;
 import org.yjcycc.lottery.entity.PursueScheme;
@@ -11,8 +12,39 @@ import org.yjcycc.lottery.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Chooser {
+
+    public String randomNumber(String danNumber, int targetCount) {
+        String[] danNumbers = StringUtils.stringToArray(danNumber, Constant.VERTICAL_SEPARATOR);
+        if (danNumbers != null && danNumbers.length > 0) {
+            String tuoNumber = Constant.EMPTY;
+            for (String dan : danNumbers) {
+                String[] dans = dan.split(Constant.SEPARATOR);
+                List<String> others = new ArrayList<>();
+                for (String d : dans) {
+                    if (NumberConstant.SOURCE_NUMBER_LIST.contains(d)) {
+                        continue;
+                    }
+                    others.add(d);
+                }
+                int i = 0;
+                while (i < targetCount) {
+                    int index = (int) Math.random() * others.size();
+                    if (i != 0) {
+                        tuoNumber = Constant.SEPARATOR + tuoNumber;
+                    }
+                    tuoNumber = others.get(index) + tuoNumber;
+                }
+                if (danNumbers.length > 1) {
+                    tuoNumber = tuoNumber + Constant.VERTICAL_SEPARATOR;
+                }
+            }
+            return tuoNumber;
+        }
+        return null;
+    }
 
     public List<OrderNumberVO> getOrderNumber(PursueScheme pursueScheme, String danNumber, String tuoNumber) {
         PlayCategory playCategory = pursueScheme.getPlayCategory();

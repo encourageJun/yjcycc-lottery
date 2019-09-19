@@ -29,6 +29,10 @@ public class PlanConfig extends BaseEntity {
     private String danNumber;
     // 拖码
     private String tuoNumber;
+    // 单注胆码个数
+    private Integer danCount;
+    // 单注拖码个数
+    private Integer tuoCount;
     // 占用状态, 0禁用 1否 2是
     private Integer isOccupy;
     // 提现盈利率, 达到盈利率后提现
@@ -99,6 +103,22 @@ public class PlanConfig extends BaseEntity {
 
     public void setTuoNumber(String tuoNumber) {
         this.tuoNumber = tuoNumber;
+    }
+
+    public Integer getDanCount() {
+        return danCount;
+    }
+
+    public void setDanCount(Integer danCount) {
+        this.danCount = danCount;
+    }
+
+    public Integer getTuoCount() {
+        return tuoCount;
+    }
+
+    public void setTuoCount(Integer tuoCount) {
+        this.tuoCount = tuoCount;
     }
 
     public Integer getIsOccupy() {

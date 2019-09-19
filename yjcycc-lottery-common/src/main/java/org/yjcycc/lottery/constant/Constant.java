@@ -49,5 +49,7 @@ public class Constant {
 	public final static String STAGE_SEPARATOR = "-";
 	public final static String VERTICAL_SEPARATOR = "\\|";
 
+	public final static String EMPTY = "";
+
 
 }

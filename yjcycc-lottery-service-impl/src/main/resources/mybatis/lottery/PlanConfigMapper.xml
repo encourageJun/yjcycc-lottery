@@ -11,6 +11,8 @@
         <result property="dictChooseScheme" column="dict_choose_scheme" jdbcType="INTEGER"/>
         <result property="danNumber" column="dan_number" jdbcType="VARCHAR"/>
         <result property="tuoNumber" column="tuo_number" jdbcType="VARCHAR"/>
+        <result property="danCount" column="dan_count" jdbcType="INTEGER"/>
+        <result property="tuoCount" column="tuo_count" jdbcType="INTEGER"/>
         <result property="isOccupy" column="is_occupy" jdbcType="INTEGER"/>
         <result property="cashOutRate" column="cash_out_rate" jdbcType="NUMERIC"/>
         <result property="executeIndex" column="execute_index" jdbcType="INTEGER"/>
@@ -25,9 +27,9 @@
         <collection property="planList" select="org.yjcycc.lottery.mapper.PlanMapper.getByPlanConfigId"
                     column="{planConfigId=id}" fetchType="lazy"/>
     </resultMap>
-    
+
     <sql id="PlanConfigColumns">
-        id, dict_amount_model, dict_double_scheme, dict_lottery_type, double_count, dict_choose_scheme, dan_number, tuo_number, is_occupy, cash_out_rate, execute_index, recharge, balance, total_profit_amount, create_time, update_time    </sql>
+        id, dict_amount_model, dict_double_scheme, dict_lottery_type, double_count, dict_choose_scheme, dan_number, tuo_number, dan_count, tuo_count, is_occupy, cash_out_rate, execute_index, recharge, balance, total_profit_amount, create_time, update_time    </sql>
 
     <!--通过主键查询单个-->
     <select id="getById" resultMap="PlanConfigMap">
@@ -317,8 +319,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into yjcycc_lottery.bs_plan_config(dict_amount_model, dict_double_scheme, dict_lottery_type, double_count, dict_choose_scheme, dan_number, tuo_number, is_occupy, cash_out_rate, execute_index, recharge, balance, total_profit_amount, create_time, update_time)
-        values (#{dictAmountModel}, #{dictDoubleScheme}, #{dictLotteryType}, #{doubleCount}, #{dictChooseScheme}, #{danNumber}, #{tuoNumber}, #{isOccupy}, #{cashOutRate}, #{executeIndex}, #{recharge}, #{balance}, #{totalProfitAmount}, #{createTime}, #{updateTime})
+        insert into yjcycc_lottery.bs_plan_config(dict_amount_model, dict_double_scheme, dict_lottery_type, double_count, dict_choose_scheme, dan_number, tuo_number, dan_count, tuo_count, is_occupy, cash_out_rate, execute_index, recharge, balance, total_profit_amount, create_time, update_time)
+        values (#{dictAmountModel}, #{dictDoubleScheme}, #{dictLotteryType}, #{doubleCount}, #{dictChooseScheme}, #{danNumber}, #{tuoNumber}, #{danCount}, #{tuoCount}, #{isOccupy}, #{cashOutRate}, #{executeIndex}, #{recharge}, #{balance}, #{totalProfitAmount}, #{createTime}, #{updateTime})
     </insert>
 
     <!--通过主键修改数据-->

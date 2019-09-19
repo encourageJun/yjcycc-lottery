@@ -94,6 +94,7 @@ public class OrderModel {
     }
 
     public List<OrderNumberVO> getOrderNumber() {
+        Chooser chooser = new Chooser();
         Integer chooseScheme = planConfig.getDictChooseScheme();
         String danNumber = null;
         String tuoNumber = null;
@@ -104,6 +105,12 @@ public class OrderModel {
             // FIXME
             // 统计选码
 
+        } else if (ChooseScheme.scheme_3.getValue() == chooseScheme) {
+            danNumber = planConfig.getDanNumber();
+            if (planConfig.getTuoCount() == null) {
+                planConfig.setTuoCount(2);
+            }
+            tuoNumber = chooser.randomNumber(danNumber, planConfig.getTuoCount());
         }
         if (StringUtils.isEmpty(danNumber) || StringUtils.isEmpty(tuoNumber)) {
             logger.warn("未获取到投注计划配置中的胆码或拖码!");
@@ -114,7 +121,7 @@ public class OrderModel {
             return null;
         }
         double profitRate = Double.parseDouble(sysParameterMapper.getValueByCode(ParameterCode.PURSUE_PROFIT_RATE));
-        List<OrderNumberVO> orderNumberList = new Chooser().getOrderNumber(pursueScheme, danNumber, tuoNumber);
+        List<OrderNumberVO> orderNumberList = chooser.getOrderNumber(pursueScheme, danNumber, tuoNumber);
         for (OrderNumberVO vo : orderNumberList) {
             // 倍投方案(根据利润率计算倍数)
             DoubleCountSchemeVO doubleCountSchemeVO = new DoubleCountSchemeVO(planConfig.getDictDoubleScheme(), planConfig.getDictAmountModel(),

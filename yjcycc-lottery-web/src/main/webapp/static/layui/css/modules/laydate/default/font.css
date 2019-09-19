@@ -1,0 +1,16 @@
+/** 图标字体 **/
+@font-face {font-family: 'laydate-icon';
+  src: url('/static/layui/font/iconfont.eot');
+  src: url('/static/layui/font/iconfont.eot#iefix') format('embedded-opentype'),
+  url('/static/layui/font/iconfont.svg#iconfont') format('svg'),
+  url('/static/layui/font/iconfont.woff') format('woff'),
+  url('/static/layui/font/iconfont.ttf') format('truetype');
+}
+                    
+.laydate-icon{
+  font-family:"laydate-icon" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

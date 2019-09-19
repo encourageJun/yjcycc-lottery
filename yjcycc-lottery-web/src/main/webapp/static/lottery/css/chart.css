@@ -1,0 +1,68 @@
+table {
+    margin: 0 auto;
+    border: 1px solid #d2d2d2;
+    border-collapse:collapse;
+}
+table td {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #eeeeee;
+    text-align: center;
+    font-size: 11px;
+}
+.ball {
+    width: 23px;
+    height: 23px;
+    margin: 3px;
+
+    /*flex 布局*/
+    display: flex;
+    /*实现垂直居中*/
+    align-items: center;
+    /*实现水平居中*/
+    justify-content: center;
+
+    border-radius: 50%;
+    background-color: #009688;
+    color: #F0F0F0;
+    font-size: 11px;
+}
+.ball-bg-green {
+    background-color: #009688;
+}
+.ball-bg-blue {
+    background-color: #1E9FFF;
+}
+.ball-bg-orange {
+    background-color: #FFB800;
+}
+.ball-bg-red {
+    background-color: #FF5722;
+}
+.ball_empty {
+    width: 23px;
+    height: 23px;
+    /*flex 布局*/
+    display: flex;
+    /*实现垂直居中*/
+    align-items: center;
+    /*实现水平居中*/
+    justify-content: center;
+    color: #e2e2e2;
+    font-size: 11px;
+}
+
+#container {
+    width: 100%;
+    text-align: center;
+    /*padding: 20px;*/
+    padding-top: 20px;
+    padding-bottom: 65px;
+}
+
+.border_left {
+    border-left: 1px solid #d2d2d2;
+}
+.border_right {
+    border-right: 1px solid #d2d2d2;
+}

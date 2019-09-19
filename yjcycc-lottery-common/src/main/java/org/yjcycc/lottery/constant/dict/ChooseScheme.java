@@ -8,6 +8,7 @@ public enum ChooseScheme {
 
     scheme_1(1, "手动设置胆码-拖码"),
     scheme_2(2, "统计选胆码-随机选拖码"),
+    scheme_3(3, "手动设置胆码-随机选拖码"),
     ;
 
     private int value;

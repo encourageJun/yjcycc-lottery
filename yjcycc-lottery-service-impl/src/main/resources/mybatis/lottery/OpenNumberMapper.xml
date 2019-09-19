@@ -140,6 +140,7 @@
                 and number5 = #{number5}
             </if>
                 </where>
+          order by stage_index desc
     </select>
     
     <!--通过Map查询指定行数据-->
@@ -194,6 +195,7 @@
                 and number5 = #{number5}
             </if>
                 </where>
+           order by stage_index desc
     </select>
 
     <!--通过实体作为筛选条件查询-->
@@ -248,6 +250,7 @@
                 and number5 = #{number5}
             </if>
                 </where>
+           order by stage_index desc
     </select>
 
     <!--通过Map作为筛选条件查询-->
@@ -302,6 +305,7 @@
                 and number5 = #{number5}
             </if>
                 </where>
+           order by stage_index desc
     </select>
 
     <!--新增所有列-->
