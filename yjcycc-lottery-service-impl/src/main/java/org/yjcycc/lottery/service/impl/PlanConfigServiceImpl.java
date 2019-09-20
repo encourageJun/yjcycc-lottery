@@ -7,6 +7,9 @@ import org.yjcycc.tools.common.service.impl.BaseServiceImpl;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 投注计划配置(PlanConfig)表服务实现类
@@ -24,4 +27,13 @@ public class PlanConfigServiceImpl extends BaseServiceImpl<PlanConfig> implement
     private void initMapper(PlanConfigMapper planConfigMapper) {
         this.setBaseMapper(planConfigMapper);
     }
+
+    @Override
+    public List<PlanConfig> getPlanConfigList(String inIsOccupys, String lotteryType)  {
+        Map<String,Object> planConfigMap = new HashMap<>();
+        planConfigMap.put("inIsOccupy", inIsOccupys); // 2,3
+        planConfigMap.put("dictLotteryType", lotteryType);
+        return planConfigMapper.findListByMap(planConfigMap);
+    }
+
 }

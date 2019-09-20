@@ -1,12 +1,14 @@
 package org.yjcycc.lottery.service.impl;
 
 import org.yjcycc.lottery.entity.Plan;
+import org.yjcycc.lottery.entity.PlanConfig;
 import org.yjcycc.lottery.mapper.PlanMapper;
 import org.yjcycc.lottery.service.IPlanService;
 import org.yjcycc.tools.common.service.impl.BaseServiceImpl;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 投注计划(Plan)表服务实现类
@@ -24,4 +26,13 @@ public class PlanServiceImpl extends BaseServiceImpl<Plan> implements IPlanServi
     private void initMapper(PlanMapper planMapper) {
         this.setBaseMapper(planMapper);
     }
+
+    public List<Plan> getPlanList(Long planConfigId, Integer planStatus, String lotteryType) {
+        Plan planParam = new Plan();
+        planParam.setPlanConfigId(planConfigId);
+        planParam.setStatus(planStatus); // PlanStatus.status_0.getValue()
+        planParam.setDictLotteryType(lotteryType);
+        return planMapper.findList(planParam);
+    }
+
 }

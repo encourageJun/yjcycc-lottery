@@ -3,6 +3,9 @@ package org.yjcycc.lottery.service;
 import org.yjcycc.lottery.entity.Order;
 import org.yjcycc.tools.common.service.BaseService;
 
+import java.rmi.RemoteException;
+import java.util.List;
+
 /**
  * 投注单(Order)表服务接口
  *
@@ -11,5 +14,8 @@ import org.yjcycc.tools.common.service.BaseService;
  */
 public interface IOrderService extends BaseService<Order> {
 
+    List<Order> getOrderList(String stage, String lotteryType) throws Exception;
+
+    List<Order> getOrderListByPlanId(Long planId) throws Exception;
 
 }

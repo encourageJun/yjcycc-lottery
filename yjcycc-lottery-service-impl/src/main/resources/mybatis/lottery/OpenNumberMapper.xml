@@ -24,6 +24,15 @@
         <association property="ext" javaType="OpenNumberExt" column="ext_id" select="org.yjcycc.lottery.mapper.OpenNumberExtMapper.getById" />
     </resultMap>
 
+    <select id="getLastOpen" resultMap="OpenNumberMap">
+        select
+            id, ext_id, lottery_type, stage, stage_date, stage_num, stage_index, open_number, pre3_number, pre2_number, number1, number2, number3, number4, number5, create_time, update_time
+        from yjcycc_lottery.bs_open_number
+        where lottery_type = #{lotteryType}
+        order by stage_index desc
+        limit 1
+    </select>
+
     <!--通过主键查询单个-->
     <select id="getById" resultMap="OpenNumberMap">
         select

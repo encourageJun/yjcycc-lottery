@@ -16,36 +16,6 @@ import java.util.Random;
 
 public class Chooser {
 
-    public String randomNumber(String danNumber, int targetCount) {
-        String[] danNumbers = StringUtils.stringToArray(danNumber, Constant.VERTICAL_SEPARATOR);
-        if (danNumbers != null && danNumbers.length > 0) {
-            String tuoNumber = Constant.EMPTY;
-            for (String dan : danNumbers) {
-                String[] dans = dan.split(Constant.SEPARATOR);
-                List<String> others = new ArrayList<>();
-                for (String d : dans) {
-                    if (NumberConstant.SOURCE_NUMBER_LIST.contains(d)) {
-                        continue;
-                    }
-                    others.add(d);
-                }
-                int i = 0;
-                while (i < targetCount) {
-                    int index = (int) Math.random() * others.size();
-                    if (i != 0) {
-                        tuoNumber = Constant.SEPARATOR + tuoNumber;
-                    }
-                    tuoNumber = others.get(index) + tuoNumber;
-                }
-                if (danNumbers.length > 1) {
-                    tuoNumber = tuoNumber + Constant.VERTICAL_SEPARATOR;
-                }
-            }
-            return tuoNumber;
-        }
-        return null;
-    }
-
     public List<OrderNumberVO> getOrderNumber(PursueScheme pursueScheme, String danNumber, String tuoNumber) {
         PlayCategory playCategory = pursueScheme.getPlayCategory();
         PursueSchemeDict dict = PursueSchemeDict.getByValue(pursueScheme.getDictPursueScheme());
@@ -63,8 +33,8 @@ public class Chooser {
 
     private List<OrderNumberVO> combine(PlayCategory playCategory, String danNumber, String tuoNumber) {
         List<OrderNumberVO> orderNumberList = new ArrayList<>();
-        String[] danNumbers = StringUtils.stringToArray(danNumber, Constant.VERTICAL_SEPARATOR);
-        String[] tuoNumbers = StringUtils.stringToArray(tuoNumber, Constant.VERTICAL_SEPARATOR);
+        String[] danNumbers = StringUtils.stringToArray(danNumber, Constant.ESCAPE_VERTICAL_SEPARATOR);
+        String[] tuoNumbers = StringUtils.stringToArray(tuoNumber, Constant.ESCAPE_VERTICAL_SEPARATOR);
         if (danNumbers != null && danNumbers.length > 0 && tuoNumbers != null && tuoNumbers.length > 0) {
             for (String dan : danNumbers) {
                 for (String tuo : tuoNumbers) {

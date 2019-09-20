@@ -78,6 +78,14 @@ public class OpenNumber extends BaseEntity implements Serializable {
         this.lotteryType = lotteryType;
     }
 
+    public OpenNumber getPreviousOpenNumber() {
+        return new OpenNumber(getPreviousStage(), this.openNumber, this.lotteryType);
+    }
+
+    public OpenNumber getNextOpenNumber() {
+        return new OpenNumber(getNextStage(), this.openNumber, this.lotteryType);
+    }
+
     /**
      * 获取上一期期号
      * @return

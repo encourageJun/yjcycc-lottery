@@ -53,7 +53,7 @@ public class NumberZX extends Number {
 
     private List<String> calc(String orderNumber) {
         int singleCount = getSingleCount();
-        String[] orderNumberArr = StringUtils.stringToArray(orderNumber, Constant.VERTICAL_SEPARATOR);
+        String[] orderNumberArr = StringUtils.stringToArray(orderNumber, Constant.ESCAPE_VERTICAL_SEPARATOR);
         String[] orderNumberArr1 = StringUtils.stringToArray(orderNumberArr[0], Constant.SEPARATOR);
         String[] orderNumberArr2 = StringUtils.stringToArray(orderNumberArr[1], Constant.SEPARATOR);
         String[] orderNumberArr3 = null;

@@ -13,6 +13,7 @@ public class DoubleCountSchemeVO {
     private double profitRate; // 盈利率
     private BigDecimal totalOrderAmount; // 往期累积投注金额
     private String orderNumber; // 投注号码
+    private int combineCount; // 计划有几组号码, 例: [01,02] [01,03], 共2组
 
     // 计算后填充值
     private int doubleCount = 1; // 倍数, 默认初始倍数为1
@@ -20,7 +21,8 @@ public class DoubleCountSchemeVO {
     public DoubleCountSchemeVO() {}
 
     public DoubleCountSchemeVO(int dictDoubleScheme, int dictAmountModel, PlayCategory playCategory,
-                               double profitRate, BigDecimal totalOrderAmount, String orderNumber, int initDoubleCount) {
+                               double profitRate, BigDecimal totalOrderAmount, String orderNumber,
+                               int initDoubleCount, int combineCount) {
         this.dictDoubleScheme = dictDoubleScheme;
         this.dictAmountModel = dictAmountModel;
         this.playCategory = playCategory;
@@ -32,6 +34,7 @@ public class DoubleCountSchemeVO {
         }
         this.orderNumber = orderNumber;
         this.doubleCount = initDoubleCount;
+        this.combineCount = combineCount;
     }
 
     public int getDictDoubleScheme() {
@@ -88,5 +91,13 @@ public class DoubleCountSchemeVO {
 
     public void setOrderNumber(String orderNumber) {
         this.orderNumber = orderNumber;
+    }
+
+    public int getCombineCount() {
+        return combineCount;
+    }
+
+    public void setCombineCount(int combineCount) {
+        this.combineCount = combineCount;
     }
 }

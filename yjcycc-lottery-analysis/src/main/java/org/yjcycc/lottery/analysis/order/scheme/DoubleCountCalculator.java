@@ -44,7 +44,7 @@ public class DoubleCountCalculator {
      */
     private int calcByFormula(int doubleCount, DoubleCountSchemeVO doubleCountSchemeVO, CompareOpenVO compareOpenVO) {
         BigDecimal currentOrderAmount = compareOpenVO.getOrderAmount().multiply(new BigDecimal(doubleCount)).divide(new BigDecimal(doubleCountSchemeVO.getDictAmountModel()), 4, BigDecimal.ROUND_UP);
-        BigDecimal totalOrderAmount = doubleCountSchemeVO.getTotalOrderAmount().add(currentOrderAmount);
+        BigDecimal totalOrderAmount = doubleCountSchemeVO.getTotalOrderAmount().add(currentOrderAmount.multiply(new BigDecimal(doubleCountSchemeVO.getCombineCount())));
         BigDecimal totalWinAmount = compareOpenVO.getWinAmount().multiply(new BigDecimal(doubleCount)).divide(new BigDecimal(doubleCountSchemeVO.getDictAmountModel()), 4, BigDecimal.ROUND_UP);
         double leftRate = totalWinAmount.subtract(totalOrderAmount).divide(totalOrderAmount, 4, BigDecimal.ROUND_FLOOR).doubleValue();
         // 公式: (中奖金额 * 倍数 / 金额模式 - 投注总金额) / 投注总金额 >= 盈利率

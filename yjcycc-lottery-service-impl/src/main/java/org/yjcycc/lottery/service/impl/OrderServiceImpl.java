@@ -7,6 +7,7 @@ import org.yjcycc.tools.common.service.impl.BaseServiceImpl;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 投注单(Order)表服务实现类
@@ -24,4 +25,20 @@ public class OrderServiceImpl extends BaseServiceImpl<Order> implements IOrderSe
     private void initMapper(OrderMapper orderMapper) {
         this.setBaseMapper(orderMapper);
     }
+
+    @Override
+    public List<Order> getOrderList(String stage, String lotteryType) {
+        Order orderParam = new Order();
+        orderParam.setStage(stage);
+        orderParam.setLotteryType(lotteryType);
+        return orderMapper.findList(orderParam);
+    }
+
+    @Override
+    public List<Order> getOrderListByPlanId(Long planId) {
+        Order orderParam = new Order();
+        orderParam.setPlanId(planId);
+        return orderMapper.findList(orderParam);
+    }
+
 }

@@ -47,7 +47,9 @@ public class Constant {
 
 	// 期号分隔符
 	public final static String STAGE_SEPARATOR = "-";
-	public final static String VERTICAL_SEPARATOR = "\\|";
+	public final static String VERTICAL_SEPARATOR = "|";
+	public final static String ESCAPE_VERTICAL_SEPARATOR = "\\|";
+
 
 	public final static String EMPTY = "";
 

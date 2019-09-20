@@ -14,6 +14,6 @@ import java.rmi.RemoteException;
  */
 public interface IOpenNumberService extends BaseService<OpenNumber> {
 
-    void open(OpenVO openVO) throws RemoteException;
+    void open(OpenVO openVO) throws RemoteException, Exception;
 
 }

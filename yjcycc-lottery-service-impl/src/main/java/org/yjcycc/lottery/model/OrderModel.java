@@ -1,15 +1,14 @@
 package org.yjcycc.lottery.model;
 
 import org.apache.log4j.Logger;
+import org.yjcycc.lottery.analysis.number.RandomNumber;
 import org.yjcycc.lottery.analysis.order.scheme.Chooser;
 import org.yjcycc.lottery.analysis.order.scheme.DoubleCountCalculator;
 import org.yjcycc.lottery.analysis.vo.DoubleCountSchemeVO;
 import org.yjcycc.lottery.analysis.vo.OrderNumberVO;
+import org.yjcycc.lottery.constant.Constant;
 import org.yjcycc.lottery.constant.NumberConstant;
-import org.yjcycc.lottery.constant.dict.BalanceType;
-import org.yjcycc.lottery.constant.dict.ChooseScheme;
-import org.yjcycc.lottery.constant.dict.OrderStatus;
-import org.yjcycc.lottery.constant.dict.PursueSchemeDict;
+import org.yjcycc.lottery.constant.dict.*;
 import org.yjcycc.lottery.constant.parameter.ParameterCode;
 import org.yjcycc.lottery.entity.*;
 import org.yjcycc.lottery.mapper.PlayCategoryMapper;
@@ -22,15 +21,14 @@ import java.math.BigDecimal;
 import java.rmi.RemoteException;
 import java.util.List;
 
+/**
+ * 投注过程
+ */
 public class OrderModel {
 
     private Logger logger = Logger.getLogger(OrderModel.class);
 
-    private String lotteryType;
-
-    private Plan plan;
-
-    private PlanConfig planConfig;
+    private OpenNumber nextOpenNumber;
 
     private SysParameterMapper sysParameterMapper;
     private UserBalanceMapper userBalanceMapper;
@@ -43,108 +41,112 @@ public class OrderModel {
     private IPlanConfigService planConfigService;
 
 
-    public PursueScheme getPursueScheme() {
-        List<PursueScheme> pursueList = planConfig.getPursueList();
-        if (pursueList == null || pursueList.isEmpty()) {
-            logger.warn("未获取到投注计划配置中的追号方案!");
-            return null;
+    /**
+     * 投注过程
+     * @throws Exception
+     */
+    public void process() throws Exception {
+        // 投注开关
+        String pollSwitch = sysParameterMapper.getValueByCode(ParameterCode.ORDER_SWITCH); // 投注开关, 0关 1开
+        if (StringUtils.isEmpty(pollSwitch) || pollSwitch.equals(Constant.STRING_ZERO)) {
+            logger.warn("---------- 投注. 投注开关: 未开启! end.");
+            return;
         }
-        PursueScheme pursueScheme = null;
-        PlayCategory playCategory = null;
-        int totalStageCount = 0;
-        Integer stageCount = plan.getStageCount();
-        if (stageCount == null || stageCount == 0) {
-            stageCount = 1;
-        } else {
-            stageCount++;
+        logger.info("---------- 投注. 投注开关: 已开启");
+
+        // 获取未占用的计划配置
+        List<PlanConfig> planConfigList = planConfigService.getPlanConfigList("1,2", nextOpenNumber.getLotteryType());
+        if (planConfigList == null || planConfigList.isEmpty()) {
+            logger.warn("---------- 投注. 未获取到继续投注的投注计划配置! end");
+            logger.info("-------------------- 投注. 根据投注计划配置生成投注单. end.");
+            return;
         }
-        plan.setStageCount(stageCount);
-        for (PursueScheme pursue : pursueList) {
-            playCategory = playCategoryMapper.getById(pursue.getPlayCategoryId());
-            if (!lotteryType.equals(playCategory.getDictLotteryType())) {
-                continue;
-            }
-            if (pursue.getStageCountStart() <= stageCount && pursue.getStageCountEnd() >= stageCount) {
-                pursueScheme = pursue;
-                if (pursue.getDictPursueScheme() == PursueSchemeDict.scheme_4.getValue()) {
-                    if (plan.getStageCount() % 2 == 1) {
-                        for (PursueScheme pur : pursueList) {
-                            if (pur.getDictPursueScheme() == PursueSchemeDict.scheme_2.getValue()) {
-                                pursueScheme = pur;
-                            }
-                        }
-                    } else {
-                        for (PursueScheme pur : pursueList) {
-                            if (pur.getDictPursueScheme() == PursueSchemeDict.scheme_3.getValue()) {
-                                pursueScheme = pur;
-                            }
+        logger.info("--------------- 投注. 继续投注的计划配置数: " + planConfigList.size());
+
+        for (PlanConfig planConfig : planConfigList) {
+            if (planConfig.getIsOccupy() == 1) { // 未占用, 生成新计划
+                // 新增计划
+                logger.info("---------- 新增计划. start.");
+                Plan plan = createNewPlan(planConfig.getId());
+                logger.info("---------- 新增计划. next->");
+
+                // 新计划投注
+                logger.info("---------- 新计划投注. start.");
+                order(plan, planConfig);
+                logger.info("---------- 新计划投注. next->");
+            } else { // 已占用, 继续投注
+                // 获取追号中的投注计划
+                List<Plan> planList = planService.getPlanList(planConfig.getId(), PlanStatus.status_0.getValue(), nextOpenNumber.getLotteryType());
+                if (planList == null || planList.isEmpty()) {
+                    logger.warn("---------- 未获取到追号中的投注计划!. next->");
+                    // 新增计划
+                    logger.info("---------- 新增计划. start.");
+                    Plan plan = createNewPlan(planConfig.getId());
+                    logger.info("---------- 新增计划. next->");
+
+                    // 新计划投注
+                    logger.info("---------- 新计划投注. start.");
+                    order(plan, planConfig);
+                    logger.info("---------- 新计划投注. next->");
+                } else {
+                    logger.info("--------------- 投注. 投注计划数: " + planList.size());
+                    logger.info("---------- 获取追号中的投注计划. next->");
+
+                    for (Plan plan : planList) {
+                        if (planList == null || planList.isEmpty()) {
+                            logger.warn("---------- 未获取到追号中的投注计划!. next->");
+                        } else {
+                            logger.info("---------- 追号中计划投注. start.");
+                            order(plan, planConfig);
+                            logger.info("---------- 追号中计划投注. next->");
                         }
                     }
                 }
             }
-            totalStageCount = totalStageCount + pursue.getStageCount();
         }
-        if (totalStageCount < stageCount) {
-            return null;
-        }
-        plan.setTotalStageCount(totalStageCount);
-        playCategory = playCategoryMapper.getById(pursueScheme.getPlayCategoryId());
-        pursueScheme.setPlayCategory(playCategory);
-        return pursueScheme;
+
     }
 
-    public List<OrderNumberVO> getOrderNumber() {
-        Chooser chooser = new Chooser();
-        Integer chooseScheme = planConfig.getDictChooseScheme();
-        String danNumber = null;
-        String tuoNumber = null;
-        if (ChooseScheme.scheme_1.getValue() == chooseScheme) {
-            danNumber = planConfig.getDanNumber();
-            tuoNumber = planConfig.getTuoNumber();
-        } else if (ChooseScheme.scheme_2.getValue() == chooseScheme) {
-            // FIXME
-            // 统计选码
-
-        } else if (ChooseScheme.scheme_3.getValue() == chooseScheme) {
-            danNumber = planConfig.getDanNumber();
-            if (planConfig.getTuoCount() == null) {
-                planConfig.setTuoCount(2);
-            }
-            tuoNumber = chooser.randomNumber(danNumber, planConfig.getTuoCount());
-        }
-        if (StringUtils.isEmpty(danNumber) || StringUtils.isEmpty(tuoNumber)) {
-            logger.warn("未获取到投注计划配置中的胆码或拖码!");
-            return null;
-        }
-        PursueScheme pursueScheme = getPursueScheme();
-        if (pursueScheme == null) {
-            return null;
-        }
-        double profitRate = Double.parseDouble(sysParameterMapper.getValueByCode(ParameterCode.PURSUE_PROFIT_RATE));
-        List<OrderNumberVO> orderNumberList = chooser.getOrderNumber(pursueScheme, danNumber, tuoNumber);
-        for (OrderNumberVO vo : orderNumberList) {
-            // 倍投方案(根据利润率计算倍数)
-            DoubleCountSchemeVO doubleCountSchemeVO = new DoubleCountSchemeVO(planConfig.getDictDoubleScheme(), planConfig.getDictAmountModel(),
-                    pursueScheme.getPlayCategory(), profitRate, plan.getTotalAmount(), vo.getOrderNumber(), planConfig.getDoubleCount());
-            doubleCountSchemeVO = new DoubleCountCalculator().calculate(doubleCountSchemeVO);
-            vo.setDoubleCount(doubleCountSchemeVO.getDoubleCount());
-        }
-        return orderNumberList;
+    /**
+     * 新增计划
+     * @param planConfigId
+     * @return
+     * @throws Exception
+     */
+    private Plan createNewPlan(Long planConfigId) throws Exception {
+        // 新增投注计划
+        Plan plan = new Plan();
+        plan.setPlanConfigId(planConfigId);
+        plan.setStatus(0); // 中奖状态, 字典:plan_status, 0追号中 1未中奖 2已中奖
+        plan.setDictLotteryType(nextOpenNumber.getLotteryType());
+        plan.setExecuteIndex(0);
+        plan.setStageCount(0);
+        plan.setTotalStageCount(0);
+        plan.setWinAmount(BigDecimal.ZERO);
+        plan.setProfitAmount(BigDecimal.ZERO);
+        planService.saveOrUpdate(plan);
+        logger.info("--------------- 投注. 新增投注计划id: " + plan.getId());
+        return plan;
     }
 
-    public void process(List<OrderNumberVO> orderNumberList, OpenNumber openNumber) throws RemoteException, Exception {
-        OpenNumber nextOpenNumber = new OpenNumber(openNumber.getNextStage(), openNumber.getOpenNumber(), openNumber.getLotteryType());
+    /**
+     * 投注
+     * @param plan
+     * @param planConfig
+     * @throws RemoteException
+     * @throws Exception
+     */
+    private void order(Plan plan, PlanConfig planConfig) throws RemoteException, Exception {
+        // 获取投注号码
+        List<OrderNumberVO> orderNumberList = getOrderNumber(plan, planConfig);
+        if (orderNumberList == null || orderNumberList.isEmpty()) {
+            return;
+        }
 
         // 当期计划投注总额
         BigDecimal orderAmount = BigDecimal.ZERO;
         int doubleCount = 0;
         int stageCount = plan.getStageCount();
-        // 余额
-//        UserBalance userBalance = userBalanceMapper.getById(1L);
-
-        if (orderNumberList == null || orderNumberList.isEmpty()) {
-            return;
-        }
 
         logger.info("---------- 生成投注单. start.");
         for (OrderNumberVO vo : orderNumberList) {
@@ -160,7 +162,7 @@ public class OrderModel {
             order.setPlanId(plan.getId());
             order.setExecuteIndex(plan.getExecuteIndex());
             order.setPlayCategoryId(vo.getPlayCategory().getId());
-            order.setLotteryType(openNumber.getLotteryType());
+            order.setLotteryType(nextOpenNumber.getLotteryType());
             order.setStatus(OrderStatus.status_0.getValue());
             order.setDictAmountModel(planConfig.getDictAmountModel());
             order.setStage(nextOpenNumber.getStage());
@@ -222,28 +224,135 @@ public class OrderModel {
         logger.info("---------- 更新计划配置. end.");
     }
 
-    public String getLotteryType() {
-        return lotteryType;
+    /**
+     * 获取投注号码
+     * @param plan
+     * @param planConfig
+     * @return
+     */
+    private List<OrderNumberVO> getOrderNumber(Plan plan, PlanConfig planConfig) {
+        String danNumber = null; // 胆码
+        String tuoNumber = null; // 拖码
+        Integer chooseScheme = planConfig.getDictChooseScheme();
+        if (ChooseScheme.scheme_1.getValue() == chooseScheme) {
+            // 手动设置胆码-拖码
+            danNumber = planConfig.getDanNumber();
+            tuoNumber = planConfig.getTuoNumber();
+        } else if (ChooseScheme.scheme_2.getValue() == chooseScheme) {
+            // FIXME
+            // 统计选码
+
+        } else if (ChooseScheme.scheme_3.getValue() == chooseScheme) {
+            // 手动设置胆码-随机选拖码
+            danNumber = planConfig.getDanNumber();
+            if (planConfig.getTuoCount() == null || planConfig.getTuoCount() == 0) {
+                planConfig.setTuoCount(2);
+            }
+            tuoNumber = new RandomNumber().next(danNumber, planConfig.getTuoCount());
+        }
+        if (StringUtils.isEmpty(danNumber) || StringUtils.isEmpty(tuoNumber)) {
+            logger.warn("未获取到投注计划配置中的胆码或拖码!");
+            return null;
+        }
+
+        // 计算期数
+        calcStageCount(plan, planConfig);
+
+        // 获取投注计划配置中的追号方案
+        PursueScheme pursueScheme = getPursueScheme(plan, planConfig);
+        if (pursueScheme == null) {
+            return null;
+        }
+
+        // 系统参数: 盈利率
+        double profitRate = Double.parseDouble(sysParameterMapper.getValueByCode(ParameterCode.PURSUE_PROFIT_RATE));
+        List<OrderNumberVO> orderNumberList = new Chooser().getOrderNumber(pursueScheme, danNumber, tuoNumber);
+        BigDecimal totalAmount = plan.getTotalAmount(); // 累积投注金额
+        for (OrderNumberVO vo : orderNumberList) {
+            // 倍投方案(根据利润率计算倍数)
+            DoubleCountSchemeVO doubleCountSchemeVO = new DoubleCountSchemeVO(planConfig.getDictDoubleScheme(), planConfig.getDictAmountModel(),
+                    pursueScheme.getPlayCategory(), profitRate, plan.getTotalAmount(), vo.getOrderNumber(), planConfig.getDoubleCount(), orderNumberList.size());
+            doubleCountSchemeVO = new DoubleCountCalculator().calculate(doubleCountSchemeVO);
+            vo.setDoubleCount(doubleCountSchemeVO.getDoubleCount());
+        }
+        return orderNumberList;
     }
 
-    public void setLotteryType(String lotteryType) {
-        this.lotteryType = lotteryType;
+    /**
+     * 计算第几期
+     * @param plan
+     * @param planConfig
+     */
+    private void calcStageCount(Plan plan, PlanConfig planConfig) {
+        int totalStageCount = 0;
+        Integer stageCount = plan.getStageCount();
+        if (stageCount == null || stageCount == 0) {
+            stageCount = 1;
+        } else {
+            stageCount++;
+        }
+        plan.setStageCount(stageCount); // 第N期
+
+        for (PursueScheme pursue : planConfig.getPursueList()) {
+            totalStageCount = totalStageCount + pursue.getStageCount();
+        }
+        if (totalStageCount < stageCount) {
+            return;
+        }
+        plan.setTotalStageCount(totalStageCount); // 总期数
     }
 
-    public Plan getPlan() {
-        return plan;
+    /**
+     * 获取到投注计划配置中的追号方案
+     * @param plan
+     * @param planConfig
+     * @return
+     */
+    private PursueScheme getPursueScheme(Plan plan, PlanConfig planConfig) {
+        List<PursueScheme> pursueList = planConfig.getPursueList();
+        if (pursueList == null || pursueList.isEmpty()) {
+            logger.warn("未获取到投注计划配置中的追号方案!");
+            return null;
+        }
+
+        PursueScheme pursueScheme = null;
+        PlayCategory playCategory = null;
+
+        for (PursueScheme pursue : pursueList) {
+            playCategory = playCategoryMapper.getById(pursue.getPlayCategoryId());
+            if (!nextOpenNumber.getLotteryType().equals(playCategory.getDictLotteryType())) {
+                continue;
+            }
+            if (pursue.getStageCountStart() <= plan.getStageCount() && pursue.getStageCountEnd() >= plan.getStageCount()) {
+                pursueScheme = pursue;
+                if (pursue.getDictPursueScheme() == PursueSchemeDict.scheme_4.getValue()) {
+                    if (plan.getStageCount() % 2 == 1) {
+                        for (PursueScheme pur : pursueList) {
+                            if (pur.getDictPursueScheme() == PursueSchemeDict.scheme_2.getValue()) {
+                                pursueScheme = pur;
+                            }
+                        }
+                    } else {
+                        for (PursueScheme pur : pursueList) {
+                            if (pur.getDictPursueScheme() == PursueSchemeDict.scheme_3.getValue()) {
+                                pursueScheme = pur;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        playCategory = playCategoryMapper.getById(pursueScheme.getPlayCategoryId());
+        pursueScheme.setPlayCategory(playCategory);
+        return pursueScheme;
     }
 
-    public void setPlan(Plan plan) {
-        this.plan = plan;
+    public OpenNumber getNextOpenNumber() {
+        return nextOpenNumber;
     }
 
-    public PlanConfig getPlanConfig() {
-        return planConfig;
-    }
-
-    public void setPlanConfig(PlanConfig planConfig) {
-        this.planConfig = planConfig;
+    public void setNextOpenNumber(OpenNumber nextOpenNumber) {
+        this.nextOpenNumber = nextOpenNumber;
     }
 
     public SysParameterMapper getSysParameterMapper() {
