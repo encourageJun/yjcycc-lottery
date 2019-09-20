@@ -45,7 +45,7 @@ public class ChartController {
                 retMap.put("lastStage", pager.getList().get(0).getStage());
                 Collections.sort(list, new Comparator<OpenNumber>() {
                     public int compare(OpenNumber arg0, OpenNumber arg1) {
-                        return arg0.getStageIndex().compareTo(arg1.getStageIndex());
+                        return arg0.getStage().compareTo(arg1.getStage());
                     }
                 });
                 retMap.put("list", list);

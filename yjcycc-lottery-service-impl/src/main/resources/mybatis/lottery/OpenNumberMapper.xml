@@ -29,7 +29,7 @@
             id, ext_id, lottery_type, stage, stage_date, stage_num, stage_index, open_number, pre3_number, pre2_number, number1, number2, number3, number4, number5, create_time, update_time
         from yjcycc_lottery.bs_open_number
         where lottery_type = #{lotteryType}
-        order by stage_index desc
+        order by stage desc
         limit 1
     </select>
 
@@ -149,7 +149,7 @@
                 and number5 = #{number5}
             </if>
                 </where>
-          order by stage_index desc
+          order by stage desc
     </select>
     
     <!--通过Map查询指定行数据-->
@@ -204,7 +204,7 @@
                 and number5 = #{number5}
             </if>
                 </where>
-           order by stage_index desc
+           order by stage desc
     </select>
 
     <!--通过实体作为筛选条件查询-->
@@ -259,7 +259,7 @@
                 and number5 = #{number5}
             </if>
                 </where>
-           order by stage_index desc
+           order by stage desc
     </select>
 
     <!--通过Map作为筛选条件查询-->
@@ -314,7 +314,7 @@
                 and number5 = #{number5}
             </if>
                 </where>
-           order by stage_index desc
+           order by stage desc
     </select>
 
     <!--新增所有列-->
