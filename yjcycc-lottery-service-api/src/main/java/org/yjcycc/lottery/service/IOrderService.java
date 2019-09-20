@@ -16,6 +16,8 @@ public interface IOrderService extends BaseService<Order> {
 
     List<Order> getOrderList(String stage, String lotteryType) throws Exception;
 
+    List<Order> getOrderList(Integer status, String lotteryType) throws Exception;
+
     List<Order> getOrderListByPlanId(Long planId) throws Exception;
 
 }

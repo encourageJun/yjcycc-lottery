@@ -41,4 +41,12 @@ public class OrderServiceImpl extends BaseServiceImpl<Order> implements IOrderSe
         return orderMapper.findList(orderParam);
     }
 
+    @Override
+    public List<Order> getOrderList(Integer status, String lotteryType) {
+        Order orderParam = new Order();
+        orderParam.setStatus(status);
+        orderParam.setLotteryType(lotteryType);
+        return orderMapper.findList(orderParam);
+    }
+
 }

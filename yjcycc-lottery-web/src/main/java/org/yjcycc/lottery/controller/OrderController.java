@@ -1,5 +1,6 @@
 package org.yjcycc.lottery.controller;
 
+import org.springframework.stereotype.Controller;
 import org.yjcycc.lottery.entity.Order;
 import org.yjcycc.lottery.service.IOrderService;
 import org.yjcycc.tools.zk.rmi.RMIClient;
@@ -13,7 +14,7 @@ import java.rmi.RemoteException;
  * @author makejava
  * @since 2019-08-16 19:20:38
  */
-@RestController
+@Controller
 @RequestMapping("order")
 public class OrderController {
 
@@ -23,7 +24,7 @@ public class OrderController {
      * @param id 主键
      * @return 单条数据
      */
-    @GetMapping("selectOne")
+    @RequestMapping("selectOne")
     public Order selectOne(Long id) {
         IOrderService orderService = (IOrderService) RMIClient.getRemoteService(IOrderService.class);
         
@@ -34,6 +35,11 @@ public class OrderController {
         }
 
         return null;
+    }
+
+    @RequestMapping("ordering/show")
+    public String showOrdering() {
+        return "order/ordering";
     }
 
 }

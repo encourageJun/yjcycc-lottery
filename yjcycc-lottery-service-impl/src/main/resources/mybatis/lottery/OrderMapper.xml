@@ -14,6 +14,7 @@
         <result property="stageNum" column="stage_num" jdbcType="VARCHAR"/>
         <result property="stageIndex" column="stage_index" jdbcType="INTEGER"/>
         <result property="number" column="number" jdbcType="VARCHAR"/>
+        <result property="sourceNumber" column="source_number" jdbcType="VARCHAR"/>
         <result property="amount" column="amount" jdbcType="NUMERIC"/>
         <result property="doubleCount" column="double_count" jdbcType="INTEGER"/>
         <result property="winAmount" column="win_amount" jdbcType="NUMERIC"/>
@@ -28,7 +29,7 @@
     </resultMap>
     
     <sql id="OrderColumns">
-        id, plan_id, play_category_id, lottery_type, dict_amount_model, order_no, stage, stage_date, stage_num, stage_index, number, amount, double_count, win_amount, win_count, status, execute_index, create_time, update_time    </sql>
+        id, plan_id, play_category_id, lottery_type, dict_amount_model, order_no, stage, stage_date, stage_num, stage_index, number, source_number, amount, double_count, win_amount, win_count, status, execute_index, create_time, update_time    </sql>
 
     <!--通过主键查询单个-->
     <select id="getById" resultMap="OrderMap">
@@ -79,6 +80,9 @@
             </if>
             <if test="number != null and number != ''">
                 and number = #{number}
+            </if>
+            <if test="sourceNumber != null and sourceNumber != ''">
+                and source_number = #{sourceNumber}
             </if>
             <if test="amount != null">
                 and amount = #{amount}
@@ -142,7 +146,10 @@
                 <if test="number != null and number != ''">
                 and number = #{number}
             </if>
-                <if test="amount != null">
+            <if test="sourceNumber != null and sourceNumber != ''">
+                and source_number = #{sourceNumber}
+            </if>
+            <if test="amount != null">
                 and amount = #{amount}
             </if>
                 <if test="doubleCount != null">
@@ -203,7 +210,10 @@
                 <if test="number != null and number != ''">
                 and number = #{number}
             </if>
-                <if test="amount != null">
+            <if test="sourceNumber != null and sourceNumber != ''">
+                and source_number = #{sourceNumber}
+            </if>
+            <if test="amount != null">
                 and amount = #{amount}
             </if>
                 <if test="doubleCount != null">
@@ -264,7 +274,10 @@
                 <if test="number != null and number != ''">
                 and number = #{number}
             </if>
-                <if test="amount != null">
+            <if test="sourceNumber != null and sourceNumber != ''">
+                and source_number = #{sourceNumber}
+            </if>
+            <if test="amount != null">
                 and amount = #{amount}
             </if>
                 <if test="doubleCount != null">
@@ -325,7 +338,10 @@
                 <if test="number != null and number != ''">
                 and number = #{number}
             </if>
-                <if test="amount != null">
+            <if test="sourceNumber != null and sourceNumber != ''">
+                and source_number = #{sourceNumber}
+            </if>
+            <if test="amount != null">
                 and amount = #{amount}
             </if>
                 <if test="doubleCount != null">
@@ -348,8 +364,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into yjcycc_lottery.bs_order(plan_id, play_category_id, lottery_type, dict_amount_model, order_no, stage, stage_date, stage_num, stage_index, number, amount, double_count, win_amount, win_count, status, execute_index, create_time, update_time)
-        values (#{planId}, #{playCategoryId}, #{lotteryType}, #{dictAmountModel}, #{orderNo}, #{stage}, #{stageDate}, #{stageNum}, #{stageIndex}, #{number}, #{amount}, #{doubleCount}, #{winAmount}, #{winCount}, #{status}, #{executeIndex}, #{createTime}, #{updateTime})
+        insert into yjcycc_lottery.bs_order(plan_id, play_category_id, lottery_type, dict_amount_model, order_no, stage, stage_date, stage_num, stage_index, number, source_number, amount, double_count, win_amount, win_count, status, execute_index, create_time, update_time)
+        values (#{planId}, #{playCategoryId}, #{lotteryType}, #{dictAmountModel}, #{orderNo}, #{stage}, #{stageDate}, #{stageNum}, #{stageIndex}, #{number}, #{sourceNumber}, #{amount}, #{doubleCount}, #{winAmount}, #{winCount}, #{status}, #{executeIndex}, #{createTime}, #{updateTime})
     </insert>
 
     <!--通过主键修改数据-->
@@ -385,6 +401,9 @@
             </if>
             <if test="number != null and number != ''">
                 number = #{number},
+            </if>
+            <if test="sourceNumber != null and sourceNumber != ''">
+                source_number = #{sourceNumber},
             </if>
             <if test="amount != null">
                 amount = #{amount},
@@ -453,7 +472,10 @@
                 <if test="number != null and number != ''">
                 and number = #{number}
             </if>
-                <if test="amount != null">
+            <if test="sourceNumber != null and sourceNumber != ''">
+                and source_number = #{sourceNumber}
+            </if>
+            <if test="amount != null">
                 and amount = #{amount}
             </if>
                 <if test="doubleCount != null">

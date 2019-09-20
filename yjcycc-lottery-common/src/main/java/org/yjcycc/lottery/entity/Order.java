@@ -37,6 +37,8 @@ public class Order extends BaseEntity implements Serializable {
     private Integer stageIndex;
     // 投注号码
     private String number;
+    // 原始号码
+    private String sourceNumber;
     // 投注金额
     private BigDecimal amount;
     // 中奖金额
@@ -139,6 +141,14 @@ public class Order extends BaseEntity implements Serializable {
 
     public void setNumber(String number) {
         this.number = number;
+    }
+
+    public String getSourceNumber() {
+        return sourceNumber;
+    }
+
+    public void setSourceNumber(String sourceNumber) {
+        this.sourceNumber = sourceNumber;
     }
 
     public BigDecimal getAmount() {

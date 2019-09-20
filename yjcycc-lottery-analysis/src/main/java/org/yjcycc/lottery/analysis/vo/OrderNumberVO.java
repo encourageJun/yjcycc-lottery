@@ -7,6 +7,9 @@ public class OrderNumberVO {
     // 投注号码
     private String orderNumber;
 
+    // 原始号码
+    private String sourceNumber;
+
     // 投注注数
     private int orderCombineSize;
 
@@ -22,6 +25,14 @@ public class OrderNumberVO {
 
     public void setOrderNumber(String orderNumber) {
         this.orderNumber = orderNumber;
+    }
+
+    public String getSourceNumber() {
+        return sourceNumber;
+    }
+
+    public void setSourceNumber(String sourceNumber) {
+        this.sourceNumber = sourceNumber;
     }
 
     public int getOrderCombineSize() {

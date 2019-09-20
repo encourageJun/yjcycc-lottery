@@ -171,6 +171,7 @@ public class OrderModel {
             order.setStageIndex(nextOpenNumber.getStageIndex());
             order.setDoubleCount(vo.getDoubleCount());
             order.setNumber(vo.getOrderNumber());
+            order.setSourceNumber(vo.getSourceNumber());
             order.setAmount(singleOrderAmount);
             order.setWinCount(0);
             order.setWinAmount(BigDecimal.ZERO);

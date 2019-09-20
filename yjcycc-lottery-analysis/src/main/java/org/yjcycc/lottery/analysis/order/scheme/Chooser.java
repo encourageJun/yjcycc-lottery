@@ -47,11 +47,12 @@ public class Chooser {
         return orderNumberList;
     }
 
-    private List<OrderNumberVO> single(PlayCategory playCategory, String danNumber, String tuoNumber) {
+    private List<OrderNumberVO> single(PlayCategory playCategory, String sourceNumber, String tuoNumber) {
         List<OrderNumberVO> orderNumberList = new ArrayList<>();
-        Number number = NumberConstructor.getConstructor(playCategory.getClassName(), danNumber, tuoNumber, playCategory.getSingleCount());
+        Number number = NumberConstructor.getConstructor(playCategory.getClassName(), sourceNumber, tuoNumber, playCategory.getSingleCount());
         OrderNumberVO vo = new OrderNumberVO();
         vo.setOrderNumber(number.getOrderNumber());
+        vo.setSourceNumber(sourceNumber);
         vo.setOrderCombineSize(number.getOrderCombineSize(vo.getOrderNumber()));
         vo.setPlayCategory(playCategory);
         orderNumberList.add(vo);
