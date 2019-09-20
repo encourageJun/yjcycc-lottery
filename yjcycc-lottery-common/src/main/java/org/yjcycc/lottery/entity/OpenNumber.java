@@ -5,6 +5,7 @@ import org.apache.ibatis.type.Alias;
 import org.yjcycc.lottery.utils.OpenNumberUtil;
 import org.yjcycc.tools.common.entity.BaseEntity;
 
+import java.beans.Transient;
 import java.io.Serializable;
 
 /**
@@ -78,10 +79,12 @@ public class OpenNumber extends BaseEntity implements Serializable {
         this.lotteryType = lotteryType;
     }
 
+    @Transient
     public OpenNumber getPreviousOpenNumber() {
         return new OpenNumber(getPreviousStage(), this.openNumber, this.lotteryType);
     }
 
+    @Transient
     public OpenNumber getNextOpenNumber() {
         return new OpenNumber(getNextStage(), this.openNumber, this.lotteryType);
     }
